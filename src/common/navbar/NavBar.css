@@ -1,0 +1,30 @@
+@media (prefers-color-scheme: dark) {
+    .primaryPalete {
+      background-color: #1c313a !important;
+    }
+  
+    .secondaryPalete {
+      color: #fafafa !important;
+    }
+  
+    .tertiaryPalete {
+      color: #64a3ff !important;
+    }
+  }
+
+  
+  .primaryPalete {
+    background-color: #212121 !important;
+  }
+  
+  .secondaryPalete {
+    color: #fafafa !important;
+  }
+  
+  .tertiaryPalete {
+    color: #fafafa !important;
+  }
+  
+  .button {
+    padding: 2px 2px;
+  }
