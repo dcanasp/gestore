@@ -11,11 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 //npm install @prisma/client 
 //npx prisma generate
+//npx prisma db pull
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        // ... you will write your Prisma Client queries here
+        const addUsers = yield prisma.usuario.create({
+            data: {
+                username: 'esteban',
+                password: '12345',
+                rol: 0,
+                email: 'elopezb@unal.edu.co'
+            }
+        });
         const allUsers = yield prisma.usuario.findMany({
             where: {
                 user_id: 1

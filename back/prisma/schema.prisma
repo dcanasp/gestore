@@ -7,14 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model usuarios {
-  user_id    Int      @id @default(autoincrement())
-  username   String   @unique @db.VarChar(50)
-  password   String   @db.VarChar(50)
-  rol        String   @db.VarChar(30)
-  created_on DateTime @db.Timestamp(6)
-}
-
 model compra {
   compra_id  Int       @id @default(autoincrement())
   user_id    Int?
