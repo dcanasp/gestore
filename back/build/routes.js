@@ -2,6 +2,7 @@
 //npm run tsc
 //node build/routes.js
 Object.defineProperty(exports, "__esModule", { value: true });
+//npx prisma db pull
 const express = require("express");
 // Create a new express application instance
 const app = express();

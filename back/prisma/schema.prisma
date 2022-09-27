@@ -14,3 +14,41 @@ model usuarios {
   rol        String   @db.VarChar(30)
   created_on DateTime @db.Timestamp(6)
 }
+
+model compra {
+  compra_id  Int       @id @default(autoincrement())
+  user_id    Int?
+  fecha      DateTime? @db.Date
+  product_id Int?
+  usuario    usuario?  @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_compra")
+  producto   producto? @relation(fields: [product_id], references: [product_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_compra2")
+}
+
+model imagen {
+  image_id Int        @id @default(autoincrement())
+  image    String?    @db.VarChar(1000000)
+  producto producto[]
+}
+
+model producto {
+  product_id  Int      @id @default(autoincrement())
+  user_id     Int?
+  image_id    Int?
+  nombre      String?  @db.VarChar(1024)
+  descripcion String?  @db.VarChar(1024)
+  stock       Int?
+  precio      Int?
+  imagen      imagen?  @relation(fields: [image_id], references: [image_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_imagen2")
+  usuario     usuario? @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_vende")
+  compra      compra[]
+}
+
+model usuario {
+  user_id  Int        @id @default(autoincrement())
+  username String?    @db.VarChar(1024)
+  password String?    @db.VarChar(1024)
+  rol      Int?
+  email    String?    @db.VarChar(1024)
+  compra   compra[]
+  producto producto[]
+}

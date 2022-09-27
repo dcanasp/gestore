@@ -1,7 +1,9 @@
 //npm run tsc
-//node build/app.js
+//node build/routes.js
 
+//npx prisma db pull
 import express = require('express');
+
 // Create a new express application instance
 const app: express.Application = express();
 app.get('/', function (req, res) {
