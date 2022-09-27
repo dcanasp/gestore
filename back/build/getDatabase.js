@@ -9,18 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+//npm install @prisma/client 
+//npx prisma generate
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         // ... you will write your Prisma Client queries here
-        const allUsers = yield prisma.user.findMany({
-            include: {
-                //posts: true,
-                where: { user_id: 1 },
+        const allUsers = yield prisma.usuario.findMany({
+            where: {
+                user_id: 1
             },
         });
         console.dir(allUsers, { depth: null });
+        //const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
+        //console.log(allUsers)
     });
 }
 main()
