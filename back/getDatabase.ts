@@ -1,10 +1,13 @@
+//npx prisma init 
 //npm install @prisma/client 
 //npx prisma generate
+//npx prisma db pull
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient()
 
 async function main() {
-  // ... you will write your Prisma Client queries here
+
+  const addUsers = await prisma.usuario.
   const allUsers = await prisma.usuario.findMany({ //select * from prisma.TABLE where user_id=1
       where: {
         user_id:1
