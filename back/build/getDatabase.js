@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUser = void 0;
 //npm install @prisma/client 
 //npx prisma generate
 //npx prisma db pull
@@ -34,12 +35,42 @@ function main() {
         //console.log(allUsers)
     });
 }
+/*
 main()
-    .then(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma.$disconnect();
-}))
-    .catch((e) => __awaiter(void 0, void 0, void 0, function* () {
-    console.error(e);
-    yield prisma.$disconnect();
-    process.exit(1);
-}));
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
+*/
+const getUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allUsers = yield prisma.usuario.findMany({
+            where: {
+                username: req.username
+            },
+        });
+        try {
+            if (req.password == allUsers[0].password) {
+                console.log("si");
+                return true;
+            }
+            console.log("clave incorecta");
+            return false;
+        }
+        catch (e) {
+            console.log("usuario not found");
+            return false;
+        }
+    }
+    catch (e) { //no se pudo conectar a base de datos
+        console.error(e);
+        yield prisma.$disconnect();
+        //process.exit(1);
+    }
+    ;
+});
+exports.getUser = getUser;

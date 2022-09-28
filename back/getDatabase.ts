@@ -29,6 +29,7 @@ async function main() {
 
 }
 
+/*
 main()
   .then(async () => {
     await prisma.$disconnect()
@@ -38,3 +39,37 @@ main()
     await prisma.$disconnect()
     process.exit(1)
   })
+*/
+
+  export const getUser = async (req:any) =>{
+    try {
+      const allUsers = await prisma.usuario.findMany({ //select * from prisma.TABLE where user_id=1
+        where: {
+          username: req.username
+        },
+
+    })
+    try {
+
+    if(req.password==allUsers[0].password){
+      console.log("si");
+      return true;
+    }
+    console.log("clave incorecta");
+    return false;
+  }
+  catch(e) {
+    console.log("usuario not found");
+    return false;
+  }
+    
+  }
+  catch (e:any) {//no se pudo conectar a base de datos
+    console.error(e);
+    await prisma.$disconnect();
+    //process.exit(1);
+  };
+
+
+
+  }

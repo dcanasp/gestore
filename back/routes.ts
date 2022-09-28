@@ -3,6 +3,7 @@
 
 //npx prisma db pull
 import express = require('express');
+import {getUser} from './getDatabase'
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -10,7 +11,13 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 app.get('/a',function(req,res){
-    res.send('llamar a base');
+  res.send(
+    getUser(req.query)
+  );
+});
+
+app.get('/b',function(req,res){
+  res.send('llamar a base');
 });
 
 app.listen(3000, function () {
