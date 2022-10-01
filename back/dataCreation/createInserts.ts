@@ -2,10 +2,11 @@
 //npx prisma generate
 //npx prisma db pull
 import { PrismaClient } from '@prisma/client';
+import { timeStamp } from 'console';
 const prisma = new PrismaClient()
 
 function palabrasGenerator() {//envieme una palabra al azar, de maximo 14 minimo 4 letras 
-  let arreglo = ["dataset", "abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz", "universidad", "sistemas", "123456789", "123456789", "123456789", "123456789", "7524", "99", "10", "2003", "david", "alfonso", "cañas", "palomino"]
+  let arreglo = ['dataset', 'abcdefghijklmnopqrstuvwxyz', 'abcdefghijklmnopqrstuvwxyz', 'abcdefghijklmnopqrstuvwxyz', 'abcdefghijklmnopqrstuvwxyz', 'abcdefghijklmnopqrstuvwxyz', 'universidad', 'sistemas', '123456789', '123456789', '123456789', '123456789', '7524', '99', '10', '2003', 'david', 'alfonso', 'cañas', 'palomino']
   //let respuestas = [];
   //for (let i = 0; i < n; i++) {
     let palabra = "";
@@ -14,7 +15,7 @@ function palabrasGenerator() {//envieme una palabra al azar, de maximo 14 minimo
       let txt = arreglo[x];
       palabra = palabra + String(txt.charAt(Math.floor(Math.random() * txt.length)));
     }
-    return '"' + palabra + '"'; 
+    return  palabra; 
     //respuestas.push(palabra);
   //}
   //return respuestas
@@ -35,9 +36,13 @@ const getProducto = () =>{
 }
 
 const maximoUsuario = async () => {
-  const allUsers = await prisma.usuario.findMany({ })
+  const allUsers = await prisma.usuario.findMany({ });
 
   return allUsers.length +1;
+}
+const maximoProducto = async () =>{
+  const  allProducts = await prisma.producto.findMany({ });
+  return allProducts.length+1;
 }
 const logicaImagen = (producto:string) => {
     
@@ -52,14 +57,14 @@ const logicaImagen = (producto:string) => {
 const getDescripcion = (producto:string) => {
   let textoAzar = producto;
   for (let i = 0; i <8;i++) {
-    textoAzar = textoAzar + " " + palabrasGenerator();
+    textoAzar = textoAzar  +' '+ palabrasGenerator();
   }
   return textoAzar;
 }
 
 async function main() {
-for(let i =0;i<15;i++){
-
+for(let i =1;i<21;i++){
+/*
     let nombre = getNombre();
     const addUsers = await prisma.usuario.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
     data:{
@@ -70,21 +75,42 @@ for(let i =0;i<15;i++){
         }
     
     })
-
-    let producto = getProducto();
+*/
+/*
+const addImagen = await prisma.imagen.create({
+  data:{
+    image_id: i,
+    image: 'todo',
+  }
+  
+})
+*/
+/*
+let producto = getProducto();
+  const addProductos = await prisma.producto.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
+    data:{
+        user_id: Math.floor(Math.random()* await maximoUsuario()),//es una promesa, NO UN DATO
+        image_id: Math.floor(Math.random()*2 +logicaImagen(producto)),
+        nombre: producto,
+        descripcion: getDescripcion(producto),
+        stock: Math.floor(Math.random()*30),
+        precio: Math.floor(Math.random()*10000)+1,
+        }
     
-    const addProductos = await prisma.producto.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
-      data:{
-          user_id: Math.floor(Math.random()* await maximoUsuario()),//es una promesa, NO UN DATO
-          image_id: Math.floor(Math.random()*2 +logicaImagen(producto)),
-          nombre: producto,
-          descripcion: getDescripcion(producto),
-          stock: Math.floor(Math.random()*30),
-          precio: Math.floor(Math.random()*10000)+1,
-          }
+    })
+*/
+
+  const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
+    data:{
+      compra_id: i,
+      user_id: Math.ceil(Math.random()* await maximoUsuario()),//es una promesa, NO UN DATO
+      fecha: (new Date()).toString(),
+      product_id: Math.ceil(Math.random()* await maximoProducto()),
+    }
       
-      })
-    //lo llamo y sale
+  })
+
+
 }
 
 //1-2 mouse

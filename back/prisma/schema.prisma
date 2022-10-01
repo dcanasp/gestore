@@ -10,7 +10,7 @@ datasource db {
 model compra {
   compra_id  Int       @id @default(autoincrement())
   user_id    Int?
-  fecha      DateTime? @db.Date
+  fecha      String?   @db.VarChar(1000)
   product_id Int?
   usuario    usuario?  @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_compra")
   producto   producto? @relation(fields: [product_id], references: [product_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_compra2")

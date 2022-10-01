@@ -9,22 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = void 0;
+exports.getImagen = exports.getCompras = exports.getProducts = exports.getUser = void 0;
 //npm install @prisma/client 
-//npx prisma generate
 //npx prisma db pull
+//npx prisma generate //el que hace que se actualicen las dependencias , despues de un pull
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const addUsers = yield prisma.usuario.create({
-            data: {
-                username: 'esteban',
-                password: '12345',
-                rol: 0,
-                email: 'elopezb@unal.edu.co'
-            }
-        });
         const allUsers = yield prisma.usuario.findMany({
             where: {
                 user_id: 1
@@ -74,3 +66,52 @@ const getUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     ;
 });
 exports.getUser = getUser;
+const getProducts = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allProducts = yield prisma.producto.findMany({ //select * from prisma.TABLE where user_id=1
+        });
+        return allProducts;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        return [];
+    }
+});
+exports.getProducts = getProducts;
+const getCompras = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allCompras = yield prisma.compra.findMany({ //select * from prisma.TABLE where user_id=1
+        });
+        return allCompras;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        return [];
+    }
+});
+exports.getCompras = getCompras;
+const getImagen = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.image);
+    try {
+        const oneImage = yield prisma.imagen.findUnique({
+            where: {
+                image_id: req.image
+            }
+        });
+        console.log(oneImage);
+        if (oneImage == undefined) {
+            return (yield prisma.imagen.findMany({
+                where: {
+                    image_id: 0
+                }
+            }))[0].image; //si no esta imagen no encontrada 
+        }
+        return oneImage.image;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        console.log(e);
+        return [];
+    }
+});
+exports.getImagen = getImagen;

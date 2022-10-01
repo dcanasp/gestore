@@ -1,20 +1,11 @@
 //npm install @prisma/client 
-//npx prisma generate
 //npx prisma db pull
+//npx prisma generate //el que hace que se actualicen las dependencias , despues de un pull
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient()
 
 async function main() {
 
-  const addUsers = await prisma.usuario.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
-    data:{
-      username: 'esteban',
-      password: '12345',
-      rol: 0,
-      email: 'elopezb@unal.edu.co'
-    }
-
-  })
   const allUsers = await prisma.usuario.findMany({ //select * from prisma.TABLE where user_id=1
       where: {
         user_id:1
@@ -58,7 +49,7 @@ main()
     console.log("clave incorecta");
     return false;
   }
-  catch(e) {
+  catch(e:any) {
     console.log("usuario not found");
     return false;
   }
@@ -69,9 +60,58 @@ main()
     await prisma.$disconnect();
     //process.exit(1);
   };
+}
 
-
-
-
-
+export const getProducts =async () => { //TODO: no le pongaany a todo
+  try {
+    const allProducts = await prisma.producto.findMany({ //select * from prisma.TABLE where user_id=1
+    })
+    return allProducts;
   }
+  catch(e){
+    await prisma.$disconnect();
+    return []
+  }  
+}
+
+export const getCompras =async () => { //TODO: no le pongaany a todo
+  try {
+    const allCompras = await prisma.compra.findMany({ //select * from prisma.TABLE where user_id=1
+    })
+    return allCompras;
+}
+catch(e){
+  await prisma.$disconnect();
+  return []
+}
+
+}
+
+export const getImagen =async (req:any) => { //TODO: no le ponga any a todo
+  console.log(req.image);
+  try {
+    const oneImage = await prisma.imagen.findUnique ({ //select * from prisma.TABLE where user_id=1
+    where:{
+      image_id: req.image
+    }
+    })
+    console.log(oneImage);
+      if (oneImage == undefined){
+        return (
+          await prisma.imagen.findMany({
+            where:{
+              image_id: 0
+            }
+          })
+        )[0].image //si no esta imagen no encontrada 
+      }
+
+    return oneImage.image;
+}
+catch(e){
+  await prisma.$disconnect();
+  console.log(e);
+  return []
+}
+
+}
