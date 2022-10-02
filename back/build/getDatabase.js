@@ -9,10 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getImagen = exports.getCompras = exports.getProducts = exports.getUser = void 0;
-//npm install @prisma/client 
-//npx prisma db pull
-//npx prisma generate //el que hace que se actualicen las dependencias , despues de un pull
+exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getImagen = exports.getUser = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 function main() {
@@ -40,71 +37,54 @@ main()
 */
 const getUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allUsers = yield prisma.usuario.findMany({
+        if (req == null || req == undefined || req.query.username == null || req.query.username == undefined) { //esto se pude resumir en users?.
+            throw new Error("no tengo paremetros");
+        }
+        const users = yield prisma.usuario.findFirst({
             where: {
-                username: req.username
-            },
-        });
-        try {
-            if (req.password == allUsers[0].password) {
-                console.log("si");
-                return true;
+                //@ts-ignore //si toca...
+                username: req.query.username,
             }
-            console.log("clave incorecta");
-            return false;
+        });
+        if (users == null || users == undefined || users.password == null || users.password == undefined) { //esto se pude resumir en users?.
+            throw new Error("usuario o parametro no existente");
         }
-        catch (e) {
-            console.log("usuario not found");
-            return false;
+        if (req.query.password == users.password) {
+            console.log("si");
+            return true;
         }
+        throw new Error("clave incorrecta");
     }
     catch (e) { //no se pudo conectar a base de datos
         console.error(e);
         yield prisma.$disconnect();
+        return false;
         //process.exit(1);
     }
     ;
 });
 exports.getUser = getUser;
-const getProducts = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const allProducts = yield prisma.producto.findMany({ //select * from prisma.TABLE where user_id=1
-        });
-        return allProducts;
-    }
-    catch (e) {
-        yield prisma.$disconnect();
-        return [];
-    }
-});
-exports.getProducts = getProducts;
-const getCompras = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const allCompras = yield prisma.compra.findMany({ //select * from prisma.TABLE where user_id=1
-        });
-        return allCompras;
-    }
-    catch (e) {
-        yield prisma.$disconnect();
-        return [];
-    }
-});
-exports.getCompras = getCompras;
 const getImagen = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.image);
     try {
+        if (!isNaN(Number(req.query.image_id))) {
+            throw new Error("error");
+        }
         const oneImage = yield prisma.imagen.findUnique({
             where: {
-                image_id: req.image
+                image_id: Number(req.query.image)
             }
         });
-        console.log(oneImage);
-        if (oneImage == undefined) {
-            return (yield prisma.imagen.findMany({
+        if (oneImage == undefined || oneImage == null) {
+            //si no esta imagen no encontrada
+            let noEncontrado = yield prisma.imagen.findUnique({
                 where: {
                     image_id: 0
                 }
-            }))[0].image; //si no esta imagen no encontrada 
+            });
+            if (noEncontrado == null || noEncontrado == undefined) {
+                throw new Error("no hay imagen base");
+            }
+            return noEncontrado.image;
         }
         return oneImage.image;
     }
@@ -115,3 +95,48 @@ const getImagen = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getImagen = getImagen;
+const getAllUser = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allUsers = yield prisma.usuario.findMany({});
+        return allUsers;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        return [];
+    }
+});
+exports.getAllUser = getAllUser;
+const getAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allProducts = yield prisma.producto.findMany({});
+        return allProducts;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        return [];
+    }
+});
+exports.getAllProducts = getAllProducts;
+const getAllCompras = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allCompras = yield prisma.compra.findMany({ //select * from prisma.TABLE
+        });
+        return allCompras;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        return [];
+    }
+});
+exports.getAllCompras = getAllCompras;
+const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allimages = yield prisma.imagen.findMany({});
+        return allimages;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        return [];
+    }
+});
+exports.getAllImages = getAllImages;

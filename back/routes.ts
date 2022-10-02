@@ -2,37 +2,54 @@
 //node build/routes.js
 
 //npx prisma db pull
-import express = require('express');
-import {getUser,getProducts,getCompras,getImagen} from './getDatabase'
+import express, { Request, Response } from "express";
+import {getUser,getImagen} from './getDatabase' //solo un dato
+import {getAllUser,getAllProducts,getAllCompras,getAllImages} from './getDatabase' //todos los datos
+import { products,client,image } from "./types"; //basura pero lo dejo como vestijio por si lo tenemos que volver a hacer
+  //await ... as products
 
-// Create a new express application instance
-const app: express.Application = express();
+const app = express();
+//const app: express.Application = express();
+
+//node types y express types
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('esto es un servicio y se consume con un url destinado...');
 });
-app.get('/checkUser',async function(req,res){
+app.get('/checkUser',async function(req:Request,res:Response){
   res.send(
-    //{existe:getUser(req.query)}
-    await getUser(req.query)  
+    //{existe: await getUser(req.query)}
+    await getUser(req)  
     );
 });
-app.get('/getProducts',async function(req,res){
+app.get('/getImages',async function(req:Request,res:Response) {
   res.send(
-    await getProducts()
+    await getImagen(req)
   );
 });
-app.get('/getClients',async function(req,res){
+
+app.get('/getAllUsers',async function(req:Request,res:Response){
   res.send(
-    await getCompras()
+    await getAllUser() 
+  );
+});
+app.get('/getAllProducts',async function(req:Request,res:Response){
+  res.send(
+    await getAllProducts() 
+  );
+});
+app.get('/getAllClients',async function(req:Request,res:Response){
+
+  res.send(
+    await getAllCompras()
     );
 });
-app.get('/oneImage',async function(req,res) {
+app.get('/getAllImages',async function(req:Request,res:Response){
   res.send(
-    await getImagen(req.query)
+    await getAllImages()
+    );
+});
 
-  )  
-})
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('el back esta corriendo en el puerto 3000, no olviden instanciar ambas terminales con front y back...');
 });

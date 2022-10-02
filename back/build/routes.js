@@ -10,37 +10,53 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 //npx prisma db pull
-const express = require("express");
-const getDatabase_1 = require("./getDatabase");
-// Create a new express application instance
-const app = express();
+const express_1 = __importDefault(require("express"));
+const getDatabase_1 = require("./getDatabase"); //solo un dato
+const getDatabase_2 = require("./getDatabase"); //todos los datos
+//await ... as products
+const app = (0, express_1.default)();
+//const app: express.Application = express();
+//node types y express types
 app.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.send('esto es un servicio y se consume con un url destinado...');
 });
 app.get('/checkUser', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         res.send(
-        //{existe:getUser(req.query)}
-        yield (0, getDatabase_1.getUser)(req.query));
+        //{existe: await getUser(req.query)}
+        yield (0, getDatabase_1.getUser)(req));
     });
 });
-app.get('/getProducts', function (req, res) {
+app.get('/getImages', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getProducts)());
+        res.send(yield (0, getDatabase_1.getImagen)(req));
     });
 });
-app.get('/getClients', function (req, res) {
+app.get('/getAllUsers', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getCompras)());
+        res.send(yield (0, getDatabase_2.getAllUser)());
     });
 });
-app.get('/oneImage', function (req, res) {
+app.get('/getAllProducts', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getImagen)(req.query));
+        res.send(yield (0, getDatabase_2.getAllProducts)());
+    });
+});
+app.get('/getAllClients', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send(yield (0, getDatabase_2.getAllCompras)());
+    });
+});
+app.get('/getAllImages', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send(yield (0, getDatabase_2.getAllImages)());
     });
 });
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+    console.log('el back esta corriendo en el puerto 3000, no olviden instanciar ambas terminales con front y back...');
 });
