@@ -3,8 +3,8 @@
 
 //npx prisma db pull
 import express, { Request, Response } from "express";
-import {getUser,getImagen} from './getDatabase' //solo un dato
-import {getAllUser,getAllProducts,getAllCompras,getAllImages} from './getDatabase' //todos los datos
+import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages} from './getDatabase' //lectura
+import {} from './createDatabase'
 import { products,client,image } from "./types"; //basura pero lo dejo como vestijio por si lo tenemos que volver a hacer
   //await ... as products
 
@@ -48,7 +48,9 @@ app.get('/getAllImages',async function(req:Request,res:Response){
     await getAllImages()
     );
 });
-
+app.post('/pruebaPost',async (req:Request,res:Response) => { //lo hago funcion fecla para diferenciarlos tbh
+  
+})
 
 app.listen(3000, function () {
   console.log('el back esta corriendo en el puerto 3000, no olviden instanciar ambas terminales con front y back...');
