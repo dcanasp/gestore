@@ -39,13 +39,13 @@ main()
 
 export const getUser = async (req:Request) =>{
   try {
-    if(req==null || req==undefined || req.query.username==null ||req.query.username==undefined ){ //esto se pude resumir en users?.
+    if(req==null || req==undefined || req.params.username==null ||req.params.username==undefined ){ //esto se pude resumir en users?.
       throw new Error("no tengo paremetros");
     }
     const users = await prisma.usuario.findFirst({ //encuentre el primero
       where: {
         //@ts-ignore //si toca...
-        username: req.query.username,
+        username: req.params.username,
       }
 
   })
@@ -73,33 +73,37 @@ catch (e:any) {//no se pudo conectar a base de datos
 
 export const getImagen = async (req: Request) => {
   try {
-    if(!isNaN(Number(req.query.image_id))){
-      throw new Error("error");
+    if(isNaN(Number(req.params.image_id))==true){
+      throw new Error("id no numerico");
     }
-
     const oneImage = await prisma.imagen.findUnique ({ //esta buscando por llave primaria
     where:{
-      image_id: Number(req.query.image)
+      image_id: Number(req.params.image_id)
     }
     })
       if (oneImage == undefined || oneImage==null){
-      //si no esta imagen no encontrada
-        let noEncontrado = await prisma.imagen.findUnique({
-          where:{
-            image_id: 0
-          }
-        })
-        if(noEncontrado==null || noEncontrado==undefined){
-          throw new Error("no hay imagen base");
-        }
-        return noEncontrado.image;
+        throw new Error("no hay imagen, se pone la base");
       }
     return oneImage.image;
 }
 catch(e){
-  await prisma.$disconnect();
-  console.log(e);
-  return []
+  try{
+    let noEncontrado = await prisma.imagen.findUnique({
+      where:{
+        image_id: 0
+      }
+    })
+    if(noEncontrado==null || noEncontrado==undefined){
+      throw new Error("no hay imagen 0, base datos desconectada");
+    }
+    return noEncontrado.image;
+
+  }
+  catch(e){
+    await prisma.$disconnect();
+    console.log(e);
+    return;
+  }
 }
 
 }

@@ -37,13 +37,15 @@ main()
 */
 const getUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (req == null || req == undefined || req.query.username == null || req.query.username == undefined) { //esto se pude resumir en users?.
+        console.log(req.params.username);
+        console.log(req.params.password);
+        if (req == null || req == undefined || req.params.username == null || req.params.username == undefined) { //esto se pude resumir en users?.
             throw new Error("no tengo paremetros");
         }
         const users = yield prisma.usuario.findFirst({
             where: {
                 //@ts-ignore //si toca...
-                username: req.query.username,
+                username: req.params.username,
             }
         });
         if (users == null || users == undefined || users.password == null || users.password == undefined) { //esto se pude resumir en users?.
@@ -66,32 +68,36 @@ const getUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getUser = getUser;
 const getImagen = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (!isNaN(Number(req.query.image_id))) {
-            throw new Error("error");
+        if (isNaN(Number(req.params.image_id)) == true) {
+            throw new Error("id no numerico");
         }
         const oneImage = yield prisma.imagen.findUnique({
             where: {
-                image_id: Number(req.query.image)
+                image_id: Number(req.params.image_id)
             }
         });
         if (oneImage == undefined || oneImage == null) {
-            //si no esta imagen no encontrada
+            throw new Error("no hay imagen, se pone la base");
+        }
+        return oneImage.image;
+    }
+    catch (e) {
+        try {
             let noEncontrado = yield prisma.imagen.findUnique({
                 where: {
                     image_id: 0
                 }
             });
             if (noEncontrado == null || noEncontrado == undefined) {
-                throw new Error("no hay imagen base");
+                throw new Error("no hay imagen 0, base datos desconectada");
             }
             return noEncontrado.image;
         }
-        return oneImage.image;
-    }
-    catch (e) {
-        yield prisma.$disconnect();
-        console.log(e);
-        return [];
+        catch (e) {
+            yield prisma.$disconnect();
+            console.log(e);
+            return;
+        }
     }
 });
 exports.getImagen = getImagen;

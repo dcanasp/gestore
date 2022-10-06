@@ -4,7 +4,7 @@
 //npx prisma db pull
 import express, { Request, Response } from "express";
 import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages} from './getDatabase' //lectura
-import {} from './createDatabase'
+import {pruebaPost} from './createDatabase'
 import { products,client,image } from "./types"; //basura pero lo dejo como vestijio por si lo tenemos que volver a hacer
   //await ... as products
 
@@ -15,17 +15,29 @@ const app = express();
 app.get('/', function (req, res) {
   res.send('esto es un servicio y se consume con un url destinado...');
 });
-app.get('/checkUser',async function(req:Request,res:Response){
+app.get('/checkUser/:username',async function(req:Request,res:Response){  
   res.send(
     //{existe: await getUser(req.query)}
     await getUser(req)  
     );
 });
-app.get('/getImages',async function(req:Request,res:Response) {
+app.get('/checkUser',async function(req:Request,res:Response){
+  
+  res.send(
+    "usuario No enviado, url dinamica..."  
+    );
+});
+app.get('/getImages/:image_id',async function(req:Request,res:Response) {
   res.send(
     await getImagen(req)
   );
 });
+app.get('/getImages',async function(req:Request,res:Response) { //si no mandan el id igual vamos a entrar, para ir a la foto base
+  res.send(
+    await getImagen(req)
+  );
+});
+
 
 app.get('/getAllUsers',async function(req:Request,res:Response){
   res.send(
@@ -49,7 +61,7 @@ app.get('/getAllImages',async function(req:Request,res:Response){
     );
 });
 app.post('/pruebaPost',async (req:Request,res:Response) => { //lo hago funcion fecla para diferenciarlos tbh
-  
+  await pruebaPost(req,res);
 })
 
 app.listen(3000, function () {
