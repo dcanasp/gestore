@@ -37,8 +37,6 @@ main()
 */
 const getUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.params.username);
-        console.log(req.params.password);
         if (req == null || req == undefined || req.params.username == null || req.params.username == undefined) { //esto se pude resumir en users?.
             throw new Error("no tengo paremetros");
         }

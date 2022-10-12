@@ -17,7 +17,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //npx prisma db pull
 const express_1 = __importDefault(require("express"));
 const getDatabase_1 = require("./getDatabase"); //lectura
-const createDatabase_1 = require("./createDatabase");
 //await ... as products
 const app = (0, express_1.default)();
 //const app: express.Application = express();
@@ -68,7 +67,9 @@ app.get('/getAllImages', function (req, res) {
     });
 });
 app.post('/pruebaPost', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, createDatabase_1.pruebaPost)(req, res);
+    console.log(req.body);
+    //res.send(await pruebaPost(req,res));
+    res.send("malparido");
 }));
 app.listen(3000, function () {
     console.log('el back esta corriendo en el puerto 3000, no olviden instanciar ambas terminales con front y back...');

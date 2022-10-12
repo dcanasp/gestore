@@ -61,9 +61,18 @@ app.get('/getAllImages',async function(req:Request,res:Response){
     );
 });
 app.post('/pruebaPost',async (req:Request,res:Response) => { //lo hago funcion fecla para diferenciarlos tbh
-  await pruebaPost(req,res);
+  console.log(req.body);
+  //res.send(await pruebaPost(req,res));
+  res.send("malparido");
+  
 })
-
+//EXPRES BODY PARSE
+//ya esta instalado desde la 4.16 esta dentro de express
+//https://www.educative.io/answers/what-is-express-body-parser
+/*
+  const jsonParser = express.json()
+  app.use(jsonParser);
+*/
 app.listen(3000, function () {
   console.log('el back esta corriendo en el puerto 3000, no olviden instanciar ambas terminales con front y back...');
 });

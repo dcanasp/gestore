@@ -50,6 +50,7 @@ const editUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.editUser = editUser;
 const pruebaPost = (req, res) => {
-    return (req);
+    return req.body.data;
 };
 exports.pruebaPost = pruebaPost;
+//https://postman-echo.com/post

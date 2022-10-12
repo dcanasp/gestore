@@ -45,5 +45,6 @@ export const editUser = async (req:Request) =>{
 export const pruebaPost = (req:Request, res:Response) => {
     
     
-    return (req)
+    return (req.body.data as any)
 }
+//https://postman-echo.com/post
