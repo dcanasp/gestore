@@ -20,6 +20,7 @@ const getDatabase_1 = require("./getDatabase"); //lectura
 //await ... as products
 const app = (0, express_1.default)();
 //const app: express.Application = express();
+app.use(express_1.default.json());
 //node types y express types
 app.get('/', function (req, res) {
     res.send('esto es un servicio y se consume con un url destinado...');
@@ -71,6 +72,13 @@ app.post('/pruebaPost', (req, res) => __awaiter(void 0, void 0, void 0, function
     //res.send(await pruebaPost(req,res));
     res.send("malparido");
 }));
+//EXPRES BODY PARSE
+//ya esta instalado desde la 4.16 esta dentro de express
+//https://www.educative.io/answers/what-is-express-body-parser
+/*
+  const jsonParser = express.json()
+  app.use(jsonParser);
+*/
 app.listen(3000, function () {
     console.log('el back esta corriendo en el puerto 3000, no olviden instanciar ambas terminales con front y back...');
 });

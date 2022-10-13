@@ -11,6 +11,9 @@ import { products,client,image } from "./types"; //basura pero lo dejo como vest
 const app = express();
 //const app: express.Application = express();
 
+
+app.use(express.json());
+
 //node types y express types
 app.get('/', function (req, res) {
   res.send('esto es un servicio y se consume con un url destinado...');
