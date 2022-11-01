@@ -4,7 +4,7 @@
 //npx prisma db pull
 import express, { Request, Response } from "express";
 import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages} from './getDatabase' //lectura
-import {pruebaPost} from './createDatabase'
+import {editUser, pruebaPost} from './createDatabase'
 import { products,client,image } from "./types"; //basura pero lo dejo como vestijio por si lo tenemos que volver a hacer
   //await ... as products
 
@@ -64,9 +64,9 @@ app.get('/getAllImages',async function(req:Request,res:Response){
     );
 });
 app.post('/pruebaPost',async (req:Request,res:Response) => { //lo hago funcion fecla para diferenciarlos tbh
-  console.log(req.body);
-  //res.send(await pruebaPost(req,res));
-  res.send("malparido");
+  res.send(
+    await editUser(req)
+    );
   
 })
 //EXPRES BODY PARSE

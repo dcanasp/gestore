@@ -6,35 +6,34 @@ const prisma = new PrismaClient()
 export const editUser = async (req:Request) =>{
     try {
     type usuarios ={
-        username: string|undefined,
-        password: string|undefined,
-        email: string|undefined
-    } 
-    let nombre = req.query.nombre;
-    let clave = req.query.clave;
-    let correo = req.query.correo;
-    let cambios  = {}as usuarios;
-    //let cambios: usuarios = {};
-    //URGENTE: ARREGLAR
-    //@ts-ignore
-    if(nombre!=undefined){cambios.username = nombre}
-    //@ts-ignore
-    if(clave!=undefined){cambios.password = clave}
-    //@ts-ignore
-    if(correo!=undefined){cambios.email = correo}
+        username: string,
+        password: string,
+        email: string
+    } //si no llega un string (un undefined),salte a error
+    let cambios = req.body as usuarios;
 
-
-    if (req.query==undefined || req.query.username==undefined) {throw new Error(" aprenda a hacer un post");}  
-    // const addUsers = await prisma.usuario.update({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
-        
-        // data:{
-        //     //quien putas la declara???
-        //     username: nombre,
-        //     password: clave,
-        //     email: correo,
-        //     }
-        
-        // })
+    const addUsers = await prisma.usuario.update({
+        data: {
+            username: cambios.username,
+            password: cambios.password,
+            email: cambios.email,
+        },
+        where: {
+            user_id:5
+          },
+    
+    });
+    
+    const users = await prisma.usuario.findFirst({ //encuentre el primero
+        where: {
+          //@ts-ignore //si toca...
+          username: 5,
+        }
+  //NO SE HACER TYPADO
+    });
+    console.log(users);
+  
+    return "funciono, usuario cambiado";
     }
     catch (err) {
         console.log(err);
@@ -43,8 +42,7 @@ export const editUser = async (req:Request) =>{
 }
 
 export const pruebaPost = (req:Request, res:Response) => {
+    //console.log(req.body);
     
-    
-    return (req.body.data as any)
+    return (req.body as JSON)
 }
-//https://postman-echo.com/post

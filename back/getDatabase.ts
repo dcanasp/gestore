@@ -1,4 +1,5 @@
 //npm install @prisma/client 
+//npx prisma init
 //npx prisma db pull
 //npx prisma generate //el que hace que se actualicen las dependencias , despues de un pull
 //@ts-ignore
