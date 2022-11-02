@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getImagen = exports.getUser = void 0;
+exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getImagen = exports.getUser = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 function main() {
@@ -144,3 +144,31 @@ const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getAllImages = getAllImages;
+const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const deleteUser = yield prisma.usuario.delete({
+            where: {
+                user_id: Number(req.query.user_id),
+            },
+        });
+        return "persona eliminada";
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.deleteUser = deleteUser;
+const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const deleteUser = yield prisma.producto.delete({
+            where: {
+                product_id: Number(req.query.product_id),
+            },
+        });
+        return "producto eliminado";
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.deleteProduct = deleteProduct;

@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //npx prisma db pull
 const express_1 = __importDefault(require("express"));
 const getDatabase_1 = require("./getDatabase"); //lectura
-const createDatabase_1 = require("./createDatabase");
+const createDatabase_1 = require("./createDatabase"); //Post
 //await ... as products
 const app = (0, express_1.default)();
 //const app: express.Application = express();
@@ -68,8 +68,33 @@ app.get('/getAllImages', function (req, res) {
         res.send(yield (0, getDatabase_1.getAllImages)());
     });
 });
-app.post('/pruebaPost', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+//------------------deberian estar separados
+app.get('/deleteUser', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send(yield (0, getDatabase_1.deleteUser)(req));
+    });
+});
+app.get('/deleteProduct', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send(yield (0, getDatabase_1.deleteProduct)(req));
+    });
+});
+//------------------deberian estar separados
+app.post('/editUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(yield (0, createDatabase_1.editUser)(req));
+}));
+app.post('/editProduct', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(yield (0, createDatabase_1.editProduct)(req));
+}));
+//------------------deberian estar separados
+app.post('/createUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(yield (0, createDatabase_1.createUser)(req));
+}));
+app.post('/createProduct', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(yield (0, createDatabase_1.createProduct)(req));
+}));
+app.post('/createCompra', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(yield (0, createDatabase_1.createCompra)(req));
 }));
 //EXPRES BODY PARSE
 //ya esta instalado desde la 4.16 esta dentro de express

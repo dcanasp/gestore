@@ -44,7 +44,7 @@ export const getUser = async (req:Request) =>{
       throw new Error("no tengo paremetros");
     }
     const users = await prisma.usuario.findFirst({ //encuentre el primero
-      where: {
+      where: {//USERNAME IDIOTA
         //@ts-ignore //si toca...
         username: req.params.username,
       }
@@ -160,3 +160,30 @@ export const getAllImages = async () => {
   }
 }
 
+
+export const deleteUser = async (req:Request) =>{
+  try {
+    const deleteUser = await prisma.usuario.delete({
+      where: {
+          user_id: Number(req.query.user_id),
+        },
+  });
+  return "persona eliminada";
+  }
+  catch (err) {
+      console.log(err);
+  }
+}
+export const deleteProduct = async (req:Request) =>{
+  try {
+    const deleteUser = await prisma.producto.delete({
+      where: {
+          product_id: Number(req.query.product_id),
+        },
+  });
+  return "producto eliminado";
+  }
+  catch (err) {
+      console.log(err);
+  }
+}

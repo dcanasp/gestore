@@ -118,7 +118,7 @@ let producto = getProducto();
 //5-6 webCam
 //7-8 altavoces
 //9-10 cable eternet
-//11-12 pantallla    
+//11-12 pantallla
 
 
     //const add //no se que añadir
