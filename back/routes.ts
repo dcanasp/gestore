@@ -9,10 +9,9 @@ import { products,client,image } from "./types"; //basura pero lo dejo como vest
   //await ... as products
 
 const app = express();
-//const app: express.Application = express();
-
+const cors = require('cors');
 app.use(express.json());
-
+app.use(cors({origin: 'http://localhost:1234'}));
 //node types y express types
 app.get('/', function (req, res) {
   res.send('esto es un servicio y se consume con un url destinado...');

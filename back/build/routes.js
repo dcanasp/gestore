@@ -20,8 +20,9 @@ const getDatabase_1 = require("./getDatabase"); //lectura
 const createDatabase_1 = require("./createDatabase"); //Post
 //await ... as products
 const app = (0, express_1.default)();
-//const app: express.Application = express();
+const cors = require('cors');
 app.use(express_1.default.json());
+app.use(cors({ origin: 'http://localhost:1234' }));
 //node types y express types
 app.get('/', function (req, res) {
     res.send('esto es un servicio y se consume con un url destinado...');

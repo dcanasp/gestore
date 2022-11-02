@@ -6,13 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "run": "node build/routes.js"
+    "inicio": "node build/routes.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.3.1",
     "@types/express": "^4.17.14",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "prisma": "^4.3.1",
     "typescript": "^4.8.3"

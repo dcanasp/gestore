@@ -14,30 +14,21 @@
   </div>
 
   <script>
-    let datos = [
-    {"compra_id": 1,"user_id": 12,"fecha": "Thu Sep 29 2022 22:32:34 GMT-0500 (Colombia Standard Time)","product_id": 14
-    },{"compra_id": 2,"user_id": 11,"fecha": "Thu Sep 29 2022 22:32:35 GMT-0500 (Colombia Standard Time)","product_id": 26
-    },{"compra_id": 3,"user_id": 15,"fecha": "Thu Sep 29 2022 22:32:37 GMT-0500 (Colombia Standard Time)","product_id": 17
-    },{"compra_id": 4,"user_id": 8,"fecha": "Thu Sep 29 2022 22:32:38 GMT-0500 (Colombia Standard Time)","product_id": 23
-    },{"compra_id": 5,"user_id": 12,"fecha": "Thu Sep 29 2022 22:32:39 GMT-0500 (Colombia Standard Time)","product_id": 5
-    },{"compra_id": 6,"user_id": 11,"fecha": "Thu Sep 29 2022 22:32:40 GMT-0500 (Colombia Standard Time)","product_id": 6
-    },{"compra_id": 7,"user_id": 12,"fecha": "Thu Sep 29 2022 22:32:42 GMT-0500 (Colombia Standard Time)","product_id": 1
-    },{"compra_id": 8,"user_id": 5,"fecha": "Thu Sep 29 2022 22:32:43 GMT-0500 (Colombia Standard Time)","product_id": 17
-    },{"compra_id": 9,"user_id": 1,"fecha": "Thu Sep 29 2022 22:32:44 GMT-0500 (Colombia Standard Time)","product_id": 17
-    },{"compra_id": 10,"user_id": 13,"fecha": "Thu Sep 29 2022 22:32:45 GMT-0500 (Colombia Standard Time)","product_id": 26
-    },{"compra_id": 11,"user_id": 4,"fecha": "Thu Sep 29 2022 22:32:46 GMT-0500 (Colombia Standard Time)","product_id": 24
-    },{"compra_id": 12,"user_id": 2,"fecha": "Thu Sep 29 2022 22:32:48 GMT-0500 (Colombia Standard Time)","product_id": 21
-    },{"compra_id": 13,"user_id": 5,"fecha": "Thu Sep 29 2022 22:32:49 GMT-0500 (Colombia Standard Time)","product_id": 2
-    },{"compra_id": 14,"user_id": 8,"fecha": "Thu Sep 29 2022 22:32:50 GMT-0500 (Colombia Standard Time)","product_id": 28
-    },{"compra_id": 15,"user_id": 8,"fecha": "Thu Sep 29 2022 22:32:51 GMT-0500 (Colombia Standard Time)","product_id": 20
-    },{"compra_id": 16,"user_id": 5,"fecha": "Tue Nov 01 2022 23:50:40 GMT-0500 (Colombia Standard Time)","product_id": 8
-    }]
+  let crearChart = async () => {
+    let datos;
+    const x = await fetch('http://localhost:3000/getAllClients', {
+      method : "GET",
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json'
+      }}
+      ).then(response => response.json()).then(data => datos=data);
+    console.log(datos);
     let usuarios=[];
     let bandera= false;
     for (let x = 0; x < datos.length; x++) {
         for (let y = 0; y < usuarios.length; y++) {
-            // console.log(datos[x].user_id);
-            // console.log("asatsegkdj;lfdsajkl"+usuarios[y].user_id);
             if(datos[x].user_id==usuarios[y].user){
                 usuarios[y].cantidad = usuarios[y].cantidad +1;
                 bandera = true;
@@ -49,7 +40,6 @@
         }
         usuarios.push({user: datos[x].user_id,cantidad: 1})
     }
-    console.log(usuarios);
     let nombres =[];
     let cantidad =[];
     for (let z = 0; z < usuarios.length; z++) {
@@ -77,7 +67,7 @@
       data: cantidad,
     }]
   };
-console.log(cantidad);
+  
   const config = {
     type: 'bar',//bar,bubble,doughnut,pie,line,radar
     data: data,
@@ -117,12 +107,14 @@ console.log(cantidad);
         }
       }
   };
-
+  
   const myChart = new Chart(
     document.getElementById('myChart'),
     config
   );
-  </script>
+}
+  crearChart();  
+</script>
 </body>
 </html>
   
