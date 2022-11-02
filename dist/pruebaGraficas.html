@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <title>My Chart.js Chart</title>
 </head>
@@ -13,12 +13,7 @@
     <canvas id="myChart"></canvas>
   </div>
 
-  <script>let myChart = document.getElementById("myChart").getContext("2d");
-// Global Options
-Chart.defaults.global.defaultFontFamily = "Lato";
-Chart.defaults.global.defaultFontSize = 18;
-Chart.defaults.global.defaultFontColor = "#777";
-let datos = [
+  <script>let datos = [
     {
         "compra_id": 1,
         "user_id": 12,
@@ -121,7 +116,7 @@ let bandera = false;
 for(let x = 0; x < datos.length; x++){
     for(let y = 0; y < usuarios.length; y++)// console.log(datos[x].user_id);
     // console.log("asatsegkdj;lfdsajkl"+usuarios[y].user_id);
-    if (datos[x].user == usuarios[y].user) {
+    if (datos[x].user_id == usuarios[y].user) {
         usuarios[y].cantidad = usuarios[y].cantidad + 1;
         bandera = true;
     }
@@ -141,39 +136,49 @@ for(let z = 0; z < usuarios.length; z++){
     nombres.push(usuarios[z].user);
     cantidad.push(usuarios[z].cantidad);
 }
-let massPopChart = new Chart(myChart, {
+const data = {
+    labels: nombres,
+    datasets: [
+        {
+            label: "cantidad",
+            backgroundColor: [
+                "rgba(255, 99, 132, 0.6)",
+                "rgba(54, 162, 235, 0.6)",
+                "rgba(255, 206, 86, 0.6)",
+                "rgba(75, 192, 192, 0.6)",
+                "rgba(153, 102, 255, 0.6)",
+                "rgba(255, 159, 64, 0.6)",
+                "rgba(255, 99, 132, 0.6)"
+            ],
+            borderWidth: 1,
+            borderColor: "#777",
+            hoverBorderWidth: 3,
+            hoverBorderColor: "#000",
+            data: cantidad
+        }
+    ]
+};
+console.log(cantidad);
+const config = {
     type: "bar",
-    data: {
-        labels: nombres,
-        datasets: [
-            {
-                label: "Population",
-                data: cantidad,
-                //backgroundColor:'green',
-                backgroundColor: [
-                    "rgba(255, 99, 132, 0.6)",
-                    "rgba(54, 162, 235, 0.6)",
-                    "rgba(255, 206, 86, 0.6)",
-                    "rgba(75, 192, 192, 0.6)",
-                    "rgba(153, 102, 255, 0.6)",
-                    "rgba(255, 159, 64, 0.6)",
-                    "rgba(255, 99, 132, 0.6)"
-                ],
-                borderWidth: 1,
-                borderColor: "#777",
-                hoverBorderWidth: 3,
-                hoverBorderColor: "#000"
-            }
-        ]
-    },
+    data: data,
     options: {
+        scales: {
+            y: {
+                max: Math.max.apply(Math, cantidad) + 1,
+                min: 0,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        },
         title: {
             display: true,
-            text: "Largest Cities In Massachusetts",
+            text: "ID_vendedor vs cuanto ha vendido",
             fontSize: 25
         },
         legend: {
-            display: true,
+            display: false,
             position: "right",
             labels: {
                 fontColor: "#000"
@@ -191,8 +196,10 @@ let massPopChart = new Chart(myChart, {
             enabled: true
         }
     }
-});
+};
+const myChart = new Chart(document.getElementById("myChart"), config);
 
 </script>
 <script src="/pruebaGraficas.1739811a.js"></script></body>
 </html>
+  
