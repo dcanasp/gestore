@@ -16,8 +16,7 @@ app.use(express.json());
 app.use(cors({origin: 'http://localhost:1234'}));
 //node types y express types
 
-
-
+app.use("/",router);
 app.get('/getAllUsers',middle,async function(req:Request,res:Response){
   console.log("segundo");
   res.send(
@@ -30,11 +29,7 @@ app.get('/getAllClients',async function(req:Request,res:Response){
     await getAllCompras()
     );
 });
-app.get('/getAllImages',async function(req:Request,res:Response){
-  res.send(
-    await getAllImages()
-    );
-});
+
 //------------------deberian estar separados
 app.get('/deleteUser',async function(req:Request,res:Response){
   res.send(

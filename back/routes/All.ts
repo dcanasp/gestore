@@ -36,6 +36,10 @@ router.get('/getAllProducts',async function(req:Request,res:Response){
       await getAllProducts() 
     );
 });
-  
+router.get('/getAllImages',async function(req:Request,res:Response){
+  res.send(
+    await getAllImages()
+    );
+});  
 
 export default router;

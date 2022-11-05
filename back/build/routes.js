@@ -19,47 +19,19 @@ const express_1 = __importDefault(require("express"));
 const getDatabase_1 = require("./getDatabase"); //lectura
 const createDatabase_1 = require("./createDatabase"); //Post
 //await ... as products
+const All_1 = __importDefault(require("./routes/All"));
 const app = (0, express_1.default)();
 const cors = require('cors');
 app.use(express_1.default.json());
 app.use(cors({ origin: 'http://localhost:1234' }));
 //node types y express types
-app.get('/', function (req, res) {
-    res.send('esto es un servicio y se consume con un url destinado...');
-});
-app.get('/checkUser/:username', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send(
-        //{existe: await getUser(req.query)}
-        yield (0, getDatabase_1.getUser)(req));
-    });
-});
-app.get('/checkUser', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send("usuario No enviado, url dinamica...");
-    });
-});
-app.get('/getImages/:image_id', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getImagen)(req));
-    });
-});
-app.get('/getImages', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getImagen)(req));
-    });
-});
+app.use("/", All_1.default);
 app.get('/getAllUsers', middle, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("segundo");
         res.send(
         //await getAllUser() 
         "si");
-    });
-});
-app.get('/getAllProducts', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getAllProducts)());
     });
 });
 app.get('/getAllClients', function (req, res) {
