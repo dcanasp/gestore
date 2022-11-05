@@ -11,11 +11,9 @@ import router from "./routes/All";
 
 
 const app = express();
-//const app: express.Application = express();
-
+const cors = require('cors');
 app.use(express.json());
-
-//app.use(logger);
+app.use(cors({origin: 'http://localhost:1234'}));
 //node types y express types
 
 
