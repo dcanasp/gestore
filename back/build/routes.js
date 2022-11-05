@@ -1,91 +1,31 @@
 "use strict";
 //npm run tsc
 //node build/routes.js
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 //npx prisma db pull
 const express_1 = __importDefault(require("express"));
-const getDatabase_1 = require("./getDatabase"); //lectura
-const createDatabase_1 = require("./createDatabase"); //Post
 //await ... as products
 const All_1 = __importDefault(require("./routes/All"));
+const buyer_1 = __importDefault(require("./routes/buyer"));
+const seller_1 = __importDefault(require("./routes/seller"));
+const admin_1 = __importDefault(require("./routes/admin"));
 const app = (0, express_1.default)();
 const cors = require('cors');
 app.use(express_1.default.json());
 app.use(cors({ origin: 'http://localhost:1234' }));
 //node types y express types
-app.use("/", All_1.default);
-app.get('/getAllUsers', middle, function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log("segundo");
-        res.send(
-        //await getAllUser() 
-        "si");
-    });
-});
-app.get('/getAllClients', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getAllCompras)());
-    });
-});
-app.get('/getAllImages', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getAllImages)());
-    });
-});
+app.use("/USER/", All_1.default);
+app.use("/BUY/", buyer_1.default);
+app.use("/SELL/", seller_1.default);
+app.use("/ADMIN/", admin_1.default);
 //------------------deberian estar separados
-app.get('/deleteUser', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.deleteUser)(req));
-    });
-});
-app.get('/deleteProduct', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.deleteProduct)(req));
-    });
-});
 //------------------deberian estar separados
-app.post('/editUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.editUser)(req));
-}));
-app.post('/editProduct', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.editProduct)(req));
-}));
 //------------------deberian estar separados
-app.post('/createUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.createUser)(req));
-}));
-app.post('/createProduct', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.createProduct)(req));
-}));
-app.post('/createCompra', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.createCompra)(req));
-}));
 function logger(req, res, next) {
     console.log("prueba");
-    next();
-    return;
-}
-function middle(req, res, next) {
-    console.log("prueba middle");
-    console.log(req.query.usuario);
-    if (req.query.usuario == "admin") {
-        console.log("ayuda");
-        req.query.usuario = "FUNCIONA";
-        next(); //si esta autenticado continue
-        return;
-    }
     next();
     return;
 }

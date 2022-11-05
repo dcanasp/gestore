@@ -23,16 +23,17 @@ model imagen {
 }
 
 model producto {
-  product_id  Int      @id @default(autoincrement())
+  product_id  Int       @id @default(autoincrement())
   user_id     Int?
   image_id    Int?
-  nombre      String?  @db.VarChar(1024)
-  descripcion String?  @db.VarChar(1024)
+  nombre      String?   @db.VarChar(1024)
+  descripcion String?   @db.VarChar(1024)
   stock       Int?
   precio      Int?
-  imagen      imagen?  @relation(fields: [image_id], references: [image_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_imagen2")
-  usuario     usuario? @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_vende")
+  imagen      imagen?   @relation(fields: [image_id], references: [image_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_imagen2")
+  usuario     usuario?  @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_vende")
   compra      compra[]
+  compra2     compra2[]
 }
 
 model usuario {
@@ -42,5 +43,15 @@ model usuario {
   rol      Int?
   email    String?    @db.VarChar(1024)
   compra   compra[]
+  compra2  compra2[]
   producto producto[]
+}
+
+model compra2 {
+  compra_id  Int       @id @default(autoincrement())
+  user_id    Int?
+  fecha      String?   @db.VarChar(1000)
+  product_id Int?
+  producto   producto? @relation(fields: [product_id], references: [product_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_compra2")
+  usuario    usuario?  @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_compra3")
 }

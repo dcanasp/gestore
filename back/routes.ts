@@ -7,7 +7,10 @@ import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, 
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from './createDatabase' //Post
 import { products,client,image } from "./types"; //basura pero lo dejo como vestijio por si lo tenemos que volver a hacer
   //await ... as products
-import router from "./routes/All";
+import general from "./routes/All";
+import buy from "./routes/buyer";
+import sell from "./routes/seller";
+import admin from "./routes/admin";
 
 
 const app = express();
@@ -16,76 +19,29 @@ app.use(express.json());
 app.use(cors({origin: 'http://localhost:1234'}));
 //node types y express types
 
-app.use("/",router);
-app.get('/getAllUsers',middle,async function(req:Request,res:Response){
-  console.log("segundo");
-  res.send(
-    //await getAllUser() 
-    "si"
-  );
-});
-app.get('/getAllClients',async function(req:Request,res:Response){
-  res.send(
-    await getAllCompras()
-    );
-});
+app.use("/USER/",general);
+app.use("/BUY/",buy);
+app.use("/SELL/",sell);
+app.use("/ADMIN/",admin);
+
+
+
 
 //------------------deberian estar separados
-app.get('/deleteUser',async function(req:Request,res:Response){
-  res.send(
-    await deleteUser(req)
-    );
-});
-app.get('/deleteProduct',async function(req:Request,res:Response){
-  res.send(
-    await deleteProduct(req)
-    );
-});
+
+
 //------------------deberian estar separados
-app.post('/editUser',async (req:Request,res:Response) => { //lo hago funcion fecla para diferenciarlos tbh
-  res.send(
-    await editUser(req)
-    );  
-});
-app.post('/editProduct',async (req:Request,res:Response) => {
-  res.send(
-    await editProduct(req)
-    );
-});
+
 //------------------deberian estar separados
-app.post('/createUser',async (req:Request,res:Response) => {
-  res.send(
-    await createUser(req)
-    );
-});
-app.post('/createProduct',async (req:Request,res:Response) => {
-  res.send(
-    await createProduct(req)
-    );
-});
-app.post('/createCompra',async (req:Request,res:Response) => {
-  res.send(
-    await createCompra(req)
-    );
-});
+
+
 
 function logger(req:Request,res:Response,next:NextFunction){
     console.log("prueba");
     next();
     return;
 }
-function middle(req:Request,res:Response,next:NextFunction){
-  console.log("prueba middle");
-  console.log(req.query.usuario);
-  if(req.query.usuario=="admin"){
-    console.log("ayuda");
-    req.query.usuario="FUNCIONA";
-    next();//si esta autenticado continue
-    return;
-  }
-  next();
-  return;
-}
+
 
 
 //EXPRES BODY PARSE
