@@ -22,6 +22,7 @@ const createDatabase_1 = require("./createDatabase"); //Post
 const app = (0, express_1.default)();
 //const app: express.Application = express();
 app.use(express_1.default.json());
+//app.use(logger);
 //node types y express types
 app.get('/', function (req, res) {
     res.send('esto es un servicio y se consume con un url destinado...');
@@ -48,9 +49,12 @@ app.get('/getImages', function (req, res) {
         res.send(yield (0, getDatabase_1.getImagen)(req));
     });
 });
-app.get('/getAllUsers', function (req, res) {
+app.get('/getAllUsers', middle, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getAllUser)());
+        console.log("segundo");
+        res.send(
+        //await getAllUser() 
+        "si");
     });
 });
 app.get('/getAllProducts', function (req, res) {
@@ -96,6 +100,23 @@ app.post('/createProduct', (req, res) => __awaiter(void 0, void 0, void 0, funct
 app.post('/createCompra', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(yield (0, createDatabase_1.createCompra)(req));
 }));
+function logger(req, res, next) {
+    console.log("prueba");
+    next();
+    return;
+}
+function middle(req, res, next) {
+    console.log("prueba middle");
+    console.log(req.query.usuario);
+    if (req.query.usuario == "admin") {
+        console.log("ayuda");
+        req.query.usuario = "FUNCIONA";
+        next(); //si esta autenticado continue
+        return;
+    }
+    next();
+    return;
+}
 //EXPRES BODY PARSE
 //ya esta instalado desde la 4.16 esta dentro de express
 //https://www.educative.io/answers/what-is-express-body-parser

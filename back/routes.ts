@@ -2,57 +2,32 @@
 //node build/routes.js
 
 //npx prisma db pull
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from './getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from './createDatabase' //Post
 import { products,client,image } from "./types"; //basura pero lo dejo como vestijio por si lo tenemos que volver a hacer
   //await ... as products
+import router from "./routes/All";
+
 
 const app = express();
 //const app: express.Application = express();
 
 app.use(express.json());
 
+//app.use(logger);
 //node types y express types
-app.get('/', function (req, res) {
-  res.send('esto es un servicio y se consume con un url destinado...');
-});
-app.get('/checkUser/:username',async function(req:Request,res:Response){  
-  res.send(
-    //{existe: await getUser(req.query)}
-    await getUser(req)  
-    );
-});
-app.get('/checkUser',async function(req:Request,res:Response){
-  
-  res.send(
-    "usuario No enviado, url dinamica..."  
-    );
-});
-app.get('/getImages/:image_id',async function(req:Request,res:Response) {
-  res.send(
-    await getImagen(req)
-  );
-});
-app.get('/getImages',async function(req:Request,res:Response) { //si no mandan el id igual vamos a entrar, para ir a la foto base
-  res.send(
-    await getImagen(req)
-  );
-});
 
 
-app.get('/getAllUsers',async function(req:Request,res:Response){
+
+app.get('/getAllUsers',middle,async function(req:Request,res:Response){
+  console.log("segundo");
   res.send(
-    await getAllUser() 
-  );
-});
-app.get('/getAllProducts',async function(req:Request,res:Response){
-  res.send(
-    await getAllProducts() 
+    //await getAllUser() 
+    "si"
   );
 });
 app.get('/getAllClients',async function(req:Request,res:Response){
-
   res.send(
     await getAllCompras()
     );
@@ -101,7 +76,23 @@ app.post('/createCompra',async (req:Request,res:Response) => {
     );
 });
 
-
+function logger(req:Request,res:Response,next:NextFunction){
+    console.log("prueba");
+    next();
+    return;
+}
+function middle(req:Request,res:Response,next:NextFunction){
+  console.log("prueba middle");
+  console.log(req.query.usuario);
+  if(req.query.usuario=="admin"){
+    console.log("ayuda");
+    req.query.usuario="FUNCIONA";
+    next();//si esta autenticado continue
+    return;
+  }
+  next();
+  return;
+}
 
 
 //EXPRES BODY PARSE
