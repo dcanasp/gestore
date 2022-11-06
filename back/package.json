@@ -2,17 +2,18 @@
   "name": "backgestore",
   "version": "1.0.0",
   "description": "el back unicamente mismo repositorio",
-  "main": "routes.ts",
+  "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "back": "node build/routes.js"
+    "back": "node build/main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.3.1",
     "@types/express": "^4.17.14",
+    "@types/jsonwebtoken": "^8.5.9",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",

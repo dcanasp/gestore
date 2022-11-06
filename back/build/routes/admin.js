@@ -16,12 +16,20 @@ const express_1 = __importDefault(require("express"));
 const getDatabase_1 = require("../getDatabase"); //lectura
 const user_1 = require("../auth/user");
 const admin = express_1.default.Router();
-admin.get('/getAllUsers', user_1.middle, function (req, res) {
+admin.get('/prueba', user_1.createToken, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send({ auth: req.token });
+    });
+});
+admin.get('/prueba2', user_1.auth0, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send({ auth: req.token });
+    });
+});
+admin.get('/getAllUsers', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("segundo");
-        res.send(
-        //await getAllUser() 
-        "si");
+        res.send(yield (0, getDatabase_1.getAllUser)());
     });
 });
 admin.get('/getAllClients', function (req, res) {
