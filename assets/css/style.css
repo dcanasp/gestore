@@ -1,9 +1,11 @@
+/* Colors */
 :root{
   --light-blue: #c3dcfd;
   --mid-blue: #0c56bc;
   --blue: #023aa1;
   --blue-2:#7aa5ee;
   }
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
@@ -26,6 +28,21 @@ h4,
 h5,
 h6 {
   font-family: "Raleway", sans-serif;
+}
+/* Header  */
+.opt{width: 20px;}
+
+/* --------Lista de productos ------------- */
+.box {
+  font-family: "Poppins", sans-serif;
+  /* border-bottom: 1px #0d3ced solid; */
+}
+
+
+/* ----------------Price--------------------- */
+.price{
+  height: 3px;
+
 }
 
 /*--------------------------------------------------------------
@@ -61,8 +78,6 @@ h6 {
   height: 30px;
 }
 /* --------End Search Bar */
-
-
 .back-to-top {
   position: fixed;
   visibility: hidden;
@@ -427,7 +442,7 @@ h6 {
 
 #hero .carousel-item {
   width: 100%;
-  height: 45vh;
+  height: 50vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1077,7 +1092,9 @@ section {
   margin-right: 0;
 }
 
-.portfolio .portfolio-wrap {
+
+
+/* .portfolio .portfolio-wrap {
   transition: 0.3s;
   position: relative;
   overflow: hidden;
@@ -1177,8 +1194,8 @@ section {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  opacity: 1;
+  bottom: 1;
+  opacity: 0.5;
 }
 
 .portfolio .portfolio-wrap:hover .portfolio-info {
@@ -1193,7 +1210,7 @@ section {
 .portfolio .portfolio-wrap:hover .portfolio-info::after {
   bottom: 15px;
   right: 15px;
-}
+} */
 
 /*--------------------------------------------------------------
 # Portfolio Details
