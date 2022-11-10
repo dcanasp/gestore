@@ -15,15 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const getDatabase_1 = require("../getDatabase"); //lectura
 const createDatabase_1 = require("../createDatabase"); //Post
+const user_1 = require("../auth/user");
 const general = express_1.default.Router();
 general.get('/', function (req, res) {
     res.send('esto es un servicio y se consume con un url destinado...');
 });
-general.get('/checkUser/:username', function (req, res) {
+general.get('/rol', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send(
-        //{existe: await getUser(req.query)}
-        yield (0, getDatabase_1.getUser)(req));
+        res.send(yield (0, getDatabase_1.getRol)(req));
+    });
+});
+general.get('/checkUser/:username', function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send({ token: yield (0, getDatabase_1.getUser)(req, next) });
     });
 });
 general.get('/checkUser', function (req, res) {
@@ -55,7 +59,10 @@ general.post('/editUser', (req, res) => __awaiter(void 0, void 0, void 0, functi
     res.send(yield (0, createDatabase_1.editUser)(req));
 }));
 general.post('/createUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.createUser)(req));
+    res.send({ token: yield (0, createDatabase_1.createUser)(req) });
+}));
+general.post('/pruebaPost', user_1.createToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(yield (0, createDatabase_1.pruebaPost)(req, res));
 }));
 //MUCHO CUIDADO TOCA
 general.get('/deleteUser', function (req, res) {

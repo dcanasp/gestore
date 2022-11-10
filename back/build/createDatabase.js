@@ -9,8 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pruebaPost = exports.createCompra = exports.createProduct = exports.createUser = exports.editProduct = exports.editUser = void 0;
+exports.pruebaPost = exports.createCompra = exports.createProduct = exports.createUser = exports.getOneUser = exports.editProduct = exports.editUser = void 0;
 const client_1 = require("@prisma/client");
+const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
 const editUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -53,6 +54,22 @@ const editProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.editProduct = editProduct;
+const getOneUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allUsers = yield prisma.usuario.findFirst({
+            where: {
+                username: username
+            }
+        });
+        return allUsers === null || allUsers === void 0 ? void 0 : allUsers.user_id;
+    }
+    catch (e) {
+        console.error(e);
+        yield prisma.$disconnect();
+        return false;
+    }
+});
+exports.getOneUser = getOneUser;
 const createUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let nuevo = req.body;
@@ -64,7 +81,9 @@ const createUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
                 email: nuevo.email
             }
         });
-        return "usuario creado";
+        //@ts-ignore
+        let importantes = { user_id: yield (0, exports.getOneUser)(nuevo.username), rol: nuevo.rol };
+        return yield (0, user_1.createToken)(importantes);
     }
     catch (err) {
         console.log(err);
@@ -94,6 +113,11 @@ exports.createProduct = createProduct;
 const createCompra = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let nuevo = req.body;
+        //FINAL FINAL FINAL
+        if (nuevo.user_id != req.token.user_id) {
+            console.log(req.token);
+            return "NO TIENE PERMISO POR TOKEN";
+        }
         const getCompra = yield prisma.compra.create({
             data: {
                 compra_id: nuevo.compra_id,

@@ -1,7 +1,25 @@
 import express, { Request, Response, NextFunction } from "express";
+import {JwtPayload} from "jsonwebtoken";
 import { PrismaClient } from '@prisma/client';
 import { type } from "os";
+import { Token } from "typescript";
+import { createToken } from "./auth/user";
 const prisma = new PrismaClient()
+
+export interface CustomRequest extends Request{
+    token: string |JwtPayload;
+  }
+
+type TokenVerificacion = {
+    user_id: number,
+    rol: number,
+    iat: number,   
+}
+
+type TokenCreacion = {
+    user_id: number,
+    rol: number,
+}
 
 export const editUser = async (req:Request) =>{
     try {
@@ -60,6 +78,23 @@ export const editProduct = async (req:Request) =>{
         console.log(err);
     }
 }
+export const getOneUser = async (username:string) => {
+    try{
+      const allUsers = await prisma.usuario.findFirst({ //select * from prisma.TABLE where user_id=1
+        where: {
+          username:username
+        }
+    })
+      return allUsers?.user_id;
+    
+    }
+    catch(e:any){
+      console.error(e);
+      await prisma.$disconnect();
+      return false;
+    }
+  }
+  
 
 export const createUser = async (req:Request) =>{
     try {
@@ -70,7 +105,6 @@ export const createUser = async (req:Request) =>{
         email: string
     } //si no llega un string (un undefined),salte a error
     let nuevo = req.body as usuarios;
-
     const addUsers = await prisma.usuario.create({
         data:{
             username: nuevo.username,
@@ -79,7 +113,9 @@ export const createUser = async (req:Request) =>{
             email: nuevo.email
         }
     });
-    return "usuario creado";
+    //@ts-ignore
+    let importantes: TokenCreacion= {user_id: await getOneUser(nuevo.username) ,rol:nuevo.rol} 
+    return await createToken(importantes);
     }
     catch (err) {
         console.log(err);
@@ -123,7 +159,11 @@ export const createCompra = async (req:Request) =>{
         product_id: number,
     }
     let nuevo = req.body as compra;
-
+    //FINAL FINAL FINAL
+    if(nuevo.user_id!=((req as CustomRequest).token as TokenVerificacion).user_id){
+        console.log(((req as CustomRequest).token as TokenVerificacion))
+        return "NO TIENE PERMISO POR TOKEN"
+    }
     const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
         data:{
           compra_id: nuevo.compra_id,

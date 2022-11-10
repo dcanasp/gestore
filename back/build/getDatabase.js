@@ -9,8 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getImagen = exports.getUser = void 0;
+exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getImagen = exports.getUser = exports.getRol = void 0;
 const client_1 = require("@prisma/client");
+const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -35,14 +36,35 @@ main()
     process.exit(1)
   })
 */
-const getUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const getRol = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (req == null || req == undefined || req.params.username == null || req.params.username == undefined) { //esto se pude resumir en users?.
             throw new Error("no tengo paremetros");
         }
+        const rol = yield prisma.usuario.findFirst({
+            where: {
+                username: req.params.username,
+            }
+        });
+        return rol === null || rol === void 0 ? void 0 : rol.rol;
+    }
+    catch (e) { //no se pudo conectar a base de datos
+        console.error(e);
+        yield prisma.$disconnect();
+        return false;
+        //process.exit(1);
+    }
+    ;
+});
+exports.getRol = getRol;
+const getUser = (req, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (req == null || req == undefined || req.params.username == null || req.params.username == undefined) { //esto se pude resumir en users?.
+            throw new Error("no tengo paremetros");
+        }
+        console.log(req.params.username);
         const users = yield prisma.usuario.findFirst({
             where: {
-                //@ts-ignore //si toca...
                 username: req.params.username,
             }
         });
@@ -50,8 +72,12 @@ const getUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
             throw new Error("usuario o parametro no existente");
         }
         if (req.query.password == users.password) {
-            console.log("si");
-            return true;
+            let datos = {
+                user_id: Number(users.user_id),
+                rol: Number(yield (0, exports.getRol)(req)),
+                iat: Date.now()
+            };
+            return (0, user_1.reDoToken)(datos, req, next);
         }
         throw new Error("clave incorrecta");
     }

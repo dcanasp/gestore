@@ -8,8 +8,14 @@
 import express, { Request, Response, NextFunction } from "express";
 import { PrismaClient } from '@prisma/client';
 import { products,client,image } from "./types";
+import { createToken,reDoToken } from "./auth/user";
 const prisma = new PrismaClient()
 
+type TokenVerificacion = {
+  user_id: number,
+  rol: number,
+  iat: number,   
+}
 async function main() {
 
   const allUsers = await prisma.usuario.findMany({ //select * from prisma.TABLE where user_id=1
@@ -37,27 +43,47 @@ main()
     process.exit(1)
   })
 */
-
-export const getUser = async (req:Request) =>{
+export const getRol = async (req:Request) =>{
+  try{
+    if(req==null || req==undefined || req.params.username==null ||req.params.username==undefined ){ //esto se pude resumir en users?.
+      throw new Error("no tengo paremetros");
+    }
+    const rol = await prisma.usuario.findFirst({ //encuentre el primero
+      where: {//USERNAME IDIOTA
+        username: req.params.username,
+      }
+    });
+    return rol?.rol;
+  }
+  catch (e:any) {//no se pudo conectar a base de datos
+    console.error(e);
+    await prisma.$disconnect();
+    return false;
+    //process.exit(1);
+  };
+}
+export const getUser = async (req:Request,next:NextFunction) =>{
   try {
     if(req==null || req==undefined || req.params.username==null ||req.params.username==undefined ){ //esto se pude resumir en users?.
       throw new Error("no tengo paremetros");
     }
+    console.log(req.params.username)
     const users = await prisma.usuario.findFirst({ //encuentre el primero
       where: {//USERNAME IDIOTA
-        //@ts-ignore //si toca...
         username: req.params.username,
       }
-
   })
-
   if(users==null || users==undefined || users.password==null ||users.password==undefined){ //esto se pude resumir en users?.
     throw new Error("usuario o parametro no existente");
   }
 
   if(req.query.password==users.password){
-    console.log("si");
-    return true;
+    let datos: TokenVerificacion = {
+      user_id:Number(users.user_id),
+      rol:Number(await getRol(req)),
+      iat: Date.now()
+    }
+    return reDoToken(datos,req,next);
   }
   throw new Error("clave incorrecta");
 }
@@ -70,7 +96,6 @@ catch (e:any) {//no se pudo conectar a base de datos
   //process.exit(1);
 };
 }
-
 
 export const getImagen = async (req: Request) => {
   try {

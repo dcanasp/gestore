@@ -11,15 +11,21 @@ const All_1 = __importDefault(require("./routes/All"));
 const buyer_1 = __importDefault(require("./routes/buyer"));
 const seller_1 = __importDefault(require("./routes/seller"));
 const admin_1 = __importDefault(require("./routes/admin"));
-const app = (0, express_1.default)();
+//import cors from "cors";
 const cors = require('cors');
+const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use(cors({ origin: 'http://localhost:1234' }));
-//node types y express types  
+app.use(cors());
+// app.use(cors(
+//   {
+//   origin: '*',
+//   }
+//   ));
 app.use("/", All_1.default);
 app.use("/BUY/", buyer_1.default);
 app.use("/SELL/", seller_1.default);
 app.use("/ADMIN/", admin_1.default);
+//node types y express types  
 function logger(req, res, next) {
     console.log("prueba");
     next();

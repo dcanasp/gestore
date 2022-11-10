@@ -3,7 +3,11 @@ import {JwtPayload} from "jsonwebtoken";
 import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from '../getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from '../createDatabase' //Post
 import {createToken,auth0} from "../auth/user"
+const cors = require('cors');
 const admin = express.Router();
+
+
+admin.use(cors())
 
 export interface CustomRequest extends Request{
   token: string |JwtPayload;

@@ -2,7 +2,6 @@
 //npx prisma generate
 //npx prisma db pull
 import { PrismaClient } from '@prisma/client';
-import { timeStamp } from 'console';
 const prisma = new PrismaClient()
 
 function palabrasGenerator() {//envieme una palabra al azar, de maximo 14 minimo 4 letras 
@@ -27,7 +26,7 @@ const getNombre = () =>{
 }
 const getEmail = (nombre:string) =>{
     let dividido = nombre.split(" ");
-    return dividido[0] + Math.floor(Math.random()*9999) + dividido[1]
+    return dividido[0] + Math.floor(Math.random()*9999) + dividido[1] + "@gmail.com"
 }
 const posibles = ["mouse","teclado","webCam","altavoces","cabeEternet","pantalla"];//que estamos vendiendo
 
@@ -63,29 +62,33 @@ const getDescripcion = (producto:string) => {
 }
 
 async function main() {
-for(let i =1;i<21;i++){
+  // const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
+  // console.log(allUsers)
+
+for(let i =1;i<101;i++){
+  console.log(i);
 /*
-    let nombre = getNombre();
-    const addUsers = await prisma.usuario.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
-    data:{
-        username: nombre,
-        password: '1234',
-        rol:  Math.floor(Math.random()*2)+1,
-        email: getEmail(nombre)
-        }
-    
-    })
-*/
-/*
+
+  let nombre = getNombre();
+  const addUsers = await prisma.usuario.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
+  data:{
+      username: nombre,
+      password: '1234',
+      rol:  Math.floor(Math.random()*2)+1,
+      email: getEmail(nombre)
+      }
+  
+  })
+  
 const addImagen = await prisma.imagen.create({
   data:{
-    image_id: i,
     image: 'todo',
   }
   
 })
-*/
-/*
+
+
+
 let producto = getProducto();
   const addProductos = await prisma.producto.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
     data:{
@@ -95,14 +98,15 @@ let producto = getProducto();
         descripcion: getDescripcion(producto),
         stock: Math.floor(Math.random()*30),
         precio: Math.floor(Math.random()*10000)+1,
+        categoria: (logicaImagen(producto)-1)/2
         }
     
     })
+
 */
 
   const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
     data:{
-      compra_id: i,
       user_id: Math.ceil(Math.random()* await maximoUsuario()),//es una promesa, NO UN DATO
       fecha: (new Date()).toString(),
       product_id: Math.ceil(Math.random()* await maximoProducto()),
@@ -110,7 +114,7 @@ let producto = getProducto();
       
   })
 
-
+}
 }
 
 //1-2 mouse
@@ -122,7 +126,7 @@ let producto = getProducto();
 
 
     //const add //no se que añadir
-
+/*
   const allUsers = await prisma.usuario.findMany({ //select * from prisma.TABLE where user_id=1
       where: {
         user_id:1
@@ -136,9 +140,8 @@ let producto = getProducto();
 
 
 }
-
-main()
-  .then(async () => {
+*/
+main().then(async () => {
     await prisma.$disconnect()
   })
   .catch(async (e) => {

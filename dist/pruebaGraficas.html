@@ -17,8 +17,6 @@
     let datos;
     const x = await fetch("http://localhost:3000/ADMIN/getAllClients", {
         method: "GET",
-        mode: "cors",
-        cache: "no-cache",
         headers: {
             "Content-Type": "application/json"
         }

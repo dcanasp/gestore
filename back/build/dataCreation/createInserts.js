@@ -35,7 +35,7 @@ const getNombre = () => {
 };
 const getEmail = (nombre) => {
     let dividido = nombre.split(" ");
-    return dividido[0] + Math.floor(Math.random() * 9999) + dividido[1];
+    return dividido[0] + Math.floor(Math.random() * 9999) + dividido[1] + "@gmail.com";
 };
 const posibles = ["mouse", "teclado", "webCam", "altavoces", "cabeEternet", "pantalla"]; //que estamos vendiendo
 const getProducto = () => {
@@ -66,29 +66,32 @@ const getDescripcion = (producto) => {
 };
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        for (let i = 1; i < 21; i++) {
+        // const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
+        // console.log(allUsers)
+        for (let i = 1; i < 101; i++) {
+            console.log(i);
             /*
-                let nombre = getNombre();
-                const addUsers = await prisma.usuario.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
-                data:{
-                    username: nombre,
-                    password: '1234',
-                    rol:  Math.floor(Math.random()*2)+1,
-                    email: getEmail(nombre)
-                    }
-                
-                })
-            */
-            /*
+            
+              let nombre = getNombre();
+              const addUsers = await prisma.usuario.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
+              data:{
+                  username: nombre,
+                  password: '1234',
+                  rol:  Math.floor(Math.random()*2)+1,
+                  email: getEmail(nombre)
+                  }
+              
+              })
+              
             const addImagen = await prisma.imagen.create({
               data:{
-                image_id: i,
                 image: 'todo',
               }
               
             })
-            */
-            /*
+            
+            
+            
             let producto = getProducto();
               const addProductos = await prisma.producto.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
                 data:{
@@ -98,38 +101,45 @@ function main() {
                     descripcion: getDescripcion(producto),
                     stock: Math.floor(Math.random()*30),
                     precio: Math.floor(Math.random()*10000)+1,
+                    categoria: (logicaImagen(producto)-1)/2
                     }
                 
                 })
+            
             */
             const getCompra = yield prisma.compra.create({
                 data: {
-                    compra_id: i,
                     user_id: Math.ceil(Math.random() * (yield maximoUsuario())),
                     fecha: (new Date()).toString(),
                     product_id: Math.ceil(Math.random() * (yield maximoProducto())),
                 }
             });
         }
-        //1-2 mouse
-        //3-4 teclado
-        //5-6 webCam
-        //7-8 altavoces
-        //9-10 cable eternet
-        //11-12 pantallla
-        //const add //no se que añadir
-        const allUsers = yield prisma.usuario.findMany({
-            where: {
-                user_id: 1
-            },
-        });
-        console.dir(allUsers, { depth: null });
-        //const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
-        //console.log(allUsers)
     });
 }
-main()
-    .then(() => __awaiter(void 0, void 0, void 0, function* () {
+//1-2 mouse
+//3-4 teclado
+//5-6 webCam
+//7-8 altavoces
+//9-10 cable eternet
+//11-12 pantallla
+//const add //no se que añadir
+/*
+  const allUsers = await prisma.usuario.findMany({ //select * from prisma.TABLE where user_id=1
+      where: {
+        user_id:1
+      },
+
+  })
+  console.dir(allUsers, { depth: null })
+
+  //const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE...
+  //console.log(allUsers)
+
+
+}
+*/
+main().then(() => __awaiter(void 0, void 0, void 0, function* () {
     yield prisma.$disconnect();
 }))
     .catch((e) => __awaiter(void 0, void 0, void 0, function* () {

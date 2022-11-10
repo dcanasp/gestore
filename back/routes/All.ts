@@ -1,17 +1,26 @@
 import express, { NextFunction, Request, Response } from "express";
-import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from '../getDatabase' //lectura
+import {JwtPayload} from "jsonwebtoken";
+import {getRol,getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from '../getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from '../createDatabase' //Post
+import {createToken,auth0} from "../auth/user"
 
+export interface CustomRequest extends Request{
+  token: string |JwtPayload;
+}
 const general = express.Router();
 
 
 general.get('/', function (req, res) {
     res.send('esto es un servicio y se consume con un url destinado...');
   });
-general.get('/checkUser/:username',async function(req:Request,res:Response){  
+general.get('/rol',async function(req:Request,res:Response){
   res.send(
-    //{existe: await getUser(req.query)}
-    await getUser(req)  
+    await getRol(req)
+  );
+});
+general.get('/checkUser/:username',async function(req:Request,res:Response,next:NextFunction){  
+  res.send(
+    {token: await getUser(req,next)}  
     );
 });
 general.get('/checkUser',async function(req:Request,res:Response){
@@ -49,13 +58,19 @@ general.post('/editUser',async (req:Request,res:Response) => { //lo hago funcion
   });
 general.post('/createUser',async (req:Request,res:Response) => {
   res.send(
-    await createUser(req)
+    {token:await createUser(req)}
     );
-});  
+}); 
+general.post('/pruebaPost',createToken,async (req:Request,res:Response) => {
+  res.send(
+    await pruebaPost(req,res)
+    );
+}); 
 //MUCHO CUIDADO TOCA
 general.get('/deleteUser',async function(req:Request,res:Response){
   res.send(
     await deleteUser(req)
     );
 });
+
 export default general;

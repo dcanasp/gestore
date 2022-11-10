@@ -15,10 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const getDatabase_1 = require("../getDatabase"); //lectura
 const user_1 = require("../auth/user");
+const cors = require('cors');
 const admin = express_1.default.Router();
+admin.use(cors());
 admin.get('/prueba', user_1.createToken, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send({ auth: req.token });
+        res.send({ token: req.token });
     });
 });
 admin.get('/prueba2', user_1.auth0, function (req, res) {

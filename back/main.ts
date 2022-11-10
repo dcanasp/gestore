@@ -10,18 +10,24 @@ import general from "./routes/All";
 import buy from "./routes/buyer";
 import sell from "./routes/seller";
 import admin from "./routes/admin";
+//import cors from "cors";
+const cors = require('cors');
 
 const app = express();
-const cors = require('cors');
 app.use(express.json());
-app.use(cors({origin: 'http://localhost:1234'}));
-//node types y express types  
+app.use(cors())
+// app.use(cors(
+//   {
+//   origin: '*',
+//   }
+//   ));
 
 app.use("/",general);
 app.use("/BUY/",buy);
 app.use("/SELL/",sell);
 app.use("/ADMIN/",admin);
 
+//node types y express types  
 function logger(req:Request,res:Response,next:NextFunction){
     console.log("prueba");
     next();

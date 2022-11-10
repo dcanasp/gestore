@@ -14,8 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const createDatabase_1 = require("../createDatabase"); //Post
+const user_1 = require("../auth/user");
 const buy = express_1.default.Router();
-buy.post('/createCompra', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.createCompra)(req));
+buy.post('/createCompra', user_1.auth0, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(yield (0, createDatabase_1.createCompra)(req) //MAL HECHO
+    );
 }));
 exports.default = buy;
