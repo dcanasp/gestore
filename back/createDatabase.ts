@@ -161,7 +161,8 @@ export const createCompra = async (req:Request) =>{
     let nuevo = req.body as compra;
     //FINAL FINAL FINAL
     if(nuevo.user_id!=((req as CustomRequest).token as TokenVerificacion).user_id){
-        console.log(((req as CustomRequest).token as TokenVerificacion))
+        console.log(nuevo.user_id);
+        console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
         return "NO TIENE PERMISO POR TOKEN"
     }
     const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)

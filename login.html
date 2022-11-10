@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <!--Stylesheet-->  
     <link href="assets/css/style-login.css" rel="stylesheet">
+    <script src="./assets/js/login.js"></script>
 </head>
 <body>
     <div class="background">
@@ -15,7 +16,8 @@
     </div>
     <form>
         <div class="logo">
-            <h1><a href="index.html">Gestore</a></h1>
+            <!-- <h1><a href="index.html">Gestore</a></h1> -->
+            <!-- NO OLVIDEN ACTIVAR ESTO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
           </div>
@@ -25,10 +27,13 @@
         <label for="password">Password</label>
         <input type="password" class="lgn" placeholder="Password" id="password">
 
-        <button class="btn">Log In</button>
+        <button class="btn" id="botonLoginAYUDA">Log In</button>
+        <label onclick="registro()"> RESGISTRO</label>
+        <label onclick="crearCompra()"> COMPRAR</label>
+        <label onclick="login()"> LOGIN</label>
         <div class="social">
           <div class="go"><i class="fab fa-google"></i>  Google</div>
-          <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+            <!-- HACERLO FULL SCREEN -->
         </div>
     </form>
 </body>

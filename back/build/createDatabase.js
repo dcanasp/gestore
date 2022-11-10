@@ -115,7 +115,8 @@ const createCompra = (req) => __awaiter(void 0, void 0, void 0, function* () {
         let nuevo = req.body;
         //FINAL FINAL FINAL
         if (nuevo.user_id != req.token.user_id) {
-            console.log(req.token);
+            console.log(nuevo.user_id);
+            console.log(req.token.user_id);
             return "NO TIENE PERMISO POR TOKEN";
         }
         const getCompra = yield prisma.compra.create({

@@ -46,7 +46,6 @@ function auth0(req, res, next) {
             }
             else {
                 req.token = verifiedJwt.body;
-                console.log(verifiedJwt.body.username);
                 next();
                 return;
             }

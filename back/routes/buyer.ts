@@ -12,7 +12,7 @@ export interface CustomRequest extends Request{
 
 buy.post('/createCompra',auth0,async (req:Request,res:Response,next:NextFunction) => {
   res.send(
-    await createCompra(req)//MAL HECHO
+    await createCompra(req)
     );
   });
 

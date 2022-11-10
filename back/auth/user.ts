@@ -52,7 +52,6 @@ export function auth0(req:Request,res:Response,next:NextFunction){
       throw new Error();
     }else{
       (req as CustomRequest).token = verifiedJwt.body;
-      console.log(verifiedJwt.body.username);
       next()
       return;
     }
