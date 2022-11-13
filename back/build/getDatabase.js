@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getImagen = exports.getUser = exports.getRol = void 0;
+exports.getOneSeller = exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getImagen = exports.getUser = exports.getRol = void 0;
 const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
@@ -171,6 +171,13 @@ const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getAllImages = getAllImages;
 const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    let userId = Number(req.query.user_id);
+    //Verificación usuario
+    if (userId != req.token.user_id) {
+        console.log(userId);
+        console.log(req.token.user_id);
+        return "NO TIENE PERMISO POR TOKEN";
+    }
     try {
         const deleteUser = yield prisma.usuario.delete({
             where: {
@@ -186,6 +193,13 @@ const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
 exports.deleteUser = deleteUser;
 const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const seller = (0, exports.getOneSeller)(req.body.product_id);
+        //Verificación usuario
+        if (((yield seller) != req.token.user_id) && (req.token.user_id != 3)) {
+            console.log(seller);
+            console.log(req.token.user_id);
+            return "NO TIENE PERMISO POR TOKEN";
+        }
         const deleteUser = yield prisma.producto.delete({
             where: {
                 product_id: Number(req.query.product_id),
@@ -198,3 +212,19 @@ const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.deleteProduct = deleteProduct;
+const getOneSeller = (product_id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allUProducts = yield prisma.producto.findFirst({
+            where: {
+                product_id: product_id
+            }
+        });
+        return allUProducts === null || allUProducts === void 0 ? void 0 : allUProducts.user_id;
+    }
+    catch (e) {
+        console.error(e);
+        yield prisma.$disconnect();
+        return false;
+    }
+});
+exports.getOneSeller = getOneSeller;

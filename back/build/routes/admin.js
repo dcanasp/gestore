@@ -20,23 +20,46 @@ const admin = express_1.default.Router();
 admin.use(cors());
 admin.get('/prueba', user_1.createToken, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (!rolVerified(req.token)) {
+            res.send(console.error());
+        }
         res.send({ token: req.token });
     });
 });
 admin.get('/prueba2', user_1.auth0, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (!rolVerified(req.token)) {
+            res.send(console.error());
+        }
         res.send({ auth: req.token });
     });
 });
-admin.get('/getAllUsers', function (req, res) {
+admin.get('/getAllUsers', user_1.auth0, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("segundo");
-        res.send(yield (0, getDatabase_1.getAllUser)());
+        if (!rolVerified(req.token)) {
+            res.status(400).send("Rol no permitido");
+        }
+        else {
+            console.log("segundo");
+            res.send(yield (0, getDatabase_1.getAllUser)());
+        }
     });
 });
-admin.get('/getAllClients', function (req, res) {
+admin.get('/getAllClients', user_1.auth0, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.getAllCompras)());
+        if (!rolVerified(req.token)) {
+            res.status(400).send("Rol no permitido");
+        }
+        else {
+            res.send(yield (0, getDatabase_1.getAllCompras)());
+        }
     });
 });
+function rolVerified(token) {
+    if (token.rol != 3) {
+        console.log(token.rol);
+        return false;
+    }
+    return true;
+}
 exports.default = admin;

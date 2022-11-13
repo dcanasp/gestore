@@ -13,11 +13,13 @@ const general = express.Router();
 general.get('/', function (req, res) {
     res.send('esto es un servicio y se consume con un url destinado...');
   });
+
 general.get('/rol',async function(req:Request,res:Response){
   res.send(
     await getRol(req)
   );
 });
+
 general.get('/checkUser/:username',async function(req:Request,res:Response,next:NextFunction){  
   res.send(
     {token: await getUser(req,next)}  
@@ -67,10 +69,10 @@ general.post('/pruebaPost',createToken,async (req:Request,res:Response) => {
     );
 }); 
 //MUCHO CUIDADO TOCA
-general.get('/deleteUser',async function(req:Request,res:Response){
+general.get('/deleteUser',auth0, async function(req:Request,res:Response){
   res.send(
     await deleteUser(req)
     );
 });
 
-export default general;
+export default general; 

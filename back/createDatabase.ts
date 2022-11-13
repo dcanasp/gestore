@@ -31,6 +31,13 @@ export const editUser = async (req:Request) =>{
     } //si no llega un string (un undefined),salte a error
     let cambios = req.body as usuarios;
 
+    //Verificación usuario
+    if(cambios.user_id!=((req as CustomRequest).token as TokenVerificacion).user_id){
+        console.log(cambios.user_id);
+        console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
+        return "NO TIENE PERMISO POR TOKEN"
+    }
+
     const addUsers = await prisma.usuario.update({
         where: {
             user_id:cambios.user_id,
@@ -60,6 +67,15 @@ export const editProduct = async (req:Request) =>{
     } //si no llega un string (un undefined),salte a error
     let cambios = req.body as product;
 
+    const seller = getOneSeller(req.body.product_id);
+
+    //Verificación usuario
+    if((await seller !=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).user_id!=3)){
+        console.log(seller);
+        console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
+        return "NO TIENE PERMISO POR TOKEN"
+    }
+
     const addProduct = await prisma.producto.update({
         where: {
             product_id:cambios.product_id,
@@ -78,6 +94,24 @@ export const editProduct = async (req:Request) =>{
         console.log(err);
     }
 }
+
+export const getOneSeller = async (product_id:number) => {
+    try{
+      const allUProducts = await prisma.producto.findFirst({ //select * from prisma.TABLE where user_id=1
+        where: {
+          product_id:product_id
+        }
+    })
+      return allUProducts?.user_id;
+    
+    }
+    catch(e:any){
+      console.error(e);
+      await prisma.$disconnect();
+      return false;
+    }
+  }
+
 export const getOneUser = async (username:string) => {
     try{
       const allUsers = await prisma.usuario.findFirst({ //select * from prisma.TABLE where user_id=1
@@ -133,6 +167,13 @@ export const createProduct = async (req:Request) =>{
     } //si no llega un string (un undefined),salte a error
     let nuevo = req.body as product;
 
+    //Verificación usuario
+    if(nuevo.user_id !=((req as CustomRequest).token as TokenVerificacion).user_id){
+        console.log(nuevo.user_id);
+        console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
+        return "NO TIENE PERMISO POR TOKEN"
+    }
+
     const addProductos = await prisma.producto.create({
         data:{
             user_id: nuevo.user_id,
@@ -180,6 +221,8 @@ export const createCompra = async (req:Request) =>{
         console.log(err);
     }
 }
+
+
 
 export const pruebaPost = (req:Request, res:Response) => {
     //console.log(req.body);

@@ -15,16 +15,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const getDatabase_1 = require("../getDatabase"); //lectura
 const createDatabase_1 = require("../createDatabase"); //Post
+const user_1 = require("../auth/user");
 const sell = express_1.default.Router();
-sell.post('/editProduct', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.editProduct)(req));
+sell.post('/editProduct', user_1.auth0, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!rolVerified(req.token)) {
+        res.send(console.error());
+    }
+    else {
+        res.send(yield (0, createDatabase_1.editProduct)(req));
+    }
 }));
-sell.post('/createProduct', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.createProduct)(req));
+sell.post('/createProduct', user_1.auth0, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!rolVerified(req.token)) {
+        res.send(console.error());
+    }
+    else {
+        res.send(yield (0, createDatabase_1.createProduct)(req));
+    }
 }));
-sell.get('/deleteProduct', function (req, res) {
+sell.get('/deleteProduct', user_1.auth0, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, getDatabase_1.deleteProduct)(req));
+        if (!rolVerified(req.token)) {
+            res.send(console.error());
+        }
+        else {
+            res.send(yield (0, getDatabase_1.deleteProduct)(req));
+        }
     });
 });
+function rolVerified(token) {
+    if (token.rol != 2) {
+        console.log(token.rol);
+        return false;
+    }
+    return true;
+}
 exports.default = sell;
