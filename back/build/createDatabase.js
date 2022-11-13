@@ -9,13 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pruebaPost = exports.createCompra = exports.createProduct = exports.createUser = exports.getOneUser = exports.editProduct = exports.editUser = void 0;
+exports.pruebaPost = exports.createCompra = exports.createProduct = exports.createUser = exports.getOneUser = exports.getOneSeller = exports.editProduct = exports.editUser = void 0;
 const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
 const editUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let cambios = req.body;
+        //Verificación usuario
+        if (cambios.user_id != req.token.user_id) {
+            console.log(cambios.user_id);
+            console.log(req.token.user_id);
+            return "NO TIENE PERMISO POR TOKEN";
+        }
         const addUsers = yield prisma.usuario.update({
             where: {
                 user_id: cambios.user_id,
@@ -36,6 +42,13 @@ exports.editUser = editUser;
 const editProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let cambios = req.body;
+        const seller = (0, exports.getOneSeller)(req.body.product_id);
+        //Verificación usuario
+        if (((yield seller) != req.token.user_id) && (req.token.user_id != 3)) {
+            console.log(seller);
+            console.log(req.token.user_id);
+            return "NO TIENE PERMISO POR TOKEN";
+        }
         const addProduct = yield prisma.producto.update({
             where: {
                 product_id: cambios.product_id,
@@ -54,6 +67,22 @@ const editProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.editProduct = editProduct;
+const getOneSeller = (product_id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allUProducts = yield prisma.producto.findFirst({
+            where: {
+                product_id: product_id
+            }
+        });
+        return allUProducts === null || allUProducts === void 0 ? void 0 : allUProducts.user_id;
+    }
+    catch (e) {
+        console.error(e);
+        yield prisma.$disconnect();
+        return false;
+    }
+});
+exports.getOneSeller = getOneSeller;
 const getOneUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allUsers = yield prisma.usuario.findFirst({
@@ -93,6 +122,12 @@ exports.createUser = createUser;
 const createProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let nuevo = req.body;
+        //Verificación usuario
+        if (nuevo.user_id != req.token.user_id) {
+            console.log(nuevo.user_id);
+            console.log(req.token.user_id);
+            return "NO TIENE PERMISO POR TOKEN";
+        }
         const addProductos = yield prisma.producto.create({
             data: {
                 user_id: nuevo.user_id,

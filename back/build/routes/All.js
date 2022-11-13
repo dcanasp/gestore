@@ -65,7 +65,7 @@ general.post('/pruebaPost', user_1.createToken, (req, res) => __awaiter(void 0, 
     res.send(yield (0, createDatabase_1.pruebaPost)(req, res));
 }));
 //MUCHO CUIDADO TOCA
-general.get('/deleteUser', function (req, res) {
+general.get('/deleteUser', user_1.auth0, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         res.send(yield (0, getDatabase_1.deleteUser)(req));
     });

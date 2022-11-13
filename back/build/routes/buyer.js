@@ -17,6 +17,18 @@ const createDatabase_1 = require("../createDatabase"); //Post
 const user_1 = require("../auth/user");
 const buy = express_1.default.Router();
 buy.post('/createCompra', user_1.auth0, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield (0, createDatabase_1.createCompra)(req));
+    if (!rolVerified(req.token)) {
+        res.send(console.error());
+    }
+    else {
+        res.send(yield (0, createDatabase_1.createCompra)(req));
+    }
 }));
+function rolVerified(token) {
+    if (token.rol != 1) {
+        console.log(token.rol);
+        return false;
+    }
+    return true;
+}
 exports.default = buy;

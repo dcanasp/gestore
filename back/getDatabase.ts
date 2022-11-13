@@ -7,6 +7,7 @@
 //var?. -->siempre que no sea indefinido o nulo haga
 import express, { Request, Response, NextFunction } from "express";
 import { PrismaClient } from '@prisma/client';
+import {JwtPayload} from "jsonwebtoken";
 import { products,client,image } from "./types";
 import { createToken,reDoToken } from "./auth/user";
 const prisma = new PrismaClient()
@@ -16,6 +17,10 @@ type TokenVerificacion = {
   rol: number,
   iat: number,   
 }
+export interface CustomRequest extends Request{
+  token: string |JwtPayload;
+}
+
 async function main() {
 
   const allUsers = await prisma.usuario.findMany({ //select * from prisma.TABLE where user_id=1
@@ -187,6 +192,16 @@ export const getAllImages = async () => {
 
 
 export const deleteUser = async (req:Request) =>{
+
+  let userId = Number(req.query.user_id) 
+
+  //Verificación usuario
+  if(userId!=((req as CustomRequest).token as TokenVerificacion).user_id){
+    console.log(userId);
+    console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
+    return "NO TIENE PERMISO POR TOKEN"
+}
+
   try {
     const deleteUser = await prisma.usuario.delete({
       where: {
@@ -200,7 +215,18 @@ export const deleteUser = async (req:Request) =>{
   }
 }
 export const deleteProduct = async (req:Request) =>{
-  try {
+  
+   try {
+     
+    const seller = getOneSeller(req.body.product_id);
+
+  //Verificación usuario
+  if((await seller !=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).user_id!=3)){
+    console.log(seller);
+    console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
+    return "NO TIENE PERMISO POR TOKEN"
+}
+
     const deleteUser = await prisma.producto.delete({
       where: {
           product_id: Number(req.query.product_id),
@@ -210,5 +236,22 @@ export const deleteProduct = async (req:Request) =>{
   }
   catch (err) {
       console.log(err);
+  }
+}
+
+export const getOneSeller = async (product_id:number) => {
+  try{
+    const allUProducts = await prisma.producto.findFirst({ //select * from prisma.TABLE where user_id=1
+      where: {
+        product_id:product_id
+      }
+  })
+    return allUProducts?.user_id;
+  
+  }
+  catch(e:any){
+    console.error(e);
+    await prisma.$disconnect();
+    return false;
   }
 }
