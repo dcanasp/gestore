@@ -25,6 +25,11 @@ general.get('/rol', function (req, res) {
         res.send(yield (0, getDatabase_1.getRol)(req));
     });
 });
+general.get('/decodeToken', user_1.auth0, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send(req.token);
+    });
+});
 general.get('/checkUser/:username', function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         res.send({ token: yield (0, getDatabase_1.getUser)(req, next) });

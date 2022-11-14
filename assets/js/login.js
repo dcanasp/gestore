@@ -63,6 +63,7 @@ const login = async () =>{//si usuario y clave correctos, MAL NO USAR
       }}
       ).then(response => response.json()).then(data => datos=data);
     console.log(datos);
+    localStorage.setItem('token',datos.token);
 
 
 }

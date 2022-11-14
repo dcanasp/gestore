@@ -7,6 +7,13 @@ import {createToken,auth0} from "../auth/user"
 export interface CustomRequest extends Request{
   token: string |JwtPayload;
 }
+
+type TokenVerificacion = {
+  user_id: number,
+  rol: number,
+  iat: number,   
+}
+
 const general = express.Router();
 
 
@@ -17,6 +24,12 @@ general.get('/', function (req, res) {
 general.get('/rol',async function(req:Request,res:Response){
   res.send(
     await getRol(req)
+  );
+});
+
+general.get('/decodeToken',auth0,async function(req:Request,res:Response){
+  res.send(
+    ((req as CustomRequest).token as TokenVerificacion)
   );
 });
 
