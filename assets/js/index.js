@@ -9,27 +9,29 @@ const productos= async () =>{
         }).then(response => response.json()).then(data => datos=data);
 
     let products=[];
-    for (let i=0;i<15;i++){
+    for (let i=0;i<16;i++){
         products.push(datos[i]);
     }
+    let imagenes = await getImages(products);
+
     let padre = document.getElementById("inicio");
-    console.log(padre);
+    let contador =0;
     products.forEach(prod => {
-        let texto = creacion(prod);
+        let texto = creacion(prod,imagenes[contador]);
         padre.innerHTML = padre.innerHTML + texto;
+        //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
         padre.parentNode.insertBefore(padre, padre);
-        //padre.parentNode.insertBefore(temp, padre.nextSibling);//si lo quiero alrevez
+        contador ++;
     });
 
-    console.log(products);
 }
 
-const creacion = (product) =>{
+const creacion = (product,imagen) =>{
     let filtro = ['filter-app','filter-card','filter-web']
     let x = `
     <div class="col-lg-4 col-md-6 portfolio-item ${filtro[Math.floor(Math.random()*filtro.length)]}">
     <div class="portfolio-wrap">
-        <img src="${product.image_id}" class="img-fluid portfolio-lightbox" alt="">
+        <img src="${imagen}" class="img-fluid portfolio-lightbox" alt="">
         <div class="portfolio-info">
             <div class="portfolio-links">
                 <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
@@ -44,23 +46,22 @@ const creacion = (product) =>{
   }
 
 
+
+const getImages = async (products) => {
+    let url = 'http://localhost:3000/getAllImages';
+    let datos;
+    const x = await fetch(url, {
+        method : "GET",
+        mode: 'cors',
+        cache: 'no-cache',
+        }).then(response => response.json()).then(data => datos=data);
+
+    let imagenes=[];
+    products.forEach(prod => {
+        imagenes.push(datos[prod.image_id].image);
+    });
+    return imagenes;
+
+}
+
 productos();
-
-// const getImages = async (products) => {
-// let url = 'http://localhost:3000/getAllImages';
-// let datos;
-// const x = await fetch(url, {
-//     method : "GET",
-//     mode: 'cors',
-//     cache: 'no-cache',
-//     }).then(response => response.json()).then(data => datos=data);
-
-// let imagenes=[];
-// console.log("aqui");
-// console.log(datos);
-// products.forEach(prod => {
-//     imagenes.push(datos[prod.image_id].image);
-// });
-
-
-// }
