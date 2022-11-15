@@ -26,6 +26,9 @@ admin.get('/prueba',createToken,async function(req:Request,res:Response){
     {token:(req as CustomRequest).token}  
   );
 });
+
+
+
 admin.get('/prueba2',auth0,async function(req:Request,res:Response){
   if(!rolVerified((req as CustomRequest).token as TokenVerificacion)){
     res.send(console.error());
