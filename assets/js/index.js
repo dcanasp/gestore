@@ -16,17 +16,18 @@ const productos= async () =>{
     console.log(padre);
     products.forEach(prod => {
         let texto = creacion(prod);
-        const temp = document.createElement("div");
-        temp.innerHTML = texto;
-        padre.parentNode.insertBefore(temp, padre);
+        padre.innerHTML = padre.innerHTML + texto;
+        padre.parentNode.insertBefore(padre, padre);
+        //padre.parentNode.insertBefore(temp, padre.nextSibling);//si lo quiero alrevez
     });
 
     console.log(products);
 }
 
 const creacion = (product) =>{
+    let filtro = ['filter-app','filter-card','filter-web']
     let x = `
-    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+    <div class="col-lg-4 col-md-6 portfolio-item ${filtro[Math.floor(Math.random()*filtro.length)]}">
     <div class="portfolio-wrap">
         <img src="${product.image_id}" class="img-fluid portfolio-lightbox" alt="">
         <div class="portfolio-info">
