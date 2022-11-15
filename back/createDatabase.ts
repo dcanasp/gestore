@@ -67,10 +67,10 @@ export const editProduct = async (req:Request) =>{
     } //si no llega un string (un undefined),salte a error
     let cambios = req.body as product;
 
-    const seller = getOneSeller(req.body.product_id);
+    const seller = await getOneSeller(req.body.product_id);
 
     //Verificación usuario
-    if((await seller !=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).user_id!=3)){
+    if((seller !=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
         console.log(seller);
         console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
         return "NO TIENE PERMISO POR TOKEN"
