@@ -1,53 +1,99 @@
-"use strict"
-import { text } from "stream/consumers";
+console.log("INICIO");
+const producto = async () =>{
+    let url = 'http://localhost:3000/getAllProducts';
+    let datos;
+    const x = await fetch(url, {
+        method : "GET",
+        mode: 'cors',
+        cache: 'no-cache',
+        }).then(response => response.json()).then(data => datos=data);
 
-export default class dinamismo {
-    //nueva_linea = document.getElementById("inicio");
-
-    constructor(products,enfocado){
-      return this.chats(products,enfocado);
-      // temp.addEventListener("click", ()=>
-      //   this.chats(number,content)
-      // );
-
+    let prod_id = localStorage.getItem("product_id");
+    let product;
+    for (let i=0;i<datos.length;i++){
+      if(prod_id == datos[i].product_id){
+        product = datos[i];
+      }
     }
-    chats = (products,enfocado) =>{
 
-      let padre = document.getElementById("inicio");
-      let texto = this.creacion(products,enfocado);
-      const temp = document.createElement("div");
-      temp.innerHTML = texto;
-      let nuevo = padre.parentNode.insertBefore(temp, padre);
-        
-      return nuevo;
+    let imagen = await getImages(product);
+    let padre = document.getElementById("inicio");
+    let texto = creacion(product, imagen);
+    padre.innerHTML = padre.innerHTML + texto;
+    //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+    padre.parentNode.insertBefore(padre, padre);
+    contador ++;
+    };
+    
 
-        
-    }
-    creacion = (products,times) =>{
-      console.log(times)
-         let x = `<div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <div class="portfolio-wrap">
-           <img src="${products[times].image_id}" class="img-fluid portfolio-lightbox" alt="">
-           <div class="portfolio-info">
-             <div class="portfolio-links">
-               <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-               
-             </div>
-           </div>
-         </div>            
-         <p class="price">${products[times].precio}</p>
-         <a href="portfolio-details.html" title="More Details" class="box box-link">${products[times].nombre}</a>
-       </div>`
-        return x;
-    }
+
+const creacion = (product,imagen) =>{
+    let x = `
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <img src="${imagen}" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/portfolio-2.jpg" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/portfolio-3.jpg" alt="">
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Informacion del producto</h3>
+              <ul>
+                <li><strong>Categoria</strong>: ${product.categoria}</li>
+                <li><strong>Vendedor</strong>: ${product.user_id}</li>
+                <li><strong>Precio</strong>: ${product.precio}</li>
+                <li><strong>Stock</strong>: ${product.stock}</li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h2>This is an example of portfolio detail</h2>
+              <p>
+                ${product.descripcion}
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+    `
+      return x;
+  }
+
+
+
+const getImages = async (product) => {
+    let url = 'http://localhost:3000/getAllImages/' + product.image_id;
+    let datos;
+    const x = await fetch(url, {
+        method : "GET",
+        mode: 'cors',
+        cache: 'no-cache',
+        }).then(response => response.json()).then(data => datos=data);
+    return datos;
 
 }
-
-
-// console.log("almenos entra");
-// const render = () =>{
     
-//     x = document.getElementById("inicio").addEventListener("click", chats);
-
-// }
-//export default render();
+producto();

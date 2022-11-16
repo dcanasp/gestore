@@ -22,7 +22,10 @@ const productos= async () =>{
         //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
         padre.parentNode.insertBefore(padre, padre);
         contador ++;
-    });
+    })
+    padre.addEventListener("click", prueba, false)
+    ;
+    
 
 }
 
@@ -38,8 +41,8 @@ const creacion = (product,imagen) =>{
             </div>
         </div>
     </div>            
-    <p class="price">${product.precio}</p>
-    <a href="portfolio-details.html" title="More Details" class="box box-link">${product.nombre}</a>
+    <p class="price">\$${product.precio}</p>
+    <a href="portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
     </div>
     `
       return x;
@@ -64,4 +67,13 @@ const getImages = async (products) => {
 
 }
 
+function prueba(e){
+    if(e.target !== e.currentTarget){
+        let clicked_e = e.target.id;
+        localStorage.setItem("product_id", clicked_e)
+    }
+    // let prod_serialized = JSON.stringify(prod);
+    // localStorage.setItem(prod.nombre + prod.product_id,prod_serialized);
+}
+    
 productos();
