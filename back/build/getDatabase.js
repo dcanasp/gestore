@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOneSeller = exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getImagen = exports.getUser = exports.getRol = void 0;
+exports.getOneSeller = exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProduct = exports.getImagen = exports.getUser = exports.getRol = void 0;
 const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
@@ -125,6 +125,25 @@ const getImagen = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getImagen = getImagen;
+const getProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (isNaN(Number(req.params.product_id)) == true) {
+            throw new Error("id no numerico");
+        }
+        const oneProduct = yield prisma.producto.findUnique({
+            where: {
+                product_id: Number(req.params.product_id)
+            }
+        });
+        return oneProduct;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        console.log(e);
+        return;
+    }
+});
+exports.getProduct = getProduct;
 const getAllUser = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allUsers = yield prisma.usuario.findMany({});
@@ -193,9 +212,9 @@ const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
 exports.deleteUser = deleteUser;
 const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const seller = (0, exports.getOneSeller)(req.body.product_id);
+        const seller = yield (0, exports.getOneSeller)(req.body.product_id);
         //Verificación usuario
-        if (((yield seller) != req.token.user_id) && (req.token.user_id != 3)) {
+        if ((seller != req.token.user_id) && (req.token.rol != 3)) {
             console.log(seller);
             console.log(req.token.user_id);
             return "NO TIENE PERMISO POR TOKEN";

@@ -42,9 +42,9 @@ exports.editUser = editUser;
 const editProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let cambios = req.body;
-        const seller = (0, exports.getOneSeller)(req.body.product_id);
+        const seller = yield (0, exports.getOneSeller)(req.body.product_id);
         //Verificación usuario
-        if (((yield seller) != req.token.user_id) && (req.token.user_id != 3)) {
+        if ((seller != req.token.user_id) && (req.token.rol != 3)) {
             console.log(seller);
             console.log(req.token.user_id);
             return "NO TIENE PERMISO POR TOKEN";

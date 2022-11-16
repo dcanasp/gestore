@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
-import {getRol,getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from '../getDatabase' //lectura
+import {getRol,getUser,getImagen,getProduct,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from '../getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from '../createDatabase' //Post
 import {createToken,auth0} from "../auth/user"
 
@@ -54,6 +54,11 @@ general.get('/getImages',async function(req:Request,res:Response) { //si no mand
 res.send(
     await getImagen(req)
 );
+});
+general.get('/getProduct/:product_id',async function(req:Request,res:Response){
+  res.send(
+    await getProduct(req) 
+  );
 });
 general.get('/getAllProducts',async function(req:Request,res:Response){
     res.send(

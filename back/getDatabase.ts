@@ -139,6 +139,27 @@ catch(e){
 
 }
 
+export const getProduct = async (req: Request) => {
+  try {
+    if(isNaN(Number(req.params.product_id))==true){
+      throw new Error("id no numerico");
+    }
+    const oneProduct = await prisma.producto.findUnique ({ //esta buscando por llave primaria
+    where:{
+      product_id: Number(req.params.product_id)
+    }
+    })
+    return oneProduct;
+}
+catch(e){
+    await prisma.$disconnect();
+    console.log(e);
+    return;
+}
+
+}
+
+
 export const getAllUser = async () => {
   try{
     const allUsers = await prisma.usuario.findMany({

@@ -50,6 +50,11 @@ general.get('/getImages', function (req, res) {
         res.send(yield (0, getDatabase_1.getImagen)(req));
     });
 });
+general.get('/getProduct/:product_id', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send(yield (0, getDatabase_1.getProduct)(req));
+    });
+});
 general.get('/getAllProducts', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         res.send(yield (0, getDatabase_1.getAllProducts)());

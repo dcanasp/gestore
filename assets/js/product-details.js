@@ -1,6 +1,10 @@
-console.log("SEGUNDO");
 const producto = async () =>{
-  let url = 'http://localhost:3000/getAllProducts';
+  let prod_id = localStorage.getItem("product_id");
+  if (prod_id==undefined){
+    console.log("no product_id")
+    return "error"
+  }
+  let url = 'http://localhost:3000/getProduct/'+prod_id;
   let datos;
   const x = await fetch(url, {
       method : "GET",
@@ -8,17 +12,9 @@ const producto = async () =>{
       cache: 'no-cache',
       }).then(response => response.json()).then(data => datos=data);
 
-  let prod_id = localStorage.getItem("product_id");
-  let product;
-  for (let i=0;i<datos.length;i++){
-    if(prod_id == datos[i].product_id){
-      product = datos[i];
-    }
-  }
-
-  let imagen = await getImages(product);
+  let imagen = await getImages(datos);
   let padre = document.getElementById("detalleProducto");
-  let texto = creacion(product, imagen);
+  let texto = creacion(datos, imagen);
   padre.innerHTML = padre.innerHTML + texto;
   //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
   padre.parentNode.insertBefore(padre, padre);
