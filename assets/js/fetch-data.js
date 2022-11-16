@@ -1,29 +1,28 @@
-console.log("INICIO");
+console.log("SEGUNDO");
 const producto = async () =>{
-    let url = 'http://localhost:3000/getAllProducts';
-    let datos;
-    const x = await fetch(url, {
-        method : "GET",
-        mode: 'cors',
-        cache: 'no-cache',
-        }).then(response => response.json()).then(data => datos=data);
+  let url = 'http://localhost:3000/getAllProducts';
+  let datos;
+  const x = await fetch(url, {
+      method : "GET",
+      mode: 'cors',
+      cache: 'no-cache',
+      }).then(response => response.json()).then(data => datos=data);
 
-    let prod_id = localStorage.getItem("product_id");
-    let product;
-    for (let i=0;i<datos.length;i++){
-      if(prod_id == datos[i].product_id){
-        product = datos[i];
-      }
+  let prod_id = localStorage.getItem("product_id");
+  let product;
+  for (let i=0;i<datos.length;i++){
+    if(prod_id == datos[i].product_id){
+      product = datos[i];
     }
+  }
 
-    let imagen = await getImages(product);
-    let padre = document.getElementById("inicio");
-    let texto = creacion(product, imagen);
-    padre.innerHTML = padre.innerHTML + texto;
-    //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-    padre.parentNode.insertBefore(padre, padre);
-    contador ++;
-    };
+  let imagen = await getImages(product);
+  let padre = document.getElementById("inicio");
+  let texto = creacion(product, imagen);
+  padre.innerHTML = padre.innerHTML + texto;
+  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  padre.parentNode.insertBefore(padre, padre);
+};
     
 
 
@@ -85,15 +84,14 @@ const creacion = (product,imagen) =>{
 
 
 const getImages = async (product) => {
-    let url = 'http://localhost:3000/getAllImages/' + product.image_id;
+    let url = 'http://localhost:3000/getImages/' + product.image_id;
     let datos;
     const x = await fetch(url, {
         method : "GET",
         mode: 'cors',
         cache: 'no-cache',
-        }).then(response => response.json()).then(data => datos=data);
+        }).then(response => response.text()).then(data => datos=data);
     return datos;
-
 }
     
 producto();

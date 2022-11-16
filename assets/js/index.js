@@ -1,4 +1,3 @@
-console.log("INICIO");
 const productos= async () =>{
     let url = 'http://localhost:3000/getAllProducts';
     let datos;
@@ -23,10 +22,10 @@ const productos= async () =>{
         padre.parentNode.insertBefore(padre, padre);
         contador ++;
     })
-    padre.addEventListener("click", prueba, false)
-    ;
-    
+    console.log(padre);
 
+    padre.addEventListener("click", prueba, false);
+    return;
 }
 
 const creacion = (product,imagen) =>{
@@ -68,6 +67,7 @@ const getImages = async (products) => {
 }
 
 function prueba(e){
+    console.log(e);
     if(e.target !== e.currentTarget){
         let clicked_e = e.target.id;
         localStorage.setItem("product_id", clicked_e)
