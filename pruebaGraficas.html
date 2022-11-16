@@ -15,7 +15,7 @@
   </div>
 
   <script>
-  let crearChart = async () => {
+  const crearChart = async () => {
     let datos;
     const x = await fetch('http://localhost:3000/ADMIN/getAllClients', {
       method : "GET",
@@ -25,10 +25,11 @@
       }}
       ).then(response => response.json()).then(data => datos=data);
     console.log(datos);
-    let usuarios=[];
+    let usuarios=[]; //objeto 
     let bandera= false;
-    for (let x = 0; x < datos.length; x++) {
-        for (let y = 0; y < usuarios.length; y++) {
+    //añade a usuario si es nuevo, sino le añade uno
+    for (let x = 0; x < datos.length; x++) { //por cada compra
+        for (let y = 0; y < usuarios.length; y++) { 
             if(datos[x].user_id==usuarios[y].user){
                 usuarios[y].cantidad = usuarios[y].cantidad +1;
                 bandera = true;
@@ -40,12 +41,15 @@
         }
         usuarios.push({user: datos[x].user_id,cantidad: 1})
     }
+    usuarios = sort(usuarios);
     let nombres =[];
     let cantidad =[];
-    for (let z = 0; z < usuarios.length; z++) {
-        nombres.push(usuarios[z].user);
-        cantidad.push(usuarios[z].cantidad);
+    for(let k=0;k<usuarios.length;k++){
+      nombres.push(usuarios[k].user);
+      cantidad.push(usuarios[k].cantidad);
     }
+    nombres = await getNombres(nombres);//fetch
+    console.log(nombres);
 
     const data = {
     labels: nombres,
@@ -113,6 +117,39 @@
     config
   );
 }
+const getNombres = async (users_id) => {
+    let datos;
+    const x = await fetch('http://localhost:3000/ADMIN/getAllUsers', {
+      method : "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem('token')
+      }}
+      ).then(response => response.json()).then(data => datos=data);
+    let retorno = [];
+    for(let j=0;j<users_id.length;j++){
+      for(let i=0;i<datos.length;i++){
+        if(users_id[j].user==datos[i].user){
+          retorno.push(datos[j].username);
+          break;
+        }
+      }
+    }
+    return retorno;
+}
+function sort(usuarios){
+    console.log(usuarios.length);
+    for(i=0;i<usuarios.length;i++){
+      for(j=0;j<usuarios.length;j++){
+        if(usuarios[i].cantidad>usuarios[j].cantidad){
+          menor= usuarios[j];
+          usuarios[j]= usuarios[i];
+          usuarios[i] = menor;
+        }
+      }
+    }
+    return usuarios;
+  }
   crearChart();  
 </script>
 </body>
