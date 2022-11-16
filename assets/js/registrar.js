@@ -4,17 +4,28 @@ const registro = async () => {
   let password = document.getElementsById('password');
   let email = document.getElementsById('email');
   let rol = document.getElementsById('rol');
+  //2 vendedor 
+  //1 cliente 
+  if (rol == true) {
+
+    rol = 2
+  } else {
+
+    rol = 1
+  }
+
+
 }
-  const x = await fetch('http://localhost:3000/createUser', {
-      method : "POST",
-      mode: 'cors',
-      cache: 'no-cache',
-      headers:{
-          'Content-Type':'application/json'
-      },
-      body:JSON.stringify(body),
-  }).then(response => response.json()).then(data => token=data);
-  console.log(token);
-  window.localStorage.setItem("token", token.token);
-  
-  let z = localStorage.getItem('token');
+const x = await fetch('http://localhost:3000/createUser', {
+  method: "POST",
+  mode: 'cors',
+  cache: 'no-cache',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(body),
+}).then(response => response.json()).then(data => token = data);
+console.log(token);
+window.localStorage.setItem("token", token.token);
+
+let z = localStorage.getItem('token');

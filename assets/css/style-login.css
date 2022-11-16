@@ -16,7 +16,8 @@
     --letters-2:#;
 }
 .link{
-    margin-left: 30px;
+    margin-left: 55px;
+    
 }
 body{
     background-color: var(--white);
@@ -133,8 +134,10 @@ button{
 } 
 .go{
     border: 1px #cfdfff solid;
-    margin-left: 80px;
-    margin-bottom: 20px;
+    bottom: 100px;
+    margin-left: 100px;
+    margin-bottom: 30px;
+ 
 }
 .social i{
     margin-right: 4px;
