@@ -75,5 +75,42 @@ function prueba(e){
     // let prod_serialized = JSON.stringify(prod);
     // localStorage.setItem(prod.nombre + prod.product_id,prod_serialized);
 }
+
+const verify=async()=>{
+    let infoToken;
+    let url = 'http://localhost:3000/decodeToken/';
+    const x = await fetch(url, {
+      method : "GET",
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {
+        'Authorization': 'Bearer '+localStorage.getItem('token')
+      }}
+      ).then(response => response.json()).then(data => infoToken=data);
+    if(infoToken.rol==2){
+        let padre = document.getElementById("shit");
+        let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
+        padre.innerHTML = padre.innerHTML + texto;
+
+        padre.addEventListener("load", false);
+        return;
+    }else if(infoToken.rol==3){
+        let padre = document.getElementById("shit");
+        let texto = `<li><a href="pruebaGraficas.html" >Stats</a></li>
+        <li><a href="" >Escoger</a></li>`;
+        padre.innerHTML = padre.innerHTML + texto;
+
+        padre.addEventListener("load", false);
+        return;
+    }else{
+        let padre = document.getElementById("shit");
+        let texto = `<li><a href="carrito-compra.html" >Carrito de compras</a></li>`;
+        padre.innerHTML = padre.innerHTML + texto;
+
+        padre.addEventListener("load", false);
+        return;
+    }
+}
     
 productos();
+verify()
