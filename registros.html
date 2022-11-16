@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>Register | Gestore</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+      <!-- Scrips -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="134771054109-qc1doubbb2akoqg3p0qre6ebheopsq9m.apps.googleusercontent.com">
+
+    <!-- <script src="./assets/js/registrar.js" ></script> -->
+      
+    <!--Stylesheet-->  
+    <link href="assets/css/style-registrar.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form>
+        <div class="logo">
+        </div>
+        <label for="username">Username</label>
+        <input type="text" class="lgn" placeholder="username" id="username">
+        <label for="username">Email</label>
+        <input type="email" class="lgn" placeholder="email" id="email">
+        <label for="password">Password</label>
+        <input type="password" class="lgn" placeholder="Password" id="password">
+        <label for="vendedor">Es usted un vendedor?</label>
+        <label class="switch"> 
+         
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+
+
+          <label for="password">Registro por medio de Google</label>
+          <br>
+          <div class="social">
+            <div class="go"><i class="fab fa-google"></i>  Google</div>
+              <!-- HACERLO FULL SCREEN -->
+          </div>
+          
+
+        <!-- <div class="social">
+            <div class="go">Registro con Google
+                <button class="fab fa-google">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+                </button> </div> -->
+        
+        <button class="rgt" id="botonLoginAYUDA">Registrar</button>
+    
+       
+        <a src="login.html"> Back</a>
+        </div>
+    </form>
+</body>
+</html>
