@@ -26,6 +26,6 @@
     "imports-loader": "^4.0.1",
     "isotope-layout": "^3.0.6",
     "jquery": "^3.6.1",
-    "parcel": "^2.7.0"
+    "parcel": "^2.8.0"
   }
 }
