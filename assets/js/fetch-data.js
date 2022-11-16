@@ -17,7 +17,7 @@ const producto = async () =>{
   }
 
   let imagen = await getImages(product);
-  let padre = document.getElementById("inicio");
+  let padre = document.getElementById("detalleProducto");
   let texto = creacion(product, imagen);
   padre.innerHTML = padre.innerHTML + texto;
   //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
@@ -66,7 +66,7 @@ const creacion = (product,imagen) =>{
               </ul>
             </div>
             <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
+              <h2>Descripcion</h2>
               <p>
                 ${product.descripcion}
               </p>
