@@ -84,7 +84,7 @@ const verify=async()=>{
       mode: 'cors',
       cache: 'no-cache',
       headers: {
-        'Authorization': 'Bearer '+localStorage.getItem('token')
+        'Authorization': 'Bearer '+ localStorage.getItem('token')
       }}
       ).then(response => response.json()).then(data => infoToken=data);
     if(infoToken.rol==2){
@@ -113,4 +113,4 @@ const verify=async()=>{
 }
     
 productos();
-verify()
+verify();
