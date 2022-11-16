@@ -4,7 +4,7 @@ const producto = async () =>{
     console.log("no product_id")
     return "error"
   }
-  let url = 'http://localhost:3000/getProduct/'+prod_id;
+  let url = 'http://localhost:3000/getProduct/'+ prod_id;
   let datos;
   const x = await fetch(url, {
       method : "GET",
