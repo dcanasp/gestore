@@ -9,7 +9,7 @@ const productos= async () =>{
 
     let products=[];
     for (let i=0;i<16;i++){
-        if(datos[i].user_id == 1){
+        if(datos[i].user_id == 16){
             products.push(datos[i]);
         } 
     }

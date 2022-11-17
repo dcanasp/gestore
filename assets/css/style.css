@@ -21,6 +21,23 @@ a:hover {
   text-decoration: none;
 }
 
+button{
+  position: absolute;
+  background: none;
+  font-size: 16px;
+  padding: 0px 30px;
+  margin: 3px;
+  background: var(--blue);
+  color: #fff;
+  transition: 0.3s;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+button:hover{
+  background: var(--mid-blue);
+}
+
 h1,
 h2,
 h3,
