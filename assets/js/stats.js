@@ -14,3 +14,5 @@ const verify=async()=>{
       window.location.replace("http://localhost:1234/");
     }
 }
+
+verify()

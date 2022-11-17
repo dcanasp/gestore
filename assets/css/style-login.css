@@ -181,3 +181,9 @@ button{
     margin: 0;
     max-height: 40px;
 }
+
+.rgt{
+    border: 1px #cfcfff solid;
+    margin-right: 200px;
+    margin-bottom: 200px;
+}

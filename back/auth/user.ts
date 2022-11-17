@@ -41,7 +41,6 @@ export function auth0(req:Request,res:Response,next:NextFunction){
     //HEADER Authorization
   //Bearer TOKEN
   const token = req.header('Authorization')?.replace('Bearer ', '');
-    console.log(token);
   if (!token) {
     throw new Error();
   }
