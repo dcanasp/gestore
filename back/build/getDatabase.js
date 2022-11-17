@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOneSeller = exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProduct = exports.getImagen = exports.getUser = exports.getRol = void 0;
+exports.getOneSeller = exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProductSell = exports.getProduct = exports.getImagen = exports.getUser = exports.getRol = void 0;
 const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
@@ -144,6 +144,31 @@ const getProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getProduct = getProduct;
+const getProductSell = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        //Verificación usuario
+        if (Number(req.params.user_id) != req.token.user_id) {
+            console.log(Number(req.params.user_id));
+            console.log(req.token.user_id);
+            return "NO TIENE PERMISO POR TOKEN";
+        }
+        if (isNaN(Number(req.params.user_id)) == true) {
+            throw new Error("id no numerico");
+        }
+        const productsSell = yield prisma.producto.findMany({
+            where: {
+                user_id: Number(req.params.user_id)
+            }
+        });
+        return productsSell;
+    }
+    catch (e) {
+        yield prisma.$disconnect();
+        console.log(e);
+        return;
+    }
+});
+exports.getProductSell = getProductSell;
 const getAllUser = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allUsers = yield prisma.usuario.findMany({});

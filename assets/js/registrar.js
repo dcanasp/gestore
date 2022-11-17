@@ -28,11 +28,10 @@ console.log(JSON.stringify(body));
       },
       body:JSON.stringify(body),
   }).then(response => response.json()).then(data => token=data);
-  console.log(token);
+
   window.localStorage.setItem("token", token.token);
-  
-  let z = localStorage.getItem('token');
-  window.location.replace("http://localhost:1234/");
+
+  window.location.replace("http://localhost:1234");
 
   
    

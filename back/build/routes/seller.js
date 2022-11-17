@@ -43,6 +43,16 @@ sell.get('/deleteProduct', user_1.auth0, function (req, res) {
         }
     });
 });
+sell.get('/getProducts/:user_id', user_1.auth0, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!rolVerified(req.token)) {
+            res.status(400).send("Rol no permitido");
+        }
+        else {
+            res.send(yield (0, getDatabase_1.getProductSell)(req));
+        }
+    });
+});
 function rolVerified(token) {
     if (token.rol != 2) {
         console.log(token.rol);

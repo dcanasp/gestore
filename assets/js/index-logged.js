@@ -84,15 +84,15 @@ const verify=async()=>{
       }}
       ).then(response => response.json()).then(data => infoToken=data);
       
+      let padre = document.getElementById("buttons");
+      
     if(infoToken.rol==2){
-        let padre = document.getElementById("shit");
         let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
 
         padre.addEventListener("load", false);
         return;
     }else if(infoToken.rol==3){
-        let padre = document.getElementById("shit");
         let texto = `<li><a href="pruebaGraficas.html" >Stats</a></li>
         <li><a href="registro-ventas.html" >Ventas</a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
@@ -100,7 +100,6 @@ const verify=async()=>{
         padre.addEventListener("load", false);
         return;
     }else{
-        let padre = document.getElementById("shit");
         let texto = `<li><a href="carrito-compra.html" >Carrito de compras</a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
 
@@ -109,5 +108,12 @@ const verify=async()=>{
     }
 }
 
+const logout = () =>{
+    window.localStorage.removeItem('token');
+    window.location.replace("http://localhost:1234/index.html");
+}
+
 productos();
 verify();
+
+document.getElementById("logOut").addEventListener("click", logout, false)
