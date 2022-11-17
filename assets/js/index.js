@@ -76,4 +76,11 @@ function prueba(e){
     // localStorage.setItem(prod.nombre + prod.product_id,prod_serialized);
 }
 
+const verify = async()=>{
+    if(window.localStorage.getItem("token")!=null){
+        window.location.replace("http://localhost:1234/index-logged.html");
+    }
+}
+
+verify();
 productos();

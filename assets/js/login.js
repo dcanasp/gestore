@@ -11,7 +11,7 @@ const login = async () =>{//si usuario y clave correctos, MAL NO USAR
     }
     ).then(response => response.json()).then(data => datos=data);
     localStorage.setItem('token',datos.token);
-    window.location.replace("http://localhost:1234/index-logged.html/");
+    window.location.replace("http://localhost:1234/index-logged.html");
 }
 
 document.getElementById('btnLogin').addEventListener('click', login, false)
