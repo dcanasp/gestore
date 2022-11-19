@@ -5,6 +5,7 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 :root{
     --light-blue: #c3dcfd;
     --mid-blue: #0c56bc;
@@ -16,11 +17,13 @@
     --letters-2:#;
 }
 .vinculos{
-
+ 
+ margin-top: 50px;
+ font-weight: 550;
 
 }
 .link{
- 
+ margin-left: 18px;
     margin-top: 30px;
   margin-right: 20px;
    
@@ -61,6 +64,7 @@ body{
     bottom: -80px;
 }
 form{
+    margin-top: 100px;
     height: 850px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
@@ -108,20 +112,8 @@ input{
 ::placeholder{
     color: #008;
 }
-.username{
-  
-}
-button{
-    margin-top: 50px;
-    width: 100%;
-    background-color: #ffffff;
-    color: #080710;
-    padding: 30px 10px;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
+
 .social{
     margin-top: 10px;
     display: flex;
@@ -177,10 +169,41 @@ button{
     background-color: rgba(4,215,255,0.47);
 }
 .rgt{
-    border: 1px #cfcfff solid;
-    margin-right: 200px;
-    margin-bottom: 20px;
-    
+    margin-top: 40px;
+    width: 100%;
+    padding: 15px 25px;
+ border: unset;
+ border-radius: 15px;
+ color: #212121;
+ z-index: 1;
+ background: #e8e8e8;
+ position: relative;
+ font-weight: 1000;
+ font-size: 17px;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms;
+ overflow: hidden;
+}
+
+.rgt ::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+}
+
+.rgt:hover{
+    color: #ffffff;
+    background-color: #111;
 }
 .logo h1 {
 
