@@ -1,2 +1,2 @@
-let valor= document.getElementById("usuario");
-valor.value = "NAME";
+
+///Variables emai,rol,name

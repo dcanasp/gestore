@@ -2049,10 +2049,6 @@ button {
   margin-right: 5%; 
   font-size: 20px;
 }
-.information-usuarios input{
-  margin-right: 5%; 
-  
-}
 
  .information-usuarios{
 
@@ -2062,7 +2058,7 @@ button {
   margin-top: 2%;
   justify-content: space-around 10;
   padding-left: 10px;
-
+  margin-right: 8%;
  }
  button.learn-more .circle .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
