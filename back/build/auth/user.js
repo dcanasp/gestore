@@ -34,7 +34,6 @@ function auth0(req, res, next) {
         //HEADER Authorization
         //Bearer TOKEN
         const token = (_a = req.header('Authorization')) === null || _a === void 0 ? void 0 : _a.replace('Bearer ', '');
-        console.log(token);
         if (!token) {
             throw new Error();
         }

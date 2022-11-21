@@ -159,6 +159,33 @@ catch(e){
 
 }
 
+export const getProductSell = async (req: Request) => {
+  try {
+    //Verificación usuario
+    if(Number(req.params.user_id) !=((req as CustomRequest).token as TokenVerificacion).user_id){
+        console.log(Number(req.params.user_id));
+        console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
+        return "NO TIENE PERMISO POR TOKEN"
+    }
+
+    if(isNaN(Number(req.params.user_id))==true){
+      throw new Error("id no numerico");
+    }
+    const productsSell = await prisma.producto.findMany ({ //esta buscando por llave primaria
+    where:{
+      user_id: Number(req.params.user_id)
+    }
+    })
+    return productsSell;
+}
+catch(e){
+    await prisma.$disconnect();
+    console.log(e);
+    return;
+}
+
+}
+
 
 export const getAllUser = async () => {
   try{

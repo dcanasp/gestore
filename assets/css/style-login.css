@@ -1,3 +1,4 @@
+
 *,
 *:before,
 *:after{
@@ -5,6 +6,7 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 :root{
     --light-blue: #c3dcfd;
     --mid-blue: #0c56bc;
@@ -15,8 +17,19 @@
     --letters: #111;
     --letters-2:#;
 }
+form *{
+
+    
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
 .link{
-    margin-left: 55px;
+  
+    font-family: 'Poppins',sans-serif;
+  font-weight: 550;
+        margin-left:12%;
     
 }
 body{
@@ -68,15 +81,17 @@ form{
     padding: 50px 35px;
 }
 form *{
+   
+ 
     font-family: 'Poppins',sans-serif;
+    font-weight: 500;
     color: var(--letters);
     letter-spacing: 0.5px;
     outline: none;
     border: none;
 }
 form h3{
-    font-size: 32px;
-    font-weight: 500;
+ 
     line-height: 42px;
     text-align: center;
 }
@@ -136,7 +151,7 @@ button{
     border: 1px #cfdfff solid;
     bottom: 100px;
     margin-left: 100px;
-    margin-bottom: 30px;
+
  
 }
 .social i{
@@ -149,13 +164,38 @@ button{
 
 }
 .btn{
-    border: 1px #cfcfff solid;
-    margin-bottom: 10px;
+    padding: 15px 25px;
+ border: unset;
+ border-radius: 15px;
+ color: #212121;
+ z-index: 1;
+ background: #e8e8e8;
+ position: relative;
+ font-weight: 1000;
+ font-size: 17px;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms;
+ overflow: hidden;
+ margin-bottom: 30px;
 }
-.btn:hover{
-    background-color: rgba(205,205,255,0.47);
+.btn:before{
+    content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ height: 100%;
+ width: 0;
+ border-radius: 15px;
+ background-color: #212121;
+ z-index: -1;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms
 
 }
+.btn:hover{color: #e8e8e8;
+    background-color: #111;}
 .go:hover{
     background-color: rgba(4,215,255,0.47);
 }
@@ -184,3 +224,4 @@ button{
     margin: 0;
     max-height: 40px;
 }
+

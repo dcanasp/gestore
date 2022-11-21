@@ -1,19 +1,41 @@
+
+const decode=async()=>{
+    let infoToken;
+    let url = 'http://localhost:3000/decodeToken/';
+    const x = await fetch(url, {
+      method : "GET",
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {
+        'Authorization': 'Bearer '+localStorage.getItem('token')
+      }}
+      ).then(response => response.json()).then(data => infoToken=data);
+    return infoToken.user_id;
+}
+
 const productos= async () =>{
-    let url = 'http://localhost:3000/getAllProducts';
+    let user_id = await decode();
+    let url = 'http://localhost:3000/SELL/getProducts/'+String(user_id);
     let datos;
     const x = await fetch(url, {
         method : "GET",
         mode: 'cors',
         cache: 'no-cache',
+        headers: {
+            'Authorization': 'Bearer '+localStorage.getItem('token')
+        }
         }).then(response => response.json()).then(data => datos=data);
 
     let products=[];
-    for (let i=0;i<16;i++){
-        if(datos[i].user_id == 1){
-            products.push(datos[i]);
-        } 
+
+    for (let i=0;(i<16)&&(i<datos.length);i++){
+        products.push(datos[i]);
     }
-    let imagenes = await getImages(products);
+    
+    let imagenes=[];
+    if(products.length!=0){
+        imagenes = await getImages(products);
+    }
 
     let padre = document.getElementById("inicio");
     let contador =0;
@@ -73,5 +95,5 @@ function prueba(e){
     // let prod_serialized = JSON.stringify(prod);
     // localStorage.setItem(prod.nombre + prod.product_id,prod_serialized);
 }
-    
-productos();
+
+productos()

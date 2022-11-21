@@ -15,6 +15,8 @@
       
     <!--Stylesheet-->  
     <link href="assets/css/style-registrar.css" rel="stylesheet">
+  <script type="module" src="assets/js/registrar.js"></script>
+
 
 </head>
 <body>
@@ -34,7 +36,7 @@
         <label for="vendedor">¿Es usted un vendedor?</label>
         <label class="switch"> 
          
-            <input type="checkbox">
+            <input type="checkbox" id="rol">
             <span class="slider"></span>
           </label>
 
@@ -53,7 +55,9 @@
                     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
                 </button> </div> -->
-        <button class="rgt" id="botonLoginAYUDA"><a href="./login.html">Registrarse</a></button>
+                <button type="button" class="rgt" id="botonLoginAYUDA" value="Registrarse"> Registrarse
+                </button>
+        
         <div class="vinculos">
          <a class="link" id="link" href="login.html"> Regresar al login</a>
          <a class="link1" id="link1" href="index.html"> Regresar al inicio</a>

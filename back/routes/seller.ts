@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
-import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from '../getDatabase' //lectura
+import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct, getProductSell} from '../getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from '../createDatabase' //Post
 import { auth0 } from "../auth/user";
 
@@ -45,6 +45,16 @@ sell.get('/deleteProduct',auth0,async function(req:Request,res:Response){
     res.send(
       await deleteProduct(req)
     );
+  }
+});
+
+sell.get('/getProducts/:user_id',auth0,async function(req:Request,res:Response){
+  if(!rolVerified((req as CustomRequest).token as TokenVerificacion)){
+    res.status(400).send("Rol no permitido");
+  }else{
+    res.send(
+      await getProductSell(req) 
+      );
   }
 });
 
