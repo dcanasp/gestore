@@ -65,7 +65,7 @@ async function main() {
   // const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
   // console.log(allUsers)
 
-for(let i =1;i<101;i++){
+for(let i =1;i<21;i++){
   console.log(i);
 /*
 
@@ -79,14 +79,13 @@ for(let i =1;i<101;i++){
       }
   
   })
-  
+
 const addImagen = await prisma.imagen.create({
   data:{
     image: 'todo',
   }
   
 })
-
 
 
 let producto = getProducto();
@@ -102,7 +101,6 @@ let producto = getProducto();
         }
     
     })
-
 */
 
   const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
@@ -113,6 +111,7 @@ let producto = getProducto();
     }
       
   })
+
 
 }
 }

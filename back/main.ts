@@ -2,6 +2,7 @@
 //node build/routes.js
 
 //npx prisma db pull
+//npx prisma generate
 import express, { NextFunction, Request, Response } from "express";
 import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from './getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from './createDatabase' //Post
@@ -16,11 +17,6 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cors())
-// app.use(cors(
-//   {
-//   origin: '*',
-//   }
-//   ));
 
 app.use("/",general);
 app.use("/BUY/",buy);

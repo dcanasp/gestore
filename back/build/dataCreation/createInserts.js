@@ -68,7 +68,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         // const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
         // console.log(allUsers)
-        for (let i = 1; i < 101; i++) {
+        for (let i = 1; i < 21; i++) {
             console.log(i);
             /*
             
@@ -82,14 +82,13 @@ function main() {
                   }
               
               })
-              
+            
             const addImagen = await prisma.imagen.create({
               data:{
                 image: 'todo',
               }
               
             })
-            
             
             
             let producto = getProducto();
@@ -105,7 +104,6 @@ function main() {
                     }
                 
                 })
-            
             */
             const getCompra = yield prisma.compra.create({
                 data: {

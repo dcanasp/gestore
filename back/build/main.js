@@ -6,6 +6,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 //npx prisma db pull
+//npx prisma generate
 const express_1 = __importDefault(require("express"));
 const All_1 = __importDefault(require("./routes/All"));
 const buyer_1 = __importDefault(require("./routes/buyer"));
@@ -16,11 +17,6 @@ const cors = require('cors');
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(cors());
-// app.use(cors(
-//   {
-//   origin: '*',
-//   }
-//   ));
 app.use("/", All_1.default);
 app.use("/BUY/", buyer_1.default);
 app.use("/SELL/", seller_1.default);
