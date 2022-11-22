@@ -15,9 +15,3 @@ const login = async () =>{//si usuario y clave correctos, MAL NO USAR
 }
 
 document.getElementById('btnLogin').addEventListener('click', login, false)
-
-
-
-
-
-

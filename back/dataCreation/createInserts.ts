@@ -65,7 +65,7 @@ async function main() {
   // const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
   // console.log(allUsers)
 
-for(let i =1;i<21;i++){
+for(let i =1;i<15;i++){
   console.log(i);
 /*
 

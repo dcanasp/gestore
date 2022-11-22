@@ -6,13 +6,11 @@ const productos= async () =>{
         mode: 'cors',
         cache: 'no-cache',
         }).then(response => response.json()).then(data => datos=data);
-
     let products=[];
     for (let i=0;i<16;i++){
         products.push(datos[i]);
     }
     let imagenes = await getImages(products);
-
     let padre = document.getElementById("inicio");
     let contador =0;
     products.forEach(prod => {
@@ -57,10 +55,11 @@ const getImages = async (products) => {
         mode: 'cors',
         cache: 'no-cache',
         }).then(response => response.json()).then(data => datos=data);
-
+    console.log(datos)
     let imagenes=[];
     products.forEach(prod => {
-        imagenes.push(datos[prod.image_id].image);
+        console.log(datos[prod.image_id-1]);
+        imagenes.push(datos[prod.image_id-1].image);
     });
     return imagenes;
 
@@ -80,7 +79,7 @@ const verify = async()=>{
     if(window.localStorage.getItem("token")!=null){
         window.location.replace("http://localhost:1234/index-logged.html");
     }
+    return;
 }
-
 verify();
 productos();

@@ -68,7 +68,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         // const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
         // console.log(allUsers)
-        for (let i = 1; i < 21; i++) {
+        for (let i = 1; i < 35; i++) {
             console.log(i);
             /*
             
