@@ -56,7 +56,7 @@ const getImages = async (products) => {
 
   let imagenes=[];
   products.forEach(prod => {
-      imagenes.push(datos[prod.image_id].image);
+      imagenes.push(datos[prod.image_id-1].image);
   });
   return imagenes;
 
@@ -94,13 +94,14 @@ const verify=async()=>{
         return;
     }else if(infoToken.rol==3){
         let texto = `<li><a href="pruebaGraficas.html" >Stats</a></li>
-        <li><a href="registro-ventas.html" >Ventas</a></li>`;
+        <li><a href="registro-ventas.html" >Ventas</a></li>
+        <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
 
         padre.addEventListener("load", false);
         return;
     }else{
-        let texto = `<li><a href="carrito-compra.html" >Carrito de compras</a></li>`;
+        let texto = `<li><a href="carrito-compra.html" ><img src="assets\img\cart.png" class="opt"></a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
 
         padre.addEventListener("load", false);
@@ -116,4 +117,4 @@ const logout = () =>{
 productos();
 verify();
 
-document.getElementById("logOut").addEventListener("click", logout, false)
+document.getElementById("logOut").addEventListener("click", logout, false);

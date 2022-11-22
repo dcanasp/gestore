@@ -68,7 +68,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         // const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
         // console.log(allUsers)
-        for (let i = 1; i < 35; i++) {
+        for (let i = 1; i < 32; i++) {
             console.log(i);
             /*
             
@@ -95,7 +95,7 @@ function main() {
               const addProductos = await prisma.producto.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
                 data:{
                     user_id: Math.floor(Math.random()* await maximoUsuario()),//es una promesa, NO UN DATO
-                    image_id: Math.floor(Math.random()*2 +logicaImagen(producto)),
+                    image_id: Math.floor(Math.random()*2+1 +logicaImagen(producto)),
                     nombre: producto,
                     descripcion: getDescripcion(producto),
                     stock: Math.floor(Math.random()*30),

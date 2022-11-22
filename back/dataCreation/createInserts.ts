@@ -65,7 +65,7 @@ async function main() {
   // const allUsers = await prisma.usuario.findMany() //select * from prisma.TABLE... 
   // console.log(allUsers)
 
-for(let i =1;i<15;i++){
+for(let i =1;i<32;i++){
   console.log(i);
 /*
 
@@ -92,7 +92,7 @@ let producto = getProducto();
   const addProductos = await prisma.producto.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
     data:{
         user_id: Math.floor(Math.random()* await maximoUsuario()),//es una promesa, NO UN DATO
-        image_id: Math.floor(Math.random()*2 +logicaImagen(producto)),
+        image_id: Math.floor(Math.random()*2+1 +logicaImagen(producto)),
         nombre: producto,
         descripcion: getDescripcion(producto),
         stock: Math.floor(Math.random()*30),
@@ -102,6 +102,7 @@ let producto = getProducto();
     
     })
 */
+
 
   const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
     data:{

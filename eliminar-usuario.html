@@ -54,7 +54,6 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="services.html">Services</a></li>
-          <a class="active" href="blog.html">Blog</a></li>
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -105,10 +104,8 @@
 
                 <h3 class="sidebar-title">Buscar Usuario</h3>
                 <div class="sidebar-item search-form">
-                  <form action="">
-                    <input type="text">
-                    <button type="submit"><i class="bi bi-search"></i></button>
-                  </form>
+                    <input type="text" id="busqueda">
+                    <button  id="search"><i class="bi bi-search"></i></button>
                 </div><!-- End sidebar search formn-->
   
                 <h3 class="sidebar-title">Usuario</h3>
@@ -122,7 +119,7 @@
                 <div class="information-usuarios">
                     <label> Email </label>
                     <div class="form">
-                        <input class="input" placeholder="" required="" type="text" id="emial" disabled="disabled">
+                        <input class="input" placeholder="" required="" type="text" id="email" disabled="disabled">
                         <span class="input-border"></span>
                       </div>
                     </div >
@@ -135,7 +132,7 @@
                       </div>
                     
                 </div>
-                    <button class="learn-more">
+                    <button class="learn-more" id="eliminar">
                         <span class="circle" aria-hidden="true">
                         <span class="icon arrow"></span>
                         </span>

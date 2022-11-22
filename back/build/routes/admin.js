@@ -45,6 +45,17 @@ admin.get('/getAllUsers', user_1.auth0, function (req, res) {
         }
     });
 });
+admin.get('/getUserUnique', user_1.auth0, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!rolVerified(req.token)) {
+            res.status(400).send("Rol no permitido");
+        }
+        else {
+            console.log("segundo");
+            res.send(yield (0, getDatabase_1.getUserEmail)(req));
+        }
+    });
+});
 admin.get('/getAllClients', user_1.auth0, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!rolVerified(req.token)) {

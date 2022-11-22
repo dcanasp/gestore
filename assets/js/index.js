@@ -57,6 +57,7 @@ const getImages = async (products) => {
         }).then(response => response.json()).then(data => datos=data);
     console.log(datos)
     let imagenes=[];
+    console.log(products)
     products.forEach(prod => {
         console.log(datos[prod.image_id-1]);
         imagenes.push(datos[prod.image_id-1].image);

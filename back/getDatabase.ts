@@ -244,7 +244,7 @@ export const deleteUser = async (req:Request) =>{
   let userId = Number(req.query.user_id) 
 
   //Verificación usuario
-  if(userId!=((req as CustomRequest).token as TokenVerificacion).user_id){
+  if((userId!=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
     console.log(userId);
     console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
     return "NO TIENE PERMISO POR TOKEN"
@@ -295,6 +295,23 @@ export const getOneSeller = async (product_id:number) => {
       }
   })
     return allUProducts?.user_id;
+  
+  }
+  catch(e:any){
+    console.error(e);
+    await prisma.$disconnect();
+    return false;
+  }
+}
+
+export const getUserEmail = async (req:Request) => {
+  try{
+    const user = await prisma.usuario.findFirst({ //select * from prisma.TABLE where user_id=1
+      where: {
+        email:String(req.query.email),
+      }
+  })
+    return user;
   
   }
   catch(e:any){
