@@ -101,8 +101,6 @@ let producto = getProducto();
         }
     
     })
-*/
-
 
   const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
     data:{
@@ -113,6 +111,7 @@ let producto = getProducto();
       
   })
 
+*/
 
 }
 }

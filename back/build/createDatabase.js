@@ -28,6 +28,7 @@ const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
             },
             data: {
                 estado: 0,
+                //TODO
             }
         });
         return "funciono, usuario eliminado ";
@@ -134,6 +135,7 @@ const createUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
                 email: nuevo.email,
                 estado: 1,
             }
+            //TODO
         });
         //@ts-ignore
         let importantes = { user_id: yield (0, exports.getOneUser)(nuevo.username), rol: nuevo.rol };

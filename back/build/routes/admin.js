@@ -58,7 +58,7 @@ admin.get('/getUserUnique', user_1.auth0, function (req, res) {
 });
 admin.get('/getAllClients', user_1.auth0, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (!rolVerified(req.token)) {
+        if (rolVerified(req.token) == false) {
             res.status(400).send("Rol no permitido");
         }
         else {

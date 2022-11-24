@@ -39,6 +39,7 @@ export const deleteUser = async (req:Request) =>{
               },
             data: {
                 estado:0,
+                //TODO
             }
         
         });
@@ -175,6 +176,7 @@ export const createUser = async (req:Request) =>{
             email: nuevo.email,
             estado: 1,
         }
+        //TODO
     });
     //@ts-ignore
     let importantes: TokenCreacion= {user_id: await getOneUser(nuevo.username) ,rol:nuevo.rol} 

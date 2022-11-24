@@ -104,14 +104,17 @@ function main() {
                     }
                 
                 })
-            */
-            const getCompra = yield prisma.compra.create({
-                data: {
-                    user_id: Math.ceil(Math.random() * (yield maximoUsuario())),
-                    fecha: (new Date()).toString(),
-                    product_id: Math.ceil(Math.random() * (yield maximoProducto())),
+            
+              const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
+                data:{
+                  user_id: Math.ceil(Math.random()* await maximoUsuario()),//es una promesa, NO UN DATO
+                  fecha: (new Date()).toString(),
+                  product_id: Math.ceil(Math.random()* await maximoProducto()),
                 }
-            });
+                  
+              })
+            
+            */
         }
     });
 }

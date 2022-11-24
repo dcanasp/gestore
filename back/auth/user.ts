@@ -47,11 +47,11 @@ export function auth0(req:Request,res:Response,next:NextFunction){
   //const decoded = jwt.verify(token,env.ACCESS_TOKEN_SECRET as Secret);
   jwt2.verify(token, env.ACCESS_TOKEN_SECRET as Secret, (err: any, verifiedJwt: any) => {
     if(err){
-      next()
+      next();
       throw new Error();
     }else{
       (req as CustomRequest).token = verifiedJwt.body;
-      next()
+      next();
       return;
     }
   })
@@ -61,6 +61,7 @@ export function auth0(req:Request,res:Response,next:NextFunction){
   // next();
   // return;
   } catch (error) {
+    console.log(error);
     res.status(401).send('Mala Autenticacion');  
     return;  
   }
