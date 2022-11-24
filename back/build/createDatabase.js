@@ -9,10 +9,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pruebaPost = exports.createCompra = exports.createProduct = exports.createUser = exports.getOneUser = exports.getOneSeller = exports.editProduct = exports.editUser = void 0;
+exports.pruebaPost = exports.createCompra = exports.createProduct = exports.createUser = exports.getOneUser = exports.getOneSeller = exports.editProduct = exports.editUser = exports.deleteUser = void 0;
 const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
+const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    let userId = Number(req.query.user_id);
+    //Verificación usuario
+    if ((userId != req.token.user_id) && (req.token.rol != 3)) {
+        console.log(userId);
+        console.log(req.token.user_id);
+        return "NO TIENE PERMISO POR TOKEN";
+    }
+    try {
+        const remove = yield prisma.usuario.update({
+            where: {
+                user_id: Number(req.query.user_id),
+            },
+            data: {
+                estado: 0,
+            }
+        });
+        return "funciono, usuario eliminado ";
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.deleteUser = deleteUser;
 const editUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let cambios = req.body;
@@ -107,7 +131,8 @@ const createUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
                 username: nuevo.username,
                 password: nuevo.password,
                 rol: nuevo.rol,
-                email: nuevo.email
+                email: nuevo.email,
+                estado: 1,
             }
         });
         //@ts-ignore

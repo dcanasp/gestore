@@ -21,6 +21,34 @@ type TokenCreacion = {
     rol: number,
 }
 
+export const deleteUser = async (req:Request) =>{
+
+    let userId = Number(req.query.user_id) 
+  
+    //Verificación usuario
+    if((userId!=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
+      console.log(userId);
+      console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
+      return "NO TIENE PERMISO POR TOKEN"
+  }
+  
+    try {
+        const remove = await prisma.usuario.update({
+            where: {
+                user_id:Number(req.query.user_id),
+              },
+            data: {
+                estado:0,
+            }
+        
+        });
+        return "funciono, usuario eliminado ";
+    }
+    catch (err) {
+        console.log(err);
+    }
+  }
+
 export const editUser = async (req:Request) =>{
     try {
     type usuarios ={
@@ -144,7 +172,8 @@ export const createUser = async (req:Request) =>{
             username: nuevo.username,
             password: nuevo.password,
             rol: nuevo.rol,
-            email: nuevo.email
+            email: nuevo.email,
+            estado: 1,
         }
     });
     //@ts-ignore

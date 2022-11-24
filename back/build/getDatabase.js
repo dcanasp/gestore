@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserEmail = exports.getOneSeller = exports.deleteProduct = exports.deleteUser = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProductSell = exports.getProduct = exports.getImagen = exports.getUser = exports.getRol = void 0;
+exports.getUserEmail = exports.getOneSeller = exports.deleteProduct = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProductSell = exports.getProduct = exports.getImagen = exports.getUser = exports.getRol = void 0;
 const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
@@ -214,27 +214,6 @@ const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getAllImages = getAllImages;
-const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    let userId = Number(req.query.user_id);
-    //Verificación usuario
-    if ((userId != req.token.user_id) && (req.token.rol != 3)) {
-        console.log(userId);
-        console.log(req.token.user_id);
-        return "NO TIENE PERMISO POR TOKEN";
-    }
-    try {
-        const deleteUser = yield prisma.usuario.delete({
-            where: {
-                user_id: Number(req.query.user_id),
-            },
-        });
-        return "persona eliminada";
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
-exports.deleteUser = deleteUser;
 const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const seller = yield (0, exports.getOneSeller)(req.body.product_id);

@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
-import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct, getUserEmail} from '../getDatabase' //lectura
-import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from '../createDatabase' //Post
+import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages,deleteProduct, getUserEmail} from '../getDatabase' //lectura
+import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost,deleteUser} from '../createDatabase' //Post
 import {createToken,auth0} from "../auth/user"
 const cors = require('cors');
 const admin = express.Router();

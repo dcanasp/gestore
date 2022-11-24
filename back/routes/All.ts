@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
-import {getRol,getUser,getImagen,getProduct,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from '../getDatabase' //lectura
-import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from '../createDatabase' //Post
+import {getRol,getUser,getImagen,getProduct,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteProduct} from '../getDatabase' //lectura
+import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost, deleteUser} from '../createDatabase' //Post
 import {createToken,auth0} from "../auth/user"
 
 export interface CustomRequest extends Request{
@@ -87,7 +87,7 @@ general.post('/pruebaPost',createToken,async (req:Request,res:Response) => {
     );
 }); 
 //MUCHO CUIDADO TOCA
-general.get('/deleteUser',auth0, async function(req:Request,res:Response){
+general.post('/deleteUser',auth0, async function(req:Request,res:Response){
   res.send(
     await deleteUser(req)
     );

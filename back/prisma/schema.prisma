@@ -41,7 +41,8 @@ model usuario {
   username String?    @db.VarChar(1024)
   password String?    @db.VarChar(1024)
   rol      Int?
-  email    String?    @db.VarChar(1024)
+  email    String?    @unique(map: "email_unico") @db.VarChar(1024)
+  estado   Int
   compra   compra[]
   producto producto[]
 }
