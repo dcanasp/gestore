@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
-import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from '../getDatabase' //lectura
-import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from '../createDatabase' //Post
+import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages,deleteProduct} from '../getDatabase' //lectura
+import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost,deleteUser} from '../createDatabase' //Post
 import { auth0 } from "../auth/user";
 
 type TokenVerificacion = {

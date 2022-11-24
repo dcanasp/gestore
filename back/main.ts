@@ -4,8 +4,8 @@
 //npx prisma db pull
 //npx prisma generate
 import express, { NextFunction, Request, Response } from "express";
-import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteUser,deleteProduct} from './getDatabase' //lectura
-import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost} from './createDatabase' //Post
+import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages,deleteProduct} from './getDatabase' //lectura
+import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost,deleteUser} from './createDatabase' //Post
 import { products,client,image } from "./types"; //basura pero lo dejo como vestijio por si lo tenemos que volver a hacer
 import general from "./routes/All";
 import buy from "./routes/buyer";

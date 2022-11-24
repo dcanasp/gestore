@@ -239,29 +239,6 @@ export const getAllImages = async () => {
 }
 
 
-export const deleteUser = async (req:Request) =>{
-
-  let userId = Number(req.query.user_id) 
-
-  //Verificación usuario
-  if((userId!=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
-    console.log(userId);
-    console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
-    return "NO TIENE PERMISO POR TOKEN"
-}
-
-  try {
-    const deleteUser = await prisma.usuario.delete({
-      where: {
-          user_id: Number(req.query.user_id),
-        },
-  });
-  return "persona eliminada";
-  }
-  catch (err) {
-      console.log(err);
-  }
-}
 export const deleteProduct = async (req:Request) =>{
   
    try {

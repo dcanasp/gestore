@@ -13,24 +13,28 @@ const search =async()=>{
             'Authorization': 'Bearer '+localStorage.getItem('token')
           }
         }).then(response => response.json()).then(data => user=data);
-    document.getElementById('name').value=user.username;
-    document.getElementById('email').value=user.email;
-    if(user.rol==1){
-        document.getElementById('rol').value='Comprador';
-    }else{
-        document.getElementById('rol').value='Vendedor';
+    if(user.estado==1){
+        document.getElementById('name').value=user.username;
+        document.getElementById('email').value=user.email;
+        if(user.rol==1){
+            document.getElementById('rol').value='Comprador';
+        }else{
+            document.getElementById('rol').value='Vendedor';
+        }
+        console.log(user);
+        window.localStorage.setItem('userRemove',user.user_id );
     }
-    return user;
 
 }
 
 const remove = async() =>{
 
-    let user_id = await search().user_id;
-    console.log(user_id);
+
+    //NO DELETE UPDATE CON EMAIL 
+
+    let user_id = window.localStorage.getItem('userRemove');
     if(user_id!=undefined){
         let url = 'http://localhost:3000/deleteUser/?user_id='+user_id;
-        console.log(url);
         let user;
         const x = await fetch(url, {
             method : "POST",
@@ -39,9 +43,9 @@ const remove = async() =>{
             headers: {
                 'Authorization': 'Bearer '+localStorage.getItem('token')
               }
-            }).then(response => response.json());
+            }).then(response => response.text());
     }
-    console.log("LLEGUE")
+    window.alert('Usuario eliminado');
 
 }
 
