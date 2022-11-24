@@ -15,69 +15,50 @@ const producto = async () => {
     .then((data) => (datos = data));
 
   let imagen = await getImages(datos);
-  let padre = document.getElementById("detalleProducto");
-  let texto = creacion(datos, imagen);
+  let padre = document.getElementById("image");
+  let texto = creacion(imagen);
   padre.innerHTML = padre.innerHTML + texto;
   //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
   padre.parentNode.insertBefore(padre, padre);
+
+  let padre1 = document.getElementById("info");
+  let texto1 = creacion1(datos);
+  padre1.innerHTML = padre1.innerHTML + texto1;
+  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  padre.parentNode.insertBefore(padre1, padre1);
+
+  let padre2 = document.getElementById("info");
+  let texto2 = creacion2(datos);
+  padre2.innerHTML = padre2.innerHTML + texto2;
+  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  padre.parentNode.insertBefore(padre2, padre2);
+
 };
 
-const creacion = (product, imagen) => {
+const creacion = (imagen) => {
   let x = `
-    <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
-      <div class="container">
+    <img src="${imagen}" alt="">
+    `;
+  return x;
+};
 
-        <div class="row gy-4">
+const creacion1 = (product) => {
+  let x = `
+    <li><strong>Nombre</strong>: ${product.categoria}</li>
+    <li><strong>Categoria</strong>: ${product.categoria}</li>
+    <li><strong>Vendedor</strong>: ${product.user_id}</li>
+    <li><strong>Precio</strong>: ${product.precio}</li>
+    <li><strong>Stock</strong>: ${product.stock}</li>
+    `;
+  return x;
+};
 
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
-
-                <div class="swiper-slide">
-                  <img src="${imagen}" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-2.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-3.jpg" alt="">
-                </div>
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
-
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>Informacion del producto</h3>
-              <ul>
-                <li><strong>Categoria</strong>: ${product.categoria}</li>
-                <li><strong>Vendedor</strong>: ${product.user_id}</li>
-                <li><strong>Precio</strong>: ${product.precio}</li>
-                <li><strong>Stock</strong>: ${product.stock}</li>
-                <li><button>Eliminar</button></li>
-                <li style="text-align: center"><button>Editar</button></li>
-                
-                
-                
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>Descripcion</h2>
-              <p>
-                ${product.descripcion}
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Portfolio Details Section -->
+const creacion2 = (product) => {
+  let x = `
+    <h2>Descripcion</h2>
+    <p>
+    ${product.descripcion}
+    </p>
     `;
   return x;
 };
@@ -95,4 +76,18 @@ const getImages = async (product) => {
   return datos;
 };
 
+const edit = async () => {
+  let url = "http://localhost:3000/SELLER/editProduct/";
+  let datos;
+  const x = await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+  })
+    .then((response) => response.text())
+    .then((data) => (datos = data));
+};
+
 producto();
+
+document.getElementById('eliminar').addEventListener('click', edit, false)
