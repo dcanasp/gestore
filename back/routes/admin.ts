@@ -63,7 +63,7 @@ admin.get('/getUserUnique',auth0,async function(req:Request,res:Response){
     });
 
 admin.get('/getAllClients',auth0,async function(req:Request,res:Response){
-  if(!rolVerified((req as CustomRequest).token as TokenVerificacion)){
+  if(rolVerified((req as CustomRequest).token as TokenVerificacion)==false){
     res.status(400).send("Rol no permitido");
   }else{
     res.send(

@@ -112,9 +112,10 @@ const verify=async()=>{
 const logout = () =>{
     window.localStorage.removeItem('token');
     window.location.replace("http://localhost:1234/index.html");
+    return;
 }
 
 productos();
 verify();
 
-document.getElementById("logOut").addEventListener("click", logout, false);
+document.getElementById("logOut").addEventListener("click", logout);    
