@@ -14,24 +14,25 @@ const producto = async () => {
     .then((response) => response.json())
     .then((data) => (datos = data));
 
+  window-localStorage.setItem("producto", JSON.stringify(datos))
+  
   let imagen = await getImages(datos);
   let padre = document.getElementById("image");
   let texto = creacion(imagen);
   padre.innerHTML = padre.innerHTML + texto;
-  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
   padre.parentNode.insertBefore(padre, padre);
 
   let padre1 = document.getElementById("info");
   let texto1 = creacion1(datos);
   padre1.innerHTML = padre1.innerHTML + texto1;
   //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre.parentNode.insertBefore(padre1, padre1);
+  padre1.parentNode.insertBefore(padre1, padre1);
 
-  let padre2 = document.getElementById("info");
+  let padre2 = document.getElementById("descripcion");
   let texto2 = creacion2(datos);
   padre2.innerHTML = padre2.innerHTML + texto2;
   //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre.parentNode.insertBefore(padre2, padre2);
+  padre2.parentNode.insertBefore(padre2, padre2);
 
 };
 
@@ -44,7 +45,7 @@ const creacion = (imagen) => {
 
 const creacion1 = (product) => {
   let x = `
-    <li><strong>Nombre</strong>: ${product.categoria}</li>
+    <li><strong>Nombre</strong>: ${product.nombre}</li>
     <li><strong>Categoria</strong>: ${product.categoria}</li>
     <li><strong>Vendedor</strong>: ${product.user_id}</li>
     <li><strong>Precio</strong>: ${product.precio}</li>
@@ -77,17 +78,65 @@ const getImages = async (product) => {
 };
 
 const edit = async () => {
-  let url = "http://localhost:3000/SELLER/editProduct/";
-  let datos;
-  const x = await fetch(url, {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-  })
-    .then((response) => response.text())
-    .then((data) => (datos = data));
+
+  let producto = JSON.parse(window.localStorage.getItem("producto"));
+
+  let padre2 = document.getElementById("info");
+  let texto2 = edicion(producto);
+  padre2.innerHTML = texto2;
+  padre2.parentNode.insertBefore(padre2, padre2);
+
+  document.getElementById('ya').addEventListener("click", editar)
+
+ 
 };
+
+const edicion = (product) => {
+  let x = `
+    <li><strong>Nombre</strong>: <input id="nombre" value="${product.nombre}"></li>
+    <li><strong>Categoria</strong>: <input id="Categoria" value="${product.categoria}"></li>
+    <li><strong>Precio</strong>: <input id="precio" value="${product.precio}"></li>
+    <li><strong>Stock</strong>: <input id="stock" value="${product.stock}"></li>
+    <input type="button" value="confirmar" id= "ya">
+    `;
+  return x;
+};
+
+const editar = async () => {
+
+  let producto = JSON.parse(window.localStorage.getItem("producto"));
+
+  let body={
+    product_id: Number(producto.product_id),
+    nombre: String(document.getElementById("nombre").value),
+    descripcion: String(producto.descripcion),
+    stock: Number(document.getElementById("stock").value),
+    precio: Number(document.getElementById("precio").value),
+    categoria: Number(document.getElementById("Categoria").value)
+  }
+  try{
+    let url = "http://localhost:3000/SELL/editProduct/";
+    let datos;
+    const x = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        'Authorization': 'Bearer '+localStorage.getItem('token'),
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+      .then((response) =>  texto=response.text())
+      .then((data) => (datos = data));
+      console.log(texto)
+      window.location.reload();
+  }catch(e){
+
+  }
+
+}
 
 producto();
 
-document.getElementById('eliminar').addEventListener('click', edit, false)
+document.getElementById('editar').addEventListener('click', edit);
