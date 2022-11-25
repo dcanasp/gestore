@@ -25,7 +25,7 @@
       
         <!-- Template Main CSS File -->
         <link href="assets/css/style.css" rel="stylesheet">
-      
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <!-- =======================================================
         * Template Name: Eterna - v4.9.1
         * Template URL: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/
@@ -46,6 +46,7 @@
        
         </div>
 
+    
         <div>
           <nav id="navbar" class="navbar">
             <ul>
@@ -53,8 +54,8 @@
                 <img src="assets/img/cart.png" class="nav-link dropdown-toggle img-fluid" height="70px"
                     width="70px" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false"></img>
-                <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
-                    <table id="lista-carrito" class="table">
+                    <ul>
+                      <table id="lista-carrito" class="table">
                         <thead>
                             <tr>
                                 <th>Imagen</th>
@@ -65,16 +66,15 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-
                     <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
-                    <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
-                        Compra</a>
-                </div>
+                    <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar Compra</a>
+                    </ul>
               </li>    
               <li><a href="index.html">Home</a></li>
-              <li><a class="active" href="about.html">About</a></li>
+              <li><a class="" href="about.html">About</a></li>
               <li><a href="services.html">Services</a></li>
-              <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+              <li class="dropdown">
+                <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
                   <li><a href="#">Drop Down 1</a></li>
                   <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -113,7 +113,7 @@
                         <h4 class="my-0 font-weight-bold">Producto 1</h4>
                     </div>
                     <div class="card-body">
-                        <img src="" class="card-img-top">
+                        <img src="assets/img/portfolio/portfolio-1.jpg" class="card-img-top">
                         <h1 class="card-title pricing-card-title precio">$ <span class="">5000</span></h1>
 
                         <ul class="list-unstyled mt-3 mb-4">
@@ -131,7 +131,7 @@
                         <h4 class="my-0 font-weight-bold">Producto 2</h4>
                     </div>
                     <div class="card-body">
-                        <img src="" class="card-img-top">
+                        <img src="assets/img/portfolio/portfolio-2.jpg" class="card-img-top">
                         <h1 class="card-title pricing-card-title precio">$ <span class="">3000</span></h1>
 
                         <ul class="list-unstyled mt-3 mb-4">
@@ -149,8 +149,13 @@
         </div>
     </main>
 
+
     <script src="assets/js/carrito.js"></script>
     <script src="assets/js/pedido.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
+
 
       
 
