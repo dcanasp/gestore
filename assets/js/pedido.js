@@ -15,4 +15,6 @@ function cargarEventos(){
     //Al vaciar carrito
     vaciarCarritoBtn.addEventListener('click', (e)=>{carro.vaciarCarrito(e)});
 
+    document.addEventListener('DOMContentLoaded', carro.leerLocalStorage());
+
 }

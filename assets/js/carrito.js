@@ -29,6 +29,7 @@ class Carrito {
             <td>${producto.precio}</td>
         `;
         listaProductos.appendChild(row);
+        this.guardarProductosLocalStorage(producto);
     }
 
     vaciarCarrito(e){
@@ -37,6 +38,54 @@ class Carrito {
             listaProductos.removeChild(listaProductos.firstChild);
         }
         return false;
+    }
+
+    guardarProductosLocalStorage(producto){
+        let productos;
+        productos = this.obtenerProductosLocalStorage();
+        productos.push(producto);
+        localStorage.setItem('productos', JSON.stringify(productos));
+    }
+
+    obtenerProductosLocalStorage(){
+        let productoLS;
+
+        if(localStorage.getItem('productos') === null){
+            productoLS = [];
+        }else{
+            productoLS = JSON.parse(localStorage.getItem('productos'));
+        }
+        return productoLS;
+
+    }
+
+    eliminarProductoLocalStorage(productoID){
+        let productoLS;
+        productoLS = this.obtenerProductosLocalStorage();
+        productoLS.forEach(function(productoLS, index){
+            if(productoLS.id === productoID){
+                productoLS.splice(index, 1);
+            }
+        });
+
+        localStorage.setItem('productos', JSON.stringify(productoLS));
+    }
+
+    leerLocalStorage(){
+        let productosLS;
+        productosLS = this.obtenerProductosLocalStorage();
+        productosLS.forEach(function(producto){
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>
+                <img src="${producto.imagen}" width=100>
+            </td>
+            <td>${producto.titulo}</td>
+            <td>${producto.precio}</td>
+        `;
+        listaProductos.appendChild(row);
+
+        });
     }
 
    
