@@ -5,4 +5,6 @@ cargarEventos();
 
 function cargarEventos(){
     document.addEventListener('DOMContentLoaded', compra.leerLocalStorageCompra());
+
+    compra.calcularTotal();
 }
