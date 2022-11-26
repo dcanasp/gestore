@@ -93,6 +93,11 @@ class Carrito {
         localStorage.clear();
     }
 
+    procesarPedido(e){
+        e.preventDefault();
+        location.href = "compra.html";
+    }
+
    
 
 
