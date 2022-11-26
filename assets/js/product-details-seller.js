@@ -93,11 +93,11 @@ const edit = async () => {
 
 const edicion = (product) => {
   let x = `
-    <li><strong>Nombre</strong>: <input id="nombre" value="${product.nombre}"></li>
-    <li><strong>Categoria</strong>: <input id="Categoria" value="${product.categoria}"></li>
-    <li><strong>Precio</strong>: <input id="precio" value="${product.precio}"></li>
-    <li><strong>Stock</strong>: <input id="stock" value="${product.stock}"></li>
-    <input type="button" value="confirmar" id= "ya">
+    <li style="text-align: center"><strong>Nombre</strong>: <input id="nombre" value="${product.nombre}"></li>
+    <li style="text-align: center"><strong>Categoria</strong>: <input id="Categoria" value="${product.categoria}"></li>
+    <li style="text-align: center"><strong>Precio</strong>: <input id="precio" value="${product.precio}"></li>
+    <li style="text-align: center"><strong>Stock</strong>: <input id="stock" value="${product.stock}"></li>
+    <li style="text-align: center"><input type="button" value="Confirmar" class="btn btn-success" id= "ya"></li>
     `;
   return x;
 };
