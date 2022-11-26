@@ -62,8 +62,7 @@ export const getRol = async (req:Request) =>{
   }
   catch (e:any) {//no se pudo conectar a base de datos
     console.error(e);
-    await prisma.$disconnect();
-    return false;
+    return "Algo salió mal";
     //process.exit(1);
   };
 }
@@ -96,8 +95,7 @@ export const getUser = async (req:Request,next:NextFunction) =>{
 
 catch (e:any) {//no se pudo conectar a base de datos
   console.error(e);
-  await prisma.$disconnect();
-  return false;
+  return "Algo salió mal";
   //process.exit(1);
 };
 }
@@ -133,7 +131,7 @@ catch(e){
   catch(e){
     await prisma.$disconnect();
     console.log(e);
-    return;
+    return "Algo salió mal";
   }
 }
 
@@ -152,9 +150,8 @@ export const getProduct = async (req: Request) => {
     return oneProduct;
 }
 catch(e){
-    await prisma.$disconnect();
     console.log(e);
-    return;
+    return "Algo salió mal";
 }
 
 }
@@ -179,9 +176,8 @@ export const getProductSell = async (req: Request) => {
     return productsSell;
 }
 catch(e){
-    await prisma.$disconnect();
     console.log(e);
-    return;
+    return "Algo salió mal";
 }
 
 }
@@ -195,7 +191,6 @@ export const getAllUser = async () => {
     return allUsers;
   }
   catch(e){
-    await prisma.$disconnect();
     return []
   }
 }
@@ -207,7 +202,6 @@ export const getAllProducts =async () => { //TODO: no le pongaany a todo
     return allProducts;
   }
   catch(e){
-    await prisma.$disconnect();
     return []
   }  
 }
@@ -219,7 +213,6 @@ export const getAllCompras = async ()  => { //TODO: no le pongaany a todo
     return allCompras;
 }
 catch(e){
-  await prisma.$disconnect();
   return []
 }
 
@@ -233,7 +226,6 @@ export const getAllImages = async () => {
     return allimages;
   }
   catch(e){
-    await prisma.$disconnect();
     return []
   }
 }
@@ -261,6 +253,7 @@ export const deleteProduct = async (req:Request) =>{
   }
   catch (err) {
       console.log(err);
+      return "Algo salió mal";
   }
 }
 
@@ -276,8 +269,7 @@ export const getOneSeller = async (product_id:number) => {
   }
   catch(e:any){
     console.error(e);
-    await prisma.$disconnect();
-    return false;
+    return "Algo salió mal";
   }
 }
 
@@ -293,7 +285,6 @@ export const getUserEmail = async (req:Request) => {
   }
   catch(e:any){
     console.error(e);
-    await prisma.$disconnect();
-    return false;
+    return "Algo salió mal";
   }
 }
