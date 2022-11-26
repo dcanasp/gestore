@@ -194,7 +194,8 @@ export const createProduct = async (req:Request) =>{
         nombre: string,
         descripcion: string,
         stock: number,
-        precio: number
+        precio: number,
+        categoria: number
     } //si no llega un string (un undefined),salte a error
     let nuevo = req.body as product;
 
@@ -213,6 +214,7 @@ export const createProduct = async (req:Request) =>{
             descripcion: nuevo.descripcion,
             stock: nuevo.stock,
             precio: nuevo.precio,
+            categoria: nuevo.categoria,
         }
         
     });  
