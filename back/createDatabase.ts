@@ -47,6 +47,7 @@ export const deleteUser = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
   }
 
@@ -82,6 +83,7 @@ export const editUser = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 
 }
@@ -123,6 +125,7 @@ export const editProduct = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 }
 
@@ -139,7 +142,7 @@ export const getOneSeller = async (product_id:number) => {
     catch(e:any){
       console.error(e);
       await prisma.$disconnect();
-      return false;
+      return "Algo salió mal";
     }
   }
 
@@ -155,8 +158,7 @@ export const getOneUser = async (username:string) => {
     }
     catch(e:any){
       console.error(e);
-      await prisma.$disconnect();
-      return false;
+      return "Algo salió mal";
     }
   }
   
@@ -186,6 +188,7 @@ export const createUser = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 }
 export const createProduct = async (req:Request) =>{
@@ -224,6 +227,7 @@ export const createProduct = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 }
 export const createCompra = async (req:Request) =>{
@@ -254,6 +258,7 @@ export const createCompra = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 }
 
