@@ -1,16 +1,18 @@
 const createNew= async() =>{
 
     let token = await(decode());
-    let categoria = Number(document.getElementById('Categoria').value)+1;
+    let categoriaNew = Number(document.getElementById('categoria').value);
+    console.log(categoriaNew);
+
 
     let data={
         user_id: Number(token.user_id),
-        image_id: Number((categoria*2)-Math.random(1)),
+        image_id: Number((categoriaNew*2)-getRandomInt(2)),
         nombre: String(document.getElementById('nombre').value),
         descripcion: String(document.getElementById('descripcion').value),
         stock: Number(document.getElementById('stock').value),
         precio: Number(document.getElementById('precio').value),
-        categoria: categoria
+        categoria: Number(categoriaNew),
     }
 
     try{
@@ -25,7 +27,7 @@ const createNew= async() =>{
                 'Content-Type':'application/json'
             },
             body: JSON.stringify(data)
-        }).then(response => response.json()).then(data => datos=data);
+        }).then(response => response.text());
 
         window.location.replace("http://localhost:1234/services.html");
     }catch(e){
@@ -47,5 +49,10 @@ const decode= async() =>{
       ).then(response => response.json()).then(data => infoToken=data);
     return infoToken;
 }
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+  
 
 document.getElementById('new').addEventListener('click',createNew,false)

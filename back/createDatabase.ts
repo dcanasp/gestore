@@ -255,8 +255,6 @@ export const createCompra = async (req:Request) =>{
     }
 }
 
-
-
 export const pruebaPost = (req:Request, res:Response) => {
     //console.log(req.body);
     

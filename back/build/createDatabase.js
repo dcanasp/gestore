@@ -163,6 +163,7 @@ const createProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
                 descripcion: nuevo.descripcion,
                 stock: nuevo.stock,
                 precio: nuevo.precio,
+                categoria: nuevo.categoria,
             }
         });
         return "producto creado";
