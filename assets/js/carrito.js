@@ -95,7 +95,13 @@ class Carrito {
 
     procesarPedido(e){
         e.preventDefault();
-        location.href = "compra.html";
+
+        if(this.obtenerProductosLocalStorage().length === 0){
+            window.alert('el carrito esta vacio');
+        }
+        else {
+            location.href = "compra.html";
+        }
     }
 
    
