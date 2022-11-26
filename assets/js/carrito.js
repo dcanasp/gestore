@@ -27,12 +27,19 @@ class Carrito {
             </td>
             <td>${producto.titulo}</td>
             <td>${producto.precio}</td>
-            <td>
-                <a href="#" class="borrar-producto fas fa-times-circle data-id="${producto.id}"></a>
-            </td>
         `;
         listaProductos.appendChild(row);
     }
+
+    vaciarCarrito(e){
+        e.preventDefault();
+        while(listaProductos.firstChild){
+            listaProductos.removeChild(listaProductos.firstChild);
+        }
+        return false;
+    }
+
+   
 
 
 }
