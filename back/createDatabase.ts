@@ -89,6 +89,7 @@ export const editProduct = async (req:Request) =>{
     try {
     type product ={
         product_id: number,
+        image_id:number,
         nombre: string,
         descripcion: string,
         stock: number,
@@ -111,6 +112,7 @@ export const editProduct = async (req:Request) =>{
           },
         data: {
             nombre: cambios.nombre,
+            image_id: cambios.image_id,
             descripcion: cambios.descripcion,
             stock: cambios.stock,
             precio: cambios.precio,

@@ -80,6 +80,7 @@ const editProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
             },
             data: {
                 nombre: cambios.nombre,
+                image_id: cambios.image_id,
                 descripcion: cambios.descripcion,
                 stock: cambios.stock,
                 precio: cambios.precio,

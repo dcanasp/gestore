@@ -12,7 +12,7 @@ const createNew= async() =>{
         descripcion: String(document.getElementById('descripcion').value),
         stock: Number(document.getElementById('stock').value),
         precio: Number(document.getElementById('precio').value),
-        categoria: Number(categoriaNew),
+        categoria: Number(categoriaNew-1),
     }
 
     try{

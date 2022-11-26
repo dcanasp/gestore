@@ -44,9 +44,24 @@ const creacion = (imagen) => {
 };
 
 const creacion1 = (product) => {
+  let cat;
+  if(product.categoria==0){
+    cat= 'Mouse';
+  }else if(product.categoria==1){
+    cat= 'Teclado';
+  }else if(product.categoria==2){
+    cat= 'WebCam';
+  }else if(product.categoria==3){
+    cat= 'Altavoces';
+  }else if(product.categoria==4){
+    cat= 'Cable Ethernet';
+  }else{
+    cat= 'Pantalla';
+  }
+
   let x = `
     <li><strong>Nombre</strong>: ${product.nombre}</li>
-    <li><strong>Categoria</strong>: ${product.categoria}</li>
+    <li><strong>Categoria</strong>: ${cat}</li>
     <li><strong>Vendedor</strong>: ${product.user_id}</li>
     <li><strong>Precio</strong>: ${product.precio}</li>
     <li><strong>Stock</strong>: ${product.stock}</li>
@@ -86,6 +101,12 @@ const edit = async () => {
   padre2.innerHTML = texto2;
   padre2.parentNode.insertBefore(padre2, padre2);
 
+  let padre3 = document.getElementById("descripcion");
+  let texto3 = '';
+  padre3.innerHTML = texto3;
+  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  padre3.parentNode.insertBefore(padre3, padre3);
+
   document.getElementById('ya').addEventListener("click", editar)
 
  
@@ -94,9 +115,19 @@ const edit = async () => {
 const edicion = (product) => {
   let x = `
     <li style="text-align: center"><strong>Nombre</strong>: <input id="nombre" value="${product.nombre}"></li>
-    <li style="text-align: center"><strong>Categoria</strong>: <input id="Categoria" value="${product.categoria}"></li>
+    <li style="text-align: center" ><strong style="padding: 10px">Categoria:</strong>
+                    <select name="categoria" id="categoria" value=${product.categoria}>
+                      <option value=0>Mouse</option>
+                      <option value=1>Teclado</option>
+                      <option value=2>WebCam</option>
+                      <option value=3>Altavoces</option>
+                      <option value=4>Cable Ethernet</option>
+                      <option value=5>Pantalla</option>
+                    </select>
+                    </li>
     <li style="text-align: center"><strong>Precio</strong>: <input id="precio" value="${product.precio}"></li>
     <li style="text-align: center"><strong>Stock</strong>: <input id="stock" value="${product.stock}"></li>
+    <li style="text-align: center"><strong style="padding: 5px">Descripción:</strong><textarea name="descripcion" id = "newDescrip" cols="25" rows="2" >${product.descripcion}</textarea></li>
     <li style="text-align: center"><input type="button" value="Confirmar" class="btn btn-success" id= "ya"></li>
     `;
   return x;
@@ -106,13 +137,16 @@ const editar = async () => {
 
   let producto = JSON.parse(window.localStorage.getItem("producto"));
 
+  let categoriaNew = Number(document.getElementById('categoria').value);
+
   let body={
     product_id: Number(producto.product_id),
+    image_id: Number(((categoriaNew+1)*2)-getRandomInt(2)),
     nombre: String(document.getElementById("nombre").value),
-    descripcion: String(producto.descripcion),
+    descripcion: String(document.getElementById("newDescrip").value),
     stock: Number(document.getElementById("stock").value),
     precio: Number(document.getElementById("precio").value),
-    categoria: Number(document.getElementById("Categoria").value)
+    categoria: Number(categoriaNew)
   }
   try{
     let url = "http://localhost:3000/SELL/editProduct/";
@@ -135,6 +169,10 @@ const editar = async () => {
 
   }
 
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
 
 producto();
