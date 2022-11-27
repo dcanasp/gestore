@@ -14,86 +14,63 @@ const producto = async () =>{
       }).then(response => response.json()).then(data => datos=data);
 
   let imagen = await getImages(datos);
-  let padre = document.getElementById("detalleProducto");
-  let texto = creacion(datos, imagen);
-  // padre.innerHTML = padre.innerHTML + texto;
-  padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre.parentNode.insertBefore(padre, padre);
+  let padre1 = document.getElementById("imagen-producto");
+  let texto = creacion1(imagen);
+  padre1.innerHTML = padre1.innerHTML + texto;
+  // padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  padre1.parentNode.insertBefore(padre1, padre1);
+  let padre2 = document.getElementById("product-info");
+  texto = creacion2(datos);
+  // padre2.innerHTML = padre2.innerHTML + texto;
+  padre2.innerHTML = texto + padre2.innerHTML;// por si lo quiero alrevez
+  padre2.parentNode.insertBefore(padre2, padre2);
+  let padre3 = document.getElementById("product-description");
+  texto = creacion3(datos);
+  padre3.innerHTML = padre3.innerHTML + texto;
+  // padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  padre3.parentNode.insertBefore(padre3, padre3);
   document.getElementById("quantity").setAttribute("max",datos.stock)
 };
 
-const creacion = (product,imagen) =>{
-
-  let cat;
-  if(product.categoria==0){
-    cat='No definida'
-  }else if(product.categoria==1){
-    cat= 'Mouse';
-  }else if(product.categoria==2){
-    cat= 'Teclado';
-  }else if(product.categoria==3){
-    cat= 'WebCam';
-  }else if(product.categoria==4){
-    cat= 'Altavoces';
-  }else if(product.categoria==5){
-    cat= 'Cable Ethernet';
-  }else{
-    cat= 'Pantalla';
+const creacion1 = (imagen) =>{
+    let x = `<img src="${imagen}" alt="">`
+    return x;
   }
 
+  const creacion2 = (product) =>{
+    let cat;
+    if(product.categoria==0){
+      cat='No definida'
+    }else if(product.categoria==1){
+      cat= 'Mouse';
+    }else if(product.categoria==2){
+      cat= 'Teclado';
+    }else if(product.categoria==3){
+      cat= 'WebCam';
+    }else if(product.categoria==4){
+      cat= 'Altavoces';
+    }else if(product.categoria==5){
+      cat= 'Cable Ethernet';
+    }else{
+      cat= 'Pantalla';
+    }
+    let x = `<h3>Informacion del producto</h3>
+    <ul>
+      <li><strong>Categoria</strong>: ${cat}</li>
+      <li><strong>Vendedor</strong>: ${product.user_id}</li>
+      <li><strong>Precio</strong>: ${product.precio}</li>
+      <li><strong>Stock</strong>: ${product.stock}</li>
+       
+    </ul>`
+    return x;
+  }
+  const creacion3 = (product) =>{
     let x = `
-    <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
-
-                <div class="swiper-slide">
-                  <img src="${imagen}" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-2.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-3.jpg" alt="">
-                </div>
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
-
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>Informacion del producto</h3>
-              <ul>
-                <li><strong>Categoria</strong>: ${cat}</li>
-                <li><strong>Vendedor</strong>: ${product.user_id}</li>
-                <li><strong>Precio</strong>: ${product.precio}</li>
-                <li><strong>Stock</strong>: ${product.stock}</li>
-                 
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>Descripcion</h2>
-              <p>
-                ${product.descripcion}
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Portfolio Details Section -->
-    `
-      return x;
+    <h2>Descripcion</h2>
+    <p>
+      ${product.descripcion}
+    </p>`
+    return x;
   }
 
 const getImages = async (product) => {
@@ -137,7 +114,7 @@ const verify=async()=>{
         padre.addEventListener("load", false);
         return;
     }else{
-        let texto = `<li><a href="carrito-compra.html" ><img src="assets\img\cart.png" class="opt"></a></li>`;
+        let texto = `<li><a href="carrito-compra.html"><img src="assets\img\cart.png" class="opt"></a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
   
         padre.addEventListener("load", false);
