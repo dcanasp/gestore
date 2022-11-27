@@ -9,8 +9,6 @@ import general from "./routes/All";
 import buy from "./routes/buyer";
 import sell from "./routes/seller";
 import admin from "./routes/admin";
-import google from "./google";
-//import cors from "cors";
 const cors = require('cors');
 
 const app = express();
@@ -21,13 +19,7 @@ app.use("/",general);
 app.use("/BUY/",buy);
 app.use("/SELL/",sell);
 app.use("/ADMIN/",admin);
-app.use("/GOOGLE/",google);
-//node types y express types  
-function logger(req:Request,res:Response,next:NextFunction){
-    console.log("prueba");
-    next();
-    return;
-}
+
 
 app.listen(3000, function () {
   console.log('el back esta corriendo en el puerto 3000, no olviden instanciar ambas terminales con front y back...');
