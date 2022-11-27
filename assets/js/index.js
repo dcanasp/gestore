@@ -7,7 +7,7 @@ const productos= async () =>{
         cache: 'no-cache',
         }).then(response => response.json()).then(data => datos=data);
     let products=[];
-    for (let i=0;i<16;i++){
+    for (let i=0;i<datos.length;i++){
         products.push(datos[i]);
     }
     let imagenes = await getImages(products);

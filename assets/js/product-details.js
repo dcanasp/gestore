@@ -23,6 +23,24 @@ const producto = async () =>{
 };
 
 const creacion = (product,imagen) =>{
+
+  let cat;
+  if(product.categoria==0){
+    cat='No definida'
+  }else if(product.categoria==1){
+    cat= 'Mouse';
+  }else if(product.categoria==2){
+    cat= 'Teclado';
+  }else if(product.categoria==3){
+    cat= 'WebCam';
+  }else if(product.categoria==4){
+    cat= 'Altavoces';
+  }else if(product.categoria==5){
+    cat= 'Cable Ethernet';
+  }else{
+    cat= 'Pantalla';
+  }
+
     let x = `
     <!-- ======= Portfolio Details Section ======= -->
     <section id="portfolio-details" class="portfolio-details">
@@ -55,7 +73,7 @@ const creacion = (product,imagen) =>{
             <div class="portfolio-info">
               <h3>Informacion del producto</h3>
               <ul>
-                <li><strong>Categoria</strong>: ${product.categoria}</li>
+                <li><strong>Categoria</strong>: ${cat}</li>
                 <li><strong>Vendedor</strong>: ${product.user_id}</li>
                 <li><strong>Precio</strong>: ${product.precio}</li>
                 <li><strong>Stock</strong>: ${product.stock}</li>

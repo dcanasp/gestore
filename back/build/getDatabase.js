@@ -51,7 +51,6 @@ const getRol = (req) => __awaiter(void 0, void 0, void 0, function* () {
     catch (e) { //no se pudo conectar a base de datos
         console.error(e);
         throw new Error("Algo salio mal");
-        return "Algo salió mal";
         //process.exit(1);
     }
     ;
