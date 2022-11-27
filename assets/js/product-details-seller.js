@@ -128,8 +128,8 @@ const edicion = (product) => {
                       <option value=0>Otro</option>
                     </select>
                     </li>
-    <li style="text-align: center"><strong>Precio</strong>: <input id="precio" value="${product.precio}"></li>
-    <li style="text-align: center"><strong>Stock</strong>: <input id="stock" value="${product.stock}"></li>
+    <li style="text-align: center"><strong>Precio</strong>: <input type="number" id="precio" value="${product.precio}"></li>
+    <li style="text-align: center"><strong>Stock</strong>: <input type="number" id="stock" value="${product.stock}"></li>
     <li style="text-align: center"><strong style="padding: 5px">Descripcion:</strong><textarea name="descripcion" id = "newDescrip" cols="25" rows="2" >${product.descripcion}</textarea></li>
     <li style="text-align: center"><input type="button" value="Confirmar" class="btn btn-success" id= "ya"></li>
     `;
