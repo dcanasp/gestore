@@ -1,4 +1,5 @@
 const verify=async()=>{
+  if(localStorage.getItem('token')!=undefined){
     let infoToken;
     let url = 'http://localhost:3000/decodeToken/';
     const x = await fetch(url, {
@@ -12,6 +13,9 @@ const verify=async()=>{
     if(infoToken.rol!=3){
       window.location.replace("http://localhost:1234/");
     }
+  }else{
+    window.location.replace("http://localhost:1234/index.html/");
+  }
 }
 
 const search =async()=>{

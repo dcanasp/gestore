@@ -73,39 +73,45 @@ function prueba(e){
 }
 
 const verify=async()=>{
-    let infoToken;
-    let url = 'http://localhost:3000/decodeToken/';
-    const x = await fetch(url, {
-      method : "GET",
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: {
-        'Authorization': 'Bearer '+localStorage.getItem('token')
-      }}
-      ).then(response => response.json()).then(data => infoToken=data);
-      
-      let padre = document.getElementById("buttons");
-      
-    if(infoToken.rol==2){
-        let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
-        padre.innerHTML = padre.innerHTML + texto;
+    if(window.localStorage.getItem('token')!=undefined){
 
-        padre.addEventListener("load", false);
-        return;
-    }else if(infoToken.rol==3){
-        let texto = `<li><a href="pruebaGraficas.html" >Stats</a></li>
-        <li><a href="registro-ventas.html" >Ventas</a></li>
-        <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
-        padre.innerHTML = padre.innerHTML + texto;
+        let infoToken;
+        let url = 'http://localhost:3000/decodeToken/';
+        const x = await fetch(url, {
+          method : "GET",
+          mode: 'cors',
+          cache: 'no-cache',
+          headers: {
+            'Authorization': 'Bearer '+localStorage.getItem('token')
+          }}
+          ).then(response => response.json()).then(data => infoToken=data);
+          
+          let padre = document.getElementById("buttons");
+          
+        if(infoToken.rol==2){
+            let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
+            padre.innerHTML = padre.innerHTML + texto;
+    
+            padre.addEventListener("load", false);
+            return;
+        }else if(infoToken.rol==3){
+            let texto = `<li><a href="pruebaGraficas.html" >Stats</a></li>
+            <li><a href="registro-ventas.html" >Ventas</a></li>
+            <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
+            padre.innerHTML = padre.innerHTML + texto;
+    
+            padre.addEventListener("load", false);
+            return;
+        }else{
+            document.getElementById('carrito').setAttribute('style','display:block;');
+            padre.innerHTML = padre.innerHTML + texto;
+    
+            padre.addEventListener("load", false);
+            return;
+        }
 
-        padre.addEventListener("load", false);
-        return;
     }else{
-        let texto = `<li><a href="carrito-compra.html">Malparido</a></li>`;
-        padre.innerHTML = padre.innerHTML + texto;
-
-        padre.addEventListener("load", false);
-        return;
+        window.location.replace("http://localhost:1234/index.html");
     }
 }
 
