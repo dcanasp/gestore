@@ -50,8 +50,7 @@ const getRol = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) { //no se pudo conectar a base de datos
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        throw new Error("Algo salio mal");
         //process.exit(1);
     }
     ;
@@ -66,6 +65,7 @@ const getUser = (req, next) => __awaiter(void 0, void 0, void 0, function* () {
         const users = yield prisma.usuario.findFirst({
             where: {
                 username: req.params.username,
+                estado: 1,
             }
         });
         if (users == null || users == undefined || users.password == null || users.password == undefined) { //esto se pude resumir en users?.
@@ -83,8 +83,7 @@ const getUser = (req, next) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) { //no se pudo conectar a base de datos
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        return "Algo salio mal";
         //process.exit(1);
     }
     ;
@@ -120,7 +119,7 @@ const getImagen = (req) => __awaiter(void 0, void 0, void 0, function* () {
         catch (e) {
             yield prisma.$disconnect();
             console.log(e);
-            return;
+            return "Algo salio mal";
         }
     }
 });
@@ -138,15 +137,14 @@ const getProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
         return oneProduct;
     }
     catch (e) {
-        yield prisma.$disconnect();
         console.log(e);
-        return;
+        return "Algo salio mal";
     }
 });
 exports.getProduct = getProduct;
 const getProductSell = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //Verificación usuario
+        //Verificacion usuario
         if (Number(req.params.user_id) != req.token.user_id) {
             console.log(Number(req.params.user_id));
             console.log(req.token.user_id);
@@ -163,9 +161,8 @@ const getProductSell = (req) => __awaiter(void 0, void 0, void 0, function* () {
         return productsSell;
     }
     catch (e) {
-        yield prisma.$disconnect();
         console.log(e);
-        return;
+        return "Algo salio mal";
     }
 });
 exports.getProductSell = getProductSell;
@@ -175,7 +172,6 @@ const getAllUser = () => __awaiter(void 0, void 0, void 0, function* () {
         return allUsers;
     }
     catch (e) {
-        yield prisma.$disconnect();
         return [];
     }
 });
@@ -186,7 +182,6 @@ const getAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
         return allProducts;
     }
     catch (e) {
-        yield prisma.$disconnect();
         return [];
     }
 });
@@ -198,7 +193,6 @@ const getAllCompras = () => __awaiter(void 0, void 0, void 0, function* () {
         return allCompras;
     }
     catch (e) {
-        yield prisma.$disconnect();
         return [];
     }
 });
@@ -209,7 +203,6 @@ const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
         return allimages;
     }
     catch (e) {
-        yield prisma.$disconnect();
         return [];
     }
 });
@@ -217,7 +210,7 @@ exports.getAllImages = getAllImages;
 const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const seller = yield (0, exports.getOneSeller)(req.body.product_id);
-        //Verificación usuario
+        //Verificacion usuario
         if ((seller != req.token.user_id) && (req.token.rol != 3)) {
             console.log(seller);
             console.log(req.token.user_id);
@@ -232,6 +225,7 @@ const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
+        return "Algo salio mal";
     }
 });
 exports.deleteProduct = deleteProduct;
@@ -246,8 +240,7 @@ const getOneSeller = (product_id) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (e) {
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        return "Algo salio mal";
     }
 });
 exports.getOneSeller = getOneSeller;
@@ -262,8 +255,7 @@ const getUserEmail = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) {
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        return "Algo salio mal";
     }
 });
 exports.getUserEmail = getUserEmail;

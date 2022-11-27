@@ -25,7 +25,7 @@ export const deleteUser = async (req:Request) =>{
 
     let userId = Number(req.query.user_id) 
   
-    //Verificación usuario
+    //Verificacion usuario
     if((userId!=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
       console.log(userId);
       console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
@@ -47,7 +47,7 @@ export const deleteUser = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
-        return "Algo salió mal";
+        return "Algo salio mal";
     }
   }
 
@@ -61,7 +61,7 @@ export const editUser = async (req:Request) =>{
     } //si no llega un string (un undefined),salte a error
     let cambios = req.body as usuarios;
 
-    //Verificación usuario
+    //Verificacion usuario
     if(cambios.user_id!=((req as CustomRequest).token as TokenVerificacion).user_id){
         console.log(cambios.user_id);
         console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
@@ -83,7 +83,7 @@ export const editUser = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
-        return "Algo salió mal";
+        return "Algo salio mal";
     }
 
 }
@@ -101,7 +101,7 @@ export const editProduct = async (req:Request) =>{
 
     const seller = await getOneSeller(req.body.product_id);
 
-    //Verificación usuario
+    //Verificacion usuario
     if((seller !=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
         console.log(seller);
         console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
@@ -125,7 +125,7 @@ export const editProduct = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
-        return "Algo salió mal";
+        return "Algo salio mal";
     }
 }
 
@@ -142,7 +142,7 @@ export const getOneSeller = async (product_id:number) => {
     catch(e:any){
       console.error(e);
       await prisma.$disconnect();
-      return "Algo salió mal";
+      return "Algo salio mal";
     }
   }
 
@@ -158,7 +158,7 @@ export const getOneUser = async (username:string) => {
     }
     catch(e:any){
       console.error(e);
-      return "Algo salió mal";
+      return "Algo salio mal";
     }
   }
   
@@ -188,7 +188,7 @@ export const createUser = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
-        return "Algo salió mal";
+        return "Algo salio mal";
     }
 }
 export const createProduct = async (req:Request) =>{
@@ -204,7 +204,7 @@ export const createProduct = async (req:Request) =>{
     } //si no llega un string (un undefined),salte a error
     let nuevo = req.body as product;
 
-    //Verificación usuario
+    //Verificacion usuario
     if(nuevo.user_id !=((req as CustomRequest).token as TokenVerificacion).user_id){
         console.log(nuevo.user_id);
         console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
@@ -227,7 +227,7 @@ export const createProduct = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
-        return "Algo salió mal";
+        return "Algo salio mal";
     }
 }
 export const createCompra = async (req:Request) =>{
@@ -258,7 +258,7 @@ export const createCompra = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
-        return "Algo salió mal";
+        return "Algo salio mal";
     }
 }
 

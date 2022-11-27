@@ -46,14 +46,16 @@ const creacion = (imagen) => {
 const creacion1 = (product) => {
   let cat;
   if(product.categoria==0){
-    cat= 'Mouse';
+    cat='No definida'
   }else if(product.categoria==1){
-    cat= 'Teclado';
+    cat= 'Mouse';
   }else if(product.categoria==2){
-    cat= 'WebCam';
+    cat= 'Teclado';
   }else if(product.categoria==3){
-    cat= 'Altavoces';
+    cat= 'WebCam';
   }else if(product.categoria==4){
+    cat= 'Altavoces';
+  }else if(product.categoria==5){
     cat= 'Cable Ethernet';
   }else{
     cat= 'Pantalla';
@@ -117,17 +119,18 @@ const edicion = (product) => {
     <li style="text-align: center"><strong>Nombre</strong>: <input id="nombre" value="${product.nombre}"></li>
     <li style="text-align: center" ><strong style="padding: 10px">Categoria:</strong>
                     <select name="categoria" id="categoria" value=${product.categoria}>
-                      <option value=0>Mouse</option>
-                      <option value=1>Teclado</option>
-                      <option value=2>WebCam</option>
-                      <option value=3>Altavoces</option>
-                      <option value=4>Cable Ethernet</option>
-                      <option value=5>Pantalla</option>
+                      <option value=1>Mouse</option>
+                      <option value=2>Teclado</option>
+                      <option value=3>WebCam</option>
+                      <option value=4>Altavoces</option>
+                      <option value=5>Cable Ethernet</option>
+                      <option value=6>Pantalla</option>
+                      <option value=0>Otro</option>
                     </select>
                     </li>
     <li style="text-align: center"><strong>Precio</strong>: <input id="precio" value="${product.precio}"></li>
     <li style="text-align: center"><strong>Stock</strong>: <input id="stock" value="${product.stock}"></li>
-    <li style="text-align: center"><strong style="padding: 5px">Descripción:</strong><textarea name="descripcion" id = "newDescrip" cols="25" rows="2" >${product.descripcion}</textarea></li>
+    <li style="text-align: center"><strong style="padding: 5px">Descripcion:</strong><textarea name="descripcion" id = "newDescrip" cols="25" rows="2" >${product.descripcion}</textarea></li>
     <li style="text-align: center"><input type="button" value="Confirmar" class="btn btn-success" id= "ya"></li>
     `;
   return x;
@@ -138,15 +141,21 @@ const editar = async () => {
   let producto = JSON.parse(window.localStorage.getItem("producto"));
 
   let categoriaNew = Number(document.getElementById('categoria').value);
+  let image;
+    if(categoriaNew==0){
+      image=1;
+    }else{
+      image= (categoriaNew*2)+getRandomInt(2);
+    }
 
   let body={
     product_id: Number(producto.product_id),
-    image_id: Number(((categoriaNew+1)*2)-getRandomInt(2)),
+    image_id: Number(image),
     nombre: String(document.getElementById("nombre").value),
     descripcion: String(document.getElementById("newDescrip").value),
     stock: Number(document.getElementById("stock").value),
     precio: Number(document.getElementById("precio").value),
-    categoria: Number(categoriaNew)
+    categoria: Number(categoriaNew+1)
   }
   try{
     let url = "http://localhost:3000/SELL/editProduct/";
