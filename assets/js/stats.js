@@ -1,4 +1,3 @@
-
 const verify=async()=>{
     let infoToken;
     let url = 'http://localhost:3000/decodeToken/';
@@ -15,4 +14,12 @@ const verify=async()=>{
     }
 }
 
+const logout = () =>{
+  window.localStorage.removeItem('token');
+  window.location.replace("http://localhost:1234/index.html");
+  return;
+}
+
 verify()
+
+document.getElementById("logOut").addEventListener("click", logout);    

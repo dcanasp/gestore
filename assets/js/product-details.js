@@ -19,8 +19,6 @@ const producto = async () =>{
   //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
   padre.parentNode.insertBefore(padre, padre);
 };
-    
-
 
 const creacion = (product,imagen) =>{
     let x = `
@@ -77,8 +75,6 @@ const creacion = (product,imagen) =>{
       return x;
   }
 
-
-
 const getImages = async (product) => {
     let url = 'http://localhost:3000/getImages/' + product.image_id;
     let datos;
@@ -90,4 +86,45 @@ const getImages = async (product) => {
     return datos;
 }
     
+const verify=async()=>{
+  if(localStorage.getItem('token')!=undefined){
+    let infoToken;
+    let url = 'http://localhost:3000/decodeToken/';
+    const x = await fetch(url, {
+      method : "GET",
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {
+        'Authorization': 'Bearer '+localStorage.getItem('token')
+      }}
+      ).then(response => response.json()).then(data => infoToken=data);
+      
+      let padre = document.getElementById("buttons");
+    console.log(infoToken.rol);
+    if(infoToken.rol==2){
+        let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
+        padre.innerHTML = padre.innerHTML + texto;
+  
+        padre.addEventListener("load", false);
+        return;
+    }else if(infoToken.rol==3){
+        let texto = `<li><a href="pruebaGraficas.html" >Stats</a></li>
+        <li><a href="registro-ventas.html" >Ventas</a></li>
+        <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
+        padre.innerHTML = padre.innerHTML + texto;
+  
+        padre.addEventListener("load", false);
+        return;
+    }else{
+        let texto = `<li><a href="carrito-compra.html" ><img src="assets\img\cart.png" class="opt"></a></li>`;
+        padre.innerHTML = padre.innerHTML + texto;
+  
+        padre.addEventListener("load", false);
+        return;
+  }
+  }
+}
+
+verify();
+
 producto();
