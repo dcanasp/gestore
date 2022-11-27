@@ -233,6 +233,7 @@ export const createProduct = async (req:Request) =>{
 export const createCompra = async (req:Request) =>{
     try {
     type compra ={
+        compra_id: number,
         user_id: number,
         fecha: string,//new Date()
         product_id: number,
@@ -246,6 +247,7 @@ export const createCompra = async (req:Request) =>{
     }
     const getCompra = await prisma.compra.create({ //insert into ... (SI LO CORREN OTRA VEZ SE VA A CREAR, aqui pondria las funciones de creacion de datos y nice)
         data:{
+          compra_id: nuevo.compra_id,
           user_id: nuevo.user_id,
           fecha: nuevo.fecha,
           product_id: nuevo.product_id,

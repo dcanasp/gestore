@@ -17,7 +17,7 @@ export interface CustomRequest extends Request{
 }
 
 sell.post('/editProduct',auth0,async (req:Request,res:Response) => {
-  if(!rolVerified2((req as CustomRequest).token as TokenVerificacion)){
+  if(!rolVerified((req as CustomRequest).token as TokenVerificacion)){
     res.send(console.error());
   }else{
     res.send(
@@ -60,16 +60,6 @@ sell.get('/getProducts/:user_id',auth0,async function(req:Request,res:Response){
 
 function rolVerified(token: TokenVerificacion){
   if(token.rol!=2){
-    
-    console.log(token.rol);
-    
-    return false;
-}
-return true;
-}
-
-function rolVerified2(token: TokenVerificacion){
-  if(token.rol==1){
     
     console.log(token.rol);
     

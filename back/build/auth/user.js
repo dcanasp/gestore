@@ -57,7 +57,7 @@ function auth0(req, res, next) {
     catch (error) {
         console.log(error);
         res.status(401).send('Mala Autenticacion');
-        return "Algo salio mal";
+        return;
     }
 }
 exports.auth0 = auth0;

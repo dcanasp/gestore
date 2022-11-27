@@ -1,4 +1,44 @@
-function eliminarDupe(carritou){
+// const compra = new Carrito();
+// const listaCompra = document.getElementById('lista-compra tbody');
+// const carrito = document.getElementById('carrito');
+// const procesarCompraBtn = document.getElementById('procesar-pedido');
+// const cliente = document.getElementById('cliente');
+// const correo = document.getElementById('correo');
+
+// cargarEventos();
+
+// function cargarEventos(){
+//     document.addEventListener('DOMContentLoaded', compra.leerLocalStorageCompra());
+
+//     compra.calcularTotal();
+
+//     procesarCompraBtn.addEventListener('click', procesarCompra);
+
+// }
+
+// function procesarCompra(){
+//     e.preventDefault();
+
+//     if(cliente.value === '' || correo.value === ''){
+//         window.alert('Ingresa todos los campos requeridos');
+//     }else{
+//         const cargandoGif = document.getElementById('cargando');
+//         cargandoGif.style.display = 'block';
+//     }
+
+    
+// }
+const getImages = async (product) => {
+    let url = 'http://localhost:3000/getImages/' + product.image_id;
+    let datos;
+    const x = await fetch(url, {
+        method : "GET",
+        mode: 'cors',
+        cache: 'no-cache',
+        }).then(response => response.text()).then(data => datos=data);
+    return datos;
+}
+ function eliminarDupe(carritou){
     let x = new Set()
     carritou.forEach(e => {
         flag = false;
@@ -44,13 +84,9 @@ const carritouw=async()=>{
         cache: 'no-cache',
       }).then(response => response.json()).then(data => datos=data);
         cantidad = product.quantity;
-        let quantity = cantidad;
-        if(cantidad>datos.stock){
-            quantity = datos.stock;
-        }
-        sum = sum + datos.precio * quantity;
+        sum = sum + datos.precio * cantidad;
         let padre = document.getElementById("carritou");
-        let texto = creacion(datos, quantity);
+        let texto = creacion(datos, cantidad);
         // padre.innerHTML = padre.innerHTML + texto;
         padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
         padre.parentNode.insertBefore(padre, padre);
@@ -77,125 +113,12 @@ const creacion = (product, cantidad) =>{
     <td>${product.precio}</td>
     <td>${cantidad}</td>
     <td>${product.precio * cantidad}</td>
-    <td><input type="button" id="remove" value="Eliminar" onClick= "remove(${product.product_id})"></input></td>
     </tr>
     `
       return x;
   }
 
-const comprar = async() =>{
-
-    let user = await decode();
-    console.log(user.user_id);
-
-    let x = localStorage.getItem("carrito").split("+")
-    let carritou= new Set();
-    x.forEach(e => {
-        let y = e.split("/")
-        let r = {"product_id": y[0], "quantity": y[1]}
-        carritou.add(r)  
-    })
-    console.log(carritou);
-    carritou = eliminarDupe(carritou)
-    let data;
-    let body;
-    carritou.forEach(async (product) => {
-
-        let url0 = 'http://localhost:3000/getProduct/'+product.product_id;
-        let datos0;
-        const x0 = await fetch(url0, {
-            method : "GET",
-            mode: 'cors',
-            cache: 'no-cache',
-        }).then(response => response.json()).then(data => datos0=data);
-
-        let quantity = Number(product.quantity);
-        if(Number(cantidad)>Number(datos0.stock)){
-            quantity = Number(datos0.stock);
-        }
-        data ={
-            user_id: Number(user.user_id),
-            fecha: new Date(Date.now()).toString(),
-            product_id: Number(product.product_id),
-        }
-    
-        let url = 'http://localhost:3000/BUY/createCompra/';
-            let datos;
-            const x = await fetch(url, {
-                method : "POST",
-                mode: 'cors',
-                cache: 'no-cache',
-                headers: {
-                    'Authorization': 'Bearer '+localStorage.getItem('token'),
-                    'Content-Type':'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(response => datos = response.text());
-            if(datos=="Algo salio mal"){
-                console.log("NO SE PUDO REALIZAR COMPRA")
-            }else{
-                body={
-                    product_id:Number(product.product_id),
-                    stock: Number(Number(datos0.stock)-quantity)
-                  }
-                    let url = "http://localhost:3000/SELL/editProduct/";
-                    let texto;
-                    const x = await fetch(url, {
-                      method: "POST",
-                      mode: "cors",
-                      cache: "no-cache",
-                      headers: {
-                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMSwicm9sIjozLCJpYXQiOjE2NjkyNTQ2MTk5OTh9.8NmD-5J5ffsfXRGN2htCJDQ1YCT_aMGl6r95Hm9O7Gs',
-                        'Content-Type':'application/json'
-                      },
-                      body: JSON.stringify(body)
-                    })
-                      .then((response) =>  texto=response.text())
-                      .then((data) => (datos = data));
-                    if(texto=="Algo salio mal"){
-                        console.log("NO SE PUDO REALIZAR COMPRA")
-                    }
-                window.localStorage.removeItem('carrito');
-                window.location.replace("http://localhost:1234/index-logged.html/");
-            }
-
-    })
 
 
-    window.location.reload;
-
-}
-
-const decode= async() =>{
-    let infoToken;
-    let url = 'http://localhost:3000/decodeToken/';
-    const x = await fetch(url, {
-      method : "GET",
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: {
-        'Authorization': 'Bearer '+localStorage.getItem('token')
-      }}
-      ).then(response => response.json()).then(data => infoToken=data);
-    return infoToken;
-}
-
-function remove(product_id){
-
-    let x = localStorage.getItem("carrito").split("+")
-    let newCarrito='';
-    x.forEach(e => {
-        let y = e.split("/")
-        if(Number(y[0])!=product_id){
-            newCarrito+=e+'+';
-        }
-    })
-    newCarrito=newCarrito.substring(0, newCarrito.length-1)
-    localStorage.setItem('carrito',newCarrito)
-    window.location.reload();
-
-}
 
 carritouw();
-
-document.getElementById('comprar').addEventListener('click', comprar)
