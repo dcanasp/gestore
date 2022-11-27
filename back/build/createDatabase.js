@@ -189,7 +189,6 @@ const createCompra = (req) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const getCompra = yield prisma.compra.create({
             data: {
-                compra_id: nuevo.compra_id,
                 user_id: nuevo.user_id,
                 fecha: nuevo.fecha,
                 product_id: nuevo.product_id,
