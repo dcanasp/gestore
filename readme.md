@@ -59,5 +59,7 @@ Para usar se instancian las 2 terminales una en back y otra en front.
 ## Contact
 
 David Cañas - dcanasp@unal.edu.co
+Sebastian Sarmiento - jsarmientopu@unal.edu.co
+Esteban Lopez - eslopezb@unal.edu.co
 
 Project Link: [https://github.com/dcanasp/gestore.git](https://github.com/dcanasp/gestore.git)
