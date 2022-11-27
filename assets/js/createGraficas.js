@@ -1,6 +1,7 @@
 const tipoGrafica = ['bar','doughnut'];
 let grafica=0;
-let config;
+let configBar;
+let configDona;
 let myChart;
 const crearChart = async () => {
 let datos;
@@ -38,7 +39,7 @@ for(let k=0;k<usuarios.length;k++){
 nombres = await getNombres(nombres);
 console.log(nombres);
 
-const data = {
+const datosGrafica = {
 labels: nombres,
 datasets: [{
     label: 'cantidad',
@@ -69,9 +70,9 @@ datasets: [{
 }]
 };
 
-config = {
-type:tipoGrafica[grafica],//bar,bubble,doughnut,pie,line,radar
-data: data,
+configBar = {
+type:'bar',//bar,bubble,doughnut,pie,line,radar
+data: datosGrafica,
 options: {
     scales: {
     y: {
@@ -80,7 +81,6 @@ options: {
         ticks: {
             stepSize: 1
         }
-
         }
     },
     title:{
@@ -108,16 +108,54 @@ options: {
     }
     }
 };
-drawGrafica();
+configDona = {
+type:'doughnut',//bar,bubble,doughnut,pie,line,radar
+data: datosGrafica,
+options: {
+    scales: {
+    y: {
+        max: Math.max.apply(Math, cantidad)+1,
+        min: 0,
+        ticks: {
+            stepSize: 1
+        }
+        }
+    },
+    title:{
+        display:true,
+        text:'ID_vendedor vs cuanto ha vendido',
+        fontSize:25
+    },
+    legend:{
+        display:false, //parte de la derecha que dice quien es cada grafica
+        position:'right',
+        labels:{
+        fontColor:'#000'
+        }
+    },
+    layout:{
+        padding:{
+        left:50,
+        right:0,
+        bottom:0,
+        top:0
+        }
+    },
+    tooltips:{
+        enabled:true
+    }
+    }
+};
+drawGrafica(configBar);
 }
-const drawGrafica = () =>{
+const drawGrafica = (configuracion) =>{
     myChart =new Chart(
         document.getElementById('myChart'),
-        config
+        configuracion
         );
-    myChart.config.type = tipoGrafica[grafica]; 
+    //myChart.config.type = tipoGrafica[grafica]; 
     myChart.update();
-    }
+}
 const getNombres = async (users_id) => {
 let datos;
 const x = await fetch('http://localhost:3000/ADMIN/getAllUsers', {
@@ -126,7 +164,7 @@ const x = await fetch('http://localhost:3000/ADMIN/getAllUsers', {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer '+localStorage.getItem('token')
     }}
-    ).then(response => response.json()).then(data => datos=data);
+    ).then(response => response.json()).then(variable => datos=variable);
 let retorno = [];
 for(let j=0;j<users_id.length;j++){
     for(let i=0;i<datos.length;i++){
@@ -138,6 +176,7 @@ for(let j=0;j<users_id.length;j++){
 }
 return retorno;
 }
+
 function sort(usuarios){
 console.log(usuarios.length);
 for(i=0;i<usuarios.length;i++){
@@ -168,19 +207,23 @@ const verify=async()=>{
     }
 }
 const cambiar = () =>{
+    myChart.destroy();
     if(grafica==0){
         document.getElementById('botonCambio').setAttribute('class','btn btn-info');
         grafica=1;
+        drawGrafica(configDona);
     }
     else{
         document.getElementById('botonCambio').setAttribute('class','btn btn-danger');
         grafica=0;
+        drawGrafica(configBar);
     }
-    myChart.destroy();
-    drawGrafica();
+    //myChart.destroy();
+    //drawGrafica();
 
 }
 
 crearChart();  
 
 document.getElementById('botonCambio').addEventListener('click', cambiar, false)
+//prueba
