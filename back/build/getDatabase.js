@@ -50,8 +50,7 @@ const getRol = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) { //no se pudo conectar a base de datos
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        return "Algo salió mal";
         //process.exit(1);
     }
     ;
@@ -83,8 +82,7 @@ const getUser = (req, next) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) { //no se pudo conectar a base de datos
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        return "Algo salió mal";
         //process.exit(1);
     }
     ;
@@ -120,7 +118,7 @@ const getImagen = (req) => __awaiter(void 0, void 0, void 0, function* () {
         catch (e) {
             yield prisma.$disconnect();
             console.log(e);
-            return;
+            return "Algo salió mal";
         }
     }
 });
@@ -138,9 +136,8 @@ const getProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
         return oneProduct;
     }
     catch (e) {
-        yield prisma.$disconnect();
         console.log(e);
-        return;
+        return "Algo salió mal";
     }
 });
 exports.getProduct = getProduct;
@@ -163,9 +160,8 @@ const getProductSell = (req) => __awaiter(void 0, void 0, void 0, function* () {
         return productsSell;
     }
     catch (e) {
-        yield prisma.$disconnect();
         console.log(e);
-        return;
+        return "Algo salió mal";
     }
 });
 exports.getProductSell = getProductSell;
@@ -175,7 +171,6 @@ const getAllUser = () => __awaiter(void 0, void 0, void 0, function* () {
         return allUsers;
     }
     catch (e) {
-        yield prisma.$disconnect();
         return [];
     }
 });
@@ -186,7 +181,6 @@ const getAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
         return allProducts;
     }
     catch (e) {
-        yield prisma.$disconnect();
         return [];
     }
 });
@@ -198,7 +192,6 @@ const getAllCompras = () => __awaiter(void 0, void 0, void 0, function* () {
         return allCompras;
     }
     catch (e) {
-        yield prisma.$disconnect();
         return [];
     }
 });
@@ -209,7 +202,6 @@ const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
         return allimages;
     }
     catch (e) {
-        yield prisma.$disconnect();
         return [];
     }
 });
@@ -232,6 +224,7 @@ const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 });
 exports.deleteProduct = deleteProduct;
@@ -246,8 +239,7 @@ const getOneSeller = (product_id) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (e) {
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        return "Algo salió mal";
     }
 });
 exports.getOneSeller = getOneSeller;
@@ -262,8 +254,7 @@ const getUserEmail = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) {
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        return "Algo salió mal";
     }
 });
 exports.getUserEmail = getUserEmail;

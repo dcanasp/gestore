@@ -35,6 +35,7 @@ const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 });
 exports.deleteUser = deleteUser;
@@ -61,6 +62,7 @@ const editUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 });
 exports.editUser = editUser;
@@ -90,6 +92,7 @@ const editProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 });
 exports.editProduct = editProduct;
@@ -105,7 +108,7 @@ const getOneSeller = (product_id) => __awaiter(void 0, void 0, void 0, function*
     catch (e) {
         console.error(e);
         yield prisma.$disconnect();
-        return false;
+        return "Algo salió mal";
     }
 });
 exports.getOneSeller = getOneSeller;
@@ -120,8 +123,7 @@ const getOneUser = (username) => __awaiter(void 0, void 0, void 0, function* () 
     }
     catch (e) {
         console.error(e);
-        yield prisma.$disconnect();
-        return false;
+        return "Algo salió mal";
     }
 });
 exports.getOneUser = getOneUser;
@@ -144,6 +146,7 @@ const createUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 });
 exports.createUser = createUser;
@@ -171,6 +174,7 @@ const createProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 });
 exports.createProduct = createProduct;
@@ -195,6 +199,7 @@ const createCompra = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
+        return "Algo salió mal";
     }
 });
 exports.createCompra = createCompra;
