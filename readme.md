@@ -3,30 +3,30 @@
 
 GESTORE
 
-Una tienda virtual, que te permite encontrar los productos tecnologicos de tu preferencia a muy buenos precios, la cual tiene roles de comprador, vendedor, administrador, y persona que solo esta viendo sin compromiso
+Una tienda virtual, que te permite encontrar los productos tecnologicos de tu preferencia a muy buenos precios, la cual tiene roles de comprador, vendedor, administrador, y persona que solo esta viendo sin compromiso.
 
 porque usar gestore:
-* rapida y eficiente carga de los datos, todo manejado en una DB en aws 
-* La seguridad es nuestra prioridad, asi que los tokens de jwt lo van a hacer real
-* gran facilidad de uso 
+* Rapida y eficiente carga de los datos, todo manejado en una DB en AWS 
+* La seguridad es nuestra prioridad, asi que los tokens de JWT lo van a hacer real
+* Gran facilidad de uso 
 
 
-### tecnologias usadas
+### Tecnologias usadas
 
-El backend del proyecto se hizo en typescript, mientras que el front se hizo en boostrap y html5, a continuacion estan las librerias y paquetes que nos permitieron llegar a la creacion de gestore.
+El backend del proyecto se hizo en TypeScript, mientras que el front se hizo con Bootstrap y HTML5, a continuacion estan las librerias y paquetes que nos permitieron llegar a la creacion de gestore.
 
 * Typescript
 * Bootstrap
 * Primsa
 * Parcel.js
-* chart.js
+* Chart.js
 * jQuery
 * JWT
 * Express.js
 
 ## INICIO
 
-Como usar gestore, hay 2 partes de nuestro proyecto, un front y backend, en la carpeta general esta el front, y en la carpeta back, esta este mismo, deben ser ambos corridos al tiempo en distintas terminales
+Como usar gestore, hay 2 partes de nuestro proyecto, un front y backend, en la carpeta general esta el front, y en la carpeta back, esta este mismo, deben ser ambos ejecutados al tiempo en distintas terminales.
 
 
 ### Instalacion
