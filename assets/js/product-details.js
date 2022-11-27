@@ -1,3 +1,4 @@
+
 const producto = async () =>{
   let prod_id = localStorage.getItem("product_id");
   if (prod_id==undefined){
@@ -15,9 +16,10 @@ const producto = async () =>{
   let imagen = await getImages(datos);
   let padre = document.getElementById("detalleProducto");
   let texto = creacion(datos, imagen);
-  padre.innerHTML = padre.innerHTML + texto;
-  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  // padre.innerHTML = padre.innerHTML + texto;
+  padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
   padre.parentNode.insertBefore(padre, padre);
+  document.getElementById("quantity").setAttribute("max",datos.stock)
 };
 
 const creacion = (product,imagen) =>{
@@ -57,6 +59,7 @@ const creacion = (product,imagen) =>{
                 <li><strong>Vendedor</strong>: ${product.user_id}</li>
                 <li><strong>Precio</strong>: ${product.precio}</li>
                 <li><strong>Stock</strong>: ${product.stock}</li>
+                 
               </ul>
             </div>
             <div class="portfolio-description">
@@ -123,8 +126,21 @@ const verify=async()=>{
         return;
   }
   }
+
+}
+
+const comprar=()=>{
+  console.log("AYUFA");
+  if(localStorage.getItem("carrito") == undefined){
+    localStorage.setItem("carrito", localStorage.getItem("product_id") + "/" + String(document.getElementById("quantity").value))
+  }
+  else{
+    localStorage.setItem("carrito", localStorage.getItem("carrito") + "+" + localStorage.getItem("product_id") + "/" + String(document.getElementById("quantity").value))
+  }
 }
 
 verify();
 
 producto();
+
+document.getElementById("comprar1").addEventListener("click", comprar, false)

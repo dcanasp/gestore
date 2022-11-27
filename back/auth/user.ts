@@ -63,7 +63,7 @@ export function auth0(req:Request,res:Response,next:NextFunction){
   } catch (error) {
     console.log(error);
     res.status(401).send('Mala Autenticacion');  
-    return;  
+    return "Algo salio mal";  
   }
     
 }

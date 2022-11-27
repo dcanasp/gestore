@@ -23,10 +23,11 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
+  <link href="assets/css/boton.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <script src="./assets/js/product-details.js" type="module"></script>
+  <script src="assets/js/boton.js" type="module"></script>
 
 </head>
 
@@ -88,9 +89,26 @@
 
       </div>
     </section><!-- End Breadcrumbs -->
-
+    <div class="container">
+      <div class="row mb-8 justify-content-center ">
+    <div class="col-md-6 col-12">
+    <div class="row">
+    <div class="col-12">
+       <div class="d-flex justify-content-between">
+          <div>
+            <button id="comprar1" class="btn btn-success" style="display: inline-block; margin: 10px auto 10px 100px">Comprar</button>
+          </div>
+          <div class="input-group w-auto justify-content-end align-items-center">
+             <h5>Cantidad</h5>
+             <input id="quantity" type="number" step="1" max="" value="1" name="quantity" class="quantity-field border-0 text-center w-25">
+          </div>
+       </div>
+    </div>
+    </div>
+        </div>
+      </div>
     <div id="detalleProducto">
-
+    
     </div>
   </main>
   <!-- ======= Footer ======= -->
