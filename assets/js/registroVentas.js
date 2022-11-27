@@ -9,10 +9,10 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
             'Authorization': 'Bearer '+localStorage.getItem('token')
           }}
         ).then(response => response.json()).then(data => datos=data);
-    let compras=[];
-    for (let i=0;i<datos.length;i++){
-        compras.push(datos[i]);
-    }
+        let compras=[];
+        for (let i=0;i<datos.length-1;i++){
+            compras.push(datos[i]);
+        }
     let productos = await getProducts(compras);
     let usuarios= await getUsers(compras,productos);
     let padre = document.getElementById("registroVentasPadre");
