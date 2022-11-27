@@ -129,7 +129,7 @@ const verify=async()=>{
         padre.addEventListener("load", false);
         return;
     }else if(infoToken.rol==3){
-        let texto = `<li><a href="pruebaGraficas.html" >Stats</a></li>
+        let texto = `<li><a href="graficas.html" >Stats</a></li>
         <li><a href="registro-ventas.html" >Ventas</a></li>
         <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
         padre.innerHTML = padre.innerHTML + texto;

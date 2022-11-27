@@ -1,3 +1,7 @@
+const tipoGrafica = ['bar','doughnut'];
+let grafica=0;
+let config;
+let myChart;
 const crearChart = async () => {
 let datos;
 const x = await fetch('http://localhost:3000/ADMIN/getAllClients', {
@@ -31,7 +35,7 @@ for(let k=0;k<usuarios.length;k++){
     nombres.push(usuarios[k].user);
     cantidad.push(usuarios[k].cantidad);
 }
-nombres = await getNombres(nombres);//fetch
+nombres = await getNombres(nombres);
 console.log(nombres);
 
 const data = {
@@ -39,14 +43,24 @@ labels: nombres,
 datasets: [{
     label: 'cantidad',
     backgroundColor: [
-    'rgba(255, 99, 132, 0.6)',
-    'rgba(54, 162, 235, 0.6)',
-    'rgba(255, 206, 86, 0.6)',
-    'rgba(75, 192, 192, 0.6)',
-    'rgba(153, 102, 255, 0.6)',
-    'rgba(255, 159, 64, 0.6)',
-    'rgba(255, 99, 132, 0.6)'
-    ],
+    '#9B2226',
+    '#AE2012',
+    '#BB3E03',
+    '#CA6702',
+    '#EE9B00',
+    '#EDAB2A',
+    '#ECC268',
+    '#E9D8A6',
+    '#CAD6AF',
+    '#B5D5B5',
+    '#94D2BD',
+    '#0A9396',
+    '#3090A1',
+    '#558DAB',
+    '#7F8AB8',
+    '#9F7AAD',
+    '#9E6D9A',
+],
     borderWidth:1,
     borderColor:'#777',
     hoverBorderWidth:3,
@@ -55,8 +69,8 @@ datasets: [{
 }]
 };
 
-const config = {
-type: 'bar',//bar,bubble,doughnut,pie,line,radar
+config = {
+type:tipoGrafica[grafica],//bar,bubble,doughnut,pie,line,radar
 data: data,
 options: {
     scales: {
@@ -94,12 +108,16 @@ options: {
     }
     }
 };
-
-const myChart = new Chart(
-document.getElementById('myChart'),
-config
-);
+drawGrafica();
 }
+const drawGrafica = () =>{
+    myChart =new Chart(
+        document.getElementById('myChart'),
+        config
+        );
+    myChart.config.type = tipoGrafica[grafica]; 
+    myChart.update();
+    }
 const getNombres = async (users_id) => {
 let datos;
 const x = await fetch('http://localhost:3000/ADMIN/getAllUsers', {
@@ -149,5 +167,20 @@ const verify=async()=>{
       window.location.replace("http://localhost:1234/");
     }
 }
+const cambiar = () =>{
+    if(grafica==0){
+        document.getElementById('botonCambio').setAttribute('class','btn btn-info');
+        grafica=1;
+    }
+    else{
+        document.getElementById('botonCambio').setAttribute('class','btn btn-danger');
+        grafica=0;
+    }
+    myChart.destroy();
+    drawGrafica();
+
+}
 
 crearChart();  
+
+document.getElementById('botonCambio').addEventListener('click', cambiar, false)
