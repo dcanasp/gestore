@@ -101,7 +101,7 @@ const verify=async()=>{
         padre.addEventListener("load", false);
         return;
     }else{
-        let texto = `<li><a href="carrito-compra.html">Malparido</a></li>`;
+        let texto = `<li><a href="carrito-compra.html">Carrito</a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
 
         padre.addEventListener("load", false);
