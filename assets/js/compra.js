@@ -77,7 +77,7 @@ const creacion = (product, cantidad) =>{
     <td>${product.precio}</td>
     <td>${cantidad}</td>
     <td>${product.precio * cantidad}</td>
-    <td><input type="button" id="remove" value="Eliminar" onClick= "remove(${product.product_id})"></input></td>
+    <td><input type="button" class="btn btn-danger" id="remove" value="Eliminar" onClick= "remove(${product.product_id})"></input></td>
     </tr>
     `
       return x;

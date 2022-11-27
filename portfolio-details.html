@@ -26,7 +26,6 @@
   <link href="assets/css/boton.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-  <script src="./assets/js/product-details.js" type="module"></script>
   <script src="assets/js/boton.js" type="module"></script>
 
 </head>
@@ -63,7 +62,9 @@
         <ul>
             <ul>
               <ul id="buttons">
-
+                <a href="compra.html"><img src="assets/img/cart.png" class="nav-link dropdown-toggle img-fluid" height="20px"
+                  width="20px" href="#" id="carrito" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false" style="display:none;"></img></a>
               </ul>
               <li><a href="index.html">Home</a></li>
             </ul>
@@ -118,11 +119,13 @@
             </div>
           </div>
           <div class="col-lg-4">
-            <div class="portfolio-info" id="product-info">
-              <button id="comprar1" class="btn btn-success" style="margin: 10px auto auto 80px;">Comprar</button>
-              <div style="text-align: right; display: block; margin: auto 80px auto auto">
+            <div class="portfolio-info" id="product-info" >
+            <div id="comp" style="display:none;">
+              <button id="comprar" class="btn btn-success" style="margin: 10px auto auto 80px;" onclick="comprar()" >Comprar</button>
+              <div style="text-align: right; display: block; margin: auto 80px auto auto"style="display:none;">
                 <h6><strong>Cantidad</strong></h6>
                 <input id="quantity" type="number" step="1" min="1" max="26" value="1" name="quantity" style="text-align: left; width: 70px"><br>
+            </div>
             </div>
             </div>
               
@@ -236,6 +239,7 @@
 
   <!-- Template Main JS File -->
   <script type="module" src="assets/js/main.js"></script>
+  <script src="./assets/js/product-details.js" type="text/javascript"></script>
 
 </body>
 

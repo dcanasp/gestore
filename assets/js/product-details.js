@@ -114,7 +114,8 @@ const verify=async()=>{
         padre.addEventListener("load", false);
         return;
     }else{
-        let texto = `<li><a href="carrito-compra.html"><img src="assets\img\cart.png" class="opt"></a></li>`;
+      document.getElementById('carrito').setAttribute('style','display:block;');
+        document.getElementById('comp').setAttribute('style','display:block;');
         padre.innerHTML = padre.innerHTML + texto;
   
         padre.addEventListener("load", false);
@@ -124,9 +125,9 @@ const verify=async()=>{
 
 }
 
-const comprar=()=>{
+const comprar=async()=>{
   console.log("AYUFA");
-  if(localStorage.getItem("carrito") == undefined){
+  if(localStorage.getItem("carrito") == undefined||null){
     localStorage.setItem("carrito", localStorage.getItem("product_id") + "/" + String(document.getElementById("quantity").value))
   }
   else{
@@ -138,4 +139,4 @@ verify();
 
 producto();
 
-document.getElementById("comprar1").addEventListener("click", comprar, false)
+document.getElementById('comprar').addEventListener('click', ()=>{console.log(1)})

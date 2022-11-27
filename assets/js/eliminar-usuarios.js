@@ -64,6 +64,7 @@ const remove = async() =>{
             }).then(response => response.text());
     }
     window.alert('Usuario eliminado');
+    window.location.reload(); 
 
 }
 
