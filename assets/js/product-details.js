@@ -1,3 +1,4 @@
+
 const producto = async () =>{
   let prod_id = localStorage.getItem("product_id");
   if (prod_id==undefined){
@@ -15,12 +16,31 @@ const producto = async () =>{
   let imagen = await getImages(datos);
   let padre = document.getElementById("detalleProducto");
   let texto = creacion(datos, imagen);
-  padre.innerHTML = padre.innerHTML + texto;
-  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  // padre.innerHTML = padre.innerHTML + texto;
+  padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
   padre.parentNode.insertBefore(padre, padre);
+  document.getElementById("quantity").setAttribute("max",datos.stock)
 };
 
 const creacion = (product,imagen) =>{
+
+  let cat;
+  if(product.categoria==0){
+    cat='No definida'
+  }else if(product.categoria==1){
+    cat= 'Mouse';
+  }else if(product.categoria==2){
+    cat= 'Teclado';
+  }else if(product.categoria==3){
+    cat= 'WebCam';
+  }else if(product.categoria==4){
+    cat= 'Altavoces';
+  }else if(product.categoria==5){
+    cat= 'Cable Ethernet';
+  }else{
+    cat= 'Pantalla';
+  }
+
     let x = `
     <!-- ======= Portfolio Details Section ======= -->
     <section id="portfolio-details" class="portfolio-details">
@@ -53,10 +73,11 @@ const creacion = (product,imagen) =>{
             <div class="portfolio-info">
               <h3>Informacion del producto</h3>
               <ul>
-                <li><strong>Categoria</strong>: ${product.categoria}</li>
+                <li><strong>Categoria</strong>: ${cat}</li>
                 <li><strong>Vendedor</strong>: ${product.user_id}</li>
                 <li><strong>Precio</strong>: ${product.precio}</li>
                 <li><strong>Stock</strong>: ${product.stock}</li>
+                 
               </ul>
             </div>
             <div class="portfolio-description">
@@ -123,8 +144,21 @@ const verify=async()=>{
         return;
   }
   }
+
+}
+
+const comprar=()=>{
+  console.log("AYUFA");
+  if(localStorage.getItem("carrito") == undefined){
+    localStorage.setItem("carrito", localStorage.getItem("product_id") + "/" + String(document.getElementById("quantity").value))
+  }
+  else{
+    localStorage.setItem("carrito", localStorage.getItem("carrito") + "+" + localStorage.getItem("product_id") + "/" + String(document.getElementById("quantity").value))
+  }
 }
 
 verify();
 
 producto();
+
+document.getElementById("comprar1").addEventListener("click", comprar, false)

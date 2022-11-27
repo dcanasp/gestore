@@ -77,38 +77,38 @@
                             <table class="table" id="lista-compra" >
                                 <thead>
                                     <tr>
-                                        <th scope="col">Imagen</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Precio</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col">Sub Total</th>
+                                        <th scope="col"></th>
                                     </tr>
 
                                 </thead>
-                                <tbody >
-
+                                <tbody id="carritou" >
+                                    <tr>
+                                        <th colspan="3" scope="col" class="text-right">SUB TOTAL :</th>
+                                        <th scope="col">
+                                            <p id="subtotal"></p>
+                                        </th>
+                                        <!-- <th scope="col"></th> -->
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" scope="col" class="text-right">IGV :</th>
+                                        <th scope="col">
+                                            <p id="igv"></p>
+                                        </th>
+                                        <!-- <th scope="col"></th> -->
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" scope="col" class="text-right">TOTAL :</th>
+                                        <th scope="col">
+                                            <p id="total"></p>
+                                        </th>
+                                        <!-- <th scope="col"></th> -->
+                                    </tr>
                                 </tbody>
-                                <tr>
-                                    <th colspan="4" scope="col" class="text-right">SUB TOTAL :</th>
-                                    <th scope="col">
-                                        <p id="subtotal"></p>
-                                    </th>
-                                    <!-- <th scope="col"></th> -->
-                                </tr>
-                                <tr>
-                                    <th colspan="4" scope="col" class="text-right">IGV :</th>
-                                    <th scope="col">
-                                        <p id="igv"></p>
-                                    </th>
-                                    <!-- <th scope="col"></th> -->
-                                </tr>
-                                <tr>
-                                    <th colspan="4" scope="col" class="text-right">TOTAL :</th>
-                                    <th scope="col">
-                                        <input id="total" name="monto" class="font-weight-bold border-0" readonly style="background-color: white;"></input>
-                                    </th>
-                                    <!-- <th scope="col"></th> -->
-                                </tr>
+                                
 
                             </table>
                         </div>
@@ -122,7 +122,7 @@
                                 <a href="index.html" class="btn btn-info btn-block">Seguir comprando</a>
                             </div>
                             <div class="col-xs-12 col-md-4">
-                                <button href="#" class="btn btn-success btn-block" id="procesar-compra">Realizar compra</button>
+                                <input class="btn btn-success btn-block" id="comprar" value="Realizar compra">
                             </div>
                         </div>
                     </form>
@@ -136,15 +136,8 @@
         </div>
     </main>
 
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/sweetalert2.min.js"></script>
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
-
-    <script src="assets/js/carrito.js"></script>
-    <script src="assets/js/compra.js"></script>
+    <script type="module" src="assets/js/carrito.js"></script>
+    <script type="text/javascript" src="assets/js/compra.js"></script>
 
 
     

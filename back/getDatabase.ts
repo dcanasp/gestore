@@ -62,7 +62,7 @@ export const getRol = async (req:Request) =>{
   }
   catch (e:any) {//no se pudo conectar a base de datos
     console.error(e);
-    return "Algo salió mal";
+    throw new Error("Algo salio mal");
     //process.exit(1);
   };
 }
@@ -75,6 +75,7 @@ export const getUser = async (req:Request,next:NextFunction) =>{
     const users = await prisma.usuario.findFirst({ //encuentre el primero
       where: {//USERNAME IDIOTA
         username: req.params.username,
+        estado: 1,
       }
   })
   if(users==null || users==undefined || users.password==null ||users.password==undefined){ //esto se pude resumir en users?.
@@ -95,7 +96,7 @@ export const getUser = async (req:Request,next:NextFunction) =>{
 
 catch (e:any) {//no se pudo conectar a base de datos
   console.error(e);
-  return "Algo salió mal";
+  return "Algo salio mal";
   //process.exit(1);
 };
 }
@@ -131,7 +132,7 @@ catch(e){
   catch(e){
     await prisma.$disconnect();
     console.log(e);
-    return "Algo salió mal";
+    return "Algo salio mal";
   }
 }
 
@@ -151,14 +152,14 @@ export const getProduct = async (req: Request) => {
 }
 catch(e){
     console.log(e);
-    return "Algo salió mal";
+    return "Algo salio mal";
 }
 
 }
 
 export const getProductSell = async (req: Request) => {
   try {
-    //Verificación usuario
+    //Verificacion usuario
     if(Number(req.params.user_id) !=((req as CustomRequest).token as TokenVerificacion).user_id){
         console.log(Number(req.params.user_id));
         console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
@@ -177,7 +178,7 @@ export const getProductSell = async (req: Request) => {
 }
 catch(e){
     console.log(e);
-    return "Algo salió mal";
+    return "Algo salio mal";
 }
 
 }
@@ -237,7 +238,7 @@ export const deleteProduct = async (req:Request) =>{
      
     const seller = await getOneSeller(req.body.product_id);
 
-  //Verificación usuario
+  //Verificacion usuario
   if((seller !=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
     console.log(seller);
     console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
@@ -253,7 +254,7 @@ export const deleteProduct = async (req:Request) =>{
   }
   catch (err) {
       console.log(err);
-      return "Algo salió mal";
+      return "Algo salio mal";
   }
 }
 
@@ -269,7 +270,7 @@ export const getOneSeller = async (product_id:number) => {
   }
   catch(e:any){
     console.error(e);
-    return "Algo salió mal";
+    return "Algo salio mal";
   }
 }
 
@@ -285,6 +286,6 @@ export const getUserEmail = async (req:Request) => {
   }
   catch(e:any){
     console.error(e);
-    return "Algo salió mal";
+    return "Algo salio mal";
   }
 }

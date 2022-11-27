@@ -2,17 +2,22 @@ const createNew= async() =>{
 
     let token = await(decode());
     let categoriaNew = Number(document.getElementById('categoria').value);
-    console.log(categoriaNew);
+    let image;
+    if(categoriaNew==0){
+      image=1;
+    }else{
+      image= (categoriaNew*2)+getRandomInt(2);
+    }
 
 
     let data={
         user_id: Number(token.user_id),
-        image_id: Number((categoriaNew*2)-getRandomInt(2)),
+        image_id: Number(image),
         nombre: String(document.getElementById('nombre').value),
         descripcion: String(document.getElementById('descripcion').value),
         stock: Number(document.getElementById('stock').value),
         precio: Number(document.getElementById('precio').value),
-        categoria: Number(categoriaNew-1),
+        categoria: Number(categoriaNew+1),
     }
 
     try{
@@ -31,7 +36,7 @@ const createNew= async() =>{
 
         window.location.replace("http://localhost:1234/services.html");
     }catch(e){
-        //MANEJO EXCEPCIÓN
+        //MANEJO EXCEPCIoN
     }
         
 }

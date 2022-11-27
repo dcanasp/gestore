@@ -18,7 +18,7 @@ const createDatabase_1 = require("../createDatabase"); //Post
 const user_1 = require("../auth/user");
 const sell = express_1.default.Router();
 sell.post('/editProduct', user_1.auth0, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!rolVerified(req.token)) {
+    if (!rolVerified2(req.token)) {
         res.send(console.error());
     }
     else {
@@ -55,6 +55,13 @@ sell.get('/getProducts/:user_id', user_1.auth0, function (req, res) {
 });
 function rolVerified(token) {
     if (token.rol != 2) {
+        console.log(token.rol);
+        return false;
+    }
+    return true;
+}
+function rolVerified2(token) {
+    if (token.rol == 1) {
         console.log(token.rol);
         return false;
     }
