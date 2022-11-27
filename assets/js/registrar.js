@@ -6,7 +6,7 @@ const registro = async () => {
   let password = document.getElementById('password').value;
   let email = document.getElementById('email').value;
   let rol;
-  if(document.getElementById('rol').value=='on'){
+  if(document.getElementById('rol').checked){
     rol=2
   }else{
     rol=1
