@@ -211,7 +211,7 @@ catch(e){
 export const getAllUser = async () => {
   try{
     const allUsers = await prisma.usuario.findMany({
-
+      orderBy:{  user_id: 'asc'}
     })
     return allUsers;
   }

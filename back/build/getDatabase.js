@@ -189,7 +189,9 @@ const getProductSell = (req) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getProductSell = getProductSell;
 const getAllUser = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allUsers = yield prisma.usuario.findMany({});
+        const allUsers = yield prisma.usuario.findMany({
+            orderBy: { user_id: 'asc' }
+        });
         return allUsers;
     }
     catch (e) {

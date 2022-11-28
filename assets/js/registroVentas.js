@@ -10,22 +10,25 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
           }}
         ).then(response => response.json()).then(data => datos=data);
         let compras=[];
-        for (let i=0;i<datos.length-3;i++){
-            console.log(datos[i])
+        for (let i=0;i<datos.length;i++){
             compras.push(datos[i]);
         }
-    // console.log(compras);
     let productos = await getProducts(compras);
     let usuarios= await getUsers(compras,productos);
     let padre = document.getElementById("registroVentasPadre");
     let contador =0;
+    console.log(compras);
+    console.log(productos);
+    console.log(usuarios);
+    
     compras.forEach(comp => {
-        let texto = creacion(comp,productos[contador],usuarios[contador]);
-        padre.innerHTML = padre.innerHTML + texto;
-        //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-        padre.parentNode.insertBefore(padre, padre);
-        contador ++;
-    })
+            let texto = creacion(comp,productos[contador],usuarios[contador]);
+            padre.innerHTML = padre.innerHTML + texto;
+            //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+            padre.parentNode.insertBefore(padre, padre);
+            contador ++;
+        })
+        
     return;
 }
 
@@ -45,30 +48,35 @@ const creacion = (compra,product,usuario) =>{
 
 
 const getProducts = async (compra) => {
-    let url = 'http://localhost:3000/getAllProducts';
-    let datos;
-    const x = await fetch(url, {
-        method : "GET",
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: {
-            'Authorization': 'Bearer '+localStorage.getItem('token')
-          }}
-        ).then(response => response.json()).then(data => datos=data);
     let product=[];
-    // console.log(datos)
-    compra.forEach(comp => {
-        console.log(datos[comp.product_id]);
-        let x={stock:datos[comp.product_id].stock,
-            user_id:datos[comp.product_id].user_id,
-            precio: datos[comp.product_id].precio
+    compra.forEach(async comp => {
+    let cadaProducto =await getProductoUnico(comp.product_id);
+        let z={stock:cadaProducto.stock,
+            user_id:cadaProducto.user_id,
+            precio: cadaProducto.precio
         }
-        product.push(x);
-    });
+
+        product.push(z);
+    })
     return product;
+}
+const getProductoUnico = async (product_id) => {
+        let url = 'http://localhost:3000/getProduct/'+product_id;
+        let datos;
+        let z = await fetch(url, {
+            method : "GET",
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+                'Authorization': 'Bearer '+localStorage.getItem('token')
+            }}
+        ).then(response => response.json()).then(cadaProducto => datos=cadaProducto);
+        return datos;
 }
 
 const getUsers = async (compra,producto) => {
+    console.log(compra);
+    console.log(producto);
     let url = 'http://localhost:3000/ADMIN/getAllUsers';
     let datos;
     const x = await fetch(url, {
@@ -80,11 +88,16 @@ const getUsers = async (compra,producto) => {
           }}
         ).then(response => response.json()).then(data => datos=data);
     let product=[];
-    compra.forEach(comp => {
-        let x={comprador:datos[comp.user_id].username,
-            vendedor:datos[producto[comp.product_id].user_id].username,
+    let contador = 0;
+    compra.forEach(async comp => {
+        let productoActual = await getProductoUnico(producto[contador].user_id-1);
+        console.log({comprador:datos[comp.user_id-1], vendedor: datos[producto[contador].user_id-1]});
+
+        let x={comprador:datos[comp.user_id-1].username,
+            vendedor:datos[producto[contador].user_id-1].username,
         }
         product.push(x);
+        contador++;
     });
     return product;
 }
