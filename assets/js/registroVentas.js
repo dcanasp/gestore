@@ -10,9 +10,11 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
           }}
         ).then(response => response.json()).then(data => datos=data);
         let compras=[];
-        for (let i=0;i<datos.length-1;i++){
+        for (let i=0;i<datos.length-3;i++){
+            console.log(datos[i])
             compras.push(datos[i]);
         }
+    // console.log(compras);
     let productos = await getProducts(compras);
     let usuarios= await getUsers(compras,productos);
     let padre = document.getElementById("registroVentasPadre");
@@ -54,7 +56,9 @@ const getProducts = async (compra) => {
           }}
         ).then(response => response.json()).then(data => datos=data);
     let product=[];
+    // console.log(datos)
     compra.forEach(comp => {
+        console.log(datos[comp.product_id]);
         let x={stock:datos[comp.product_id].stock,
             user_id:datos[comp.product_id].user_id,
             precio: datos[comp.product_id].precio
