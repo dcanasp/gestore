@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserEmail = exports.getOneSeller = exports.deleteProduct = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProductSell = exports.getProduct = exports.getImagen = exports.getUser = exports.getRol = void 0;
+exports.getUserEmail = exports.getOneSeller = exports.deleteProduct = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProductSell = exports.getProduct = exports.getImagen = exports.getUserEdit = exports.getUser = exports.getRol = void 0;
 const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
@@ -89,6 +89,27 @@ const getUser = (req, next) => __awaiter(void 0, void 0, void 0, function* () {
     ;
 });
 exports.getUser = getUser;
+const getUserEdit = (user_id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (user_id == null || user_id == undefined) { //esto se pude resumir en users?.
+            throw new Error("no tengo paremetros");
+        }
+        const users = yield prisma.usuario.findFirst({
+            where: {
+                user_id: user_id,
+                estado: 1,
+            }
+        });
+        if (users == null || users == undefined || users.password == null || users.password == undefined) { //esto se pude resumir en users?.
+            throw new Error("usuario o parametro no existente");
+        }
+        return users;
+    }
+    catch (e) {
+        return "Algo salio mal";
+    }
+});
+exports.getUserEdit = getUserEdit;
 const getImagen = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (isNaN(Number(req.params.image_id)) == true) {

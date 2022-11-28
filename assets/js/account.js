@@ -1,18 +1,85 @@
+const create = async() =>{
+
+  let url = 'http://localhost:3000/getUser/';
+    let user;
+    const x = await fetch(url, {
+        method : "GET",
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+          'Authorization': 'Bearer '+localStorage.getItem('token')
+        }}).then(response => response.json()).then(data => user=data.token);
+  let padre = document.getElementById("form");
+  let texto = creacion0(user);
+  padre.innerHTML = texto;
+  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  padre.parentNode.insertBefore(padre, padre);
+  document.getElementById("editar").setAttribute("style", "display:block;");
+
+}
+
 const change = async() =>{
 
-    
+  let url = 'http://localhost:3000/getUser/';
+    let user;
+    const x = await fetch(url, {
+        method : "GET",
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+          'Authorization': 'Bearer '+localStorage.getItem('token')
+        }}).then(response => response.json()).then(data => user=data.token);
 
+  let padre = document.getElementById("form");
+  let texto = creacion(user);
+  padre.innerHTML = texto;
+  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+  padre.parentNode.insertBefore(padre, padre);
+  document.getElementById("confirm").setAttribute("style", "display:block;");
+  document.getElementById("editar").setAttribute("style", "display:none;");
+
+}
+
+const creacion0 = (user) =>{
+  let x = `
+  <label for="username">${user.username}</label>
+  <label for="email">${user.email}</label>
+  <label for="password">${user.password}</label>
+  `
+    return x;
+}
+
+const creacion = (user) =>{
+  let x = `
+  <input type="text" class="lgn" placeholder="username" id="username" value="${user.username}">
+  <label for="username">${user.email}</label>
+  <input type="text" class="lgn" placeholder="Password" id="password" value="${user.password}">
+  `
+    return x;
 }
 
 const edit = async() =>{
 
-    let data= {
-        user_id: Number(),
-        username: String(),
-        email: String()
-    }
 
-    try{
+
+      let url0 = 'http://localhost:3000/getUser/';
+    let user;
+    const x0 = await fetch(url0, {
+        method : "GET",
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+          'Authorization': 'Bearer '+localStorage.getItem('token')
+        }}).then(response => response.json()).then(data => user=data.token);
+        console.log(user)
+        let body= {
+          user_id: Number(user.user_id),
+          username: String(document.getElementById('username').value),
+          password: String(document.getElementById('password').value),
+          email: String(user.email)
+      }
+      console.log(body)
+
         let url = "http://localhost:3000/editUser/";
         let datos;
         const x = await fetch(url, {
@@ -20,16 +87,16 @@ const edit = async() =>{
           mode: "cors",
           cache: "no-cache",
           headers: {
+            'Authorization': 'Bearer '+localStorage.getItem('token'),
             'Content-Type':'application/json'
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(body)
         })
           .then((response) =>  texto=response.text())
           .then((data) => (datos = data));
           console.log(texto)
-          window.location.reload();
-      }catch(e){
-    
+      if(texto != 'Algo salio mal'){
+        window.location.reload();
       }
 
 }
@@ -48,8 +115,12 @@ const verify=async()=>{
 
 verify();
 
+create();
+
+
+
 document.getElementById("logOut").addEventListener("click", logout); 
 
-document.getElementById("change").addEventListener("click", change); 
+document.getElementById("editar").addEventListener("click", change); 
 
-document.getElementById("edit").addEventListener("click", edit); 
+document.getElementById("confirm").addEventListener("click", edit); 

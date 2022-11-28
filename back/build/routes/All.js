@@ -65,7 +65,7 @@ general.get('/getAllImages', function (req, res) {
         res.send(yield (0, getDatabase_1.getAllImages)());
     });
 });
-general.post('/editUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+general.post('/editUser', user_1.auth0, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(yield (0, createDatabase_1.editUser)(req));
 }));
 general.post('/createUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -78,6 +78,11 @@ general.post('/pruebaPost', user_1.createToken, (req, res) => __awaiter(void 0, 
 general.post('/deleteUser', user_1.auth0, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         res.send(yield (0, createDatabase_1.deleteUser)(req));
+    });
+});
+general.get('/getUser/', user_1.auth0, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        res.send({ token: yield (0, getDatabase_1.getUserEdit)(req.token.user_id) });
     });
 });
 exports.default = general;

@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
-import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages,deleteProduct} from '../getDatabase' //lectura
+import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages,deleteProduct, getUserEdit} from '../getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost,deleteUser} from '../createDatabase' //Post
 import { auth0 } from "../auth/user";
 
@@ -28,6 +28,8 @@ buy.post('/createCompra',auth0,async (req:Request,res:Response,next:NextFunction
   }
 
   });
+
+  
 
 function rolVerified(token: TokenVerificacion){
   if(token.rol!=1){

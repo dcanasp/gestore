@@ -58,7 +58,8 @@ export const editUser = async (req:Request) =>{
         username: string,
         password: string,
         email: string
-    } //si no llega un string (un undefined),salte a error
+    } //si no llega un string (un undefined),salte a error}
+
     let cambios = req.body as usuarios;
 
     //Verificacion usuario
@@ -79,6 +80,7 @@ export const editUser = async (req:Request) =>{
         }
     
     });
+
     return "funciono, usuario cambiado";
     }
     catch (err) {

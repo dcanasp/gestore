@@ -101,6 +101,30 @@ catch (e:any) {//no se pudo conectar a base de datos
 };
 }
 
+export const getUserEdit = async (user_id:number) =>{
+
+  try{
+
+    if(user_id==null || user_id==undefined){ //esto se pude resumir en users?.
+      throw new Error("no tengo paremetros");
+    }
+    const users = await prisma.usuario.findFirst({ //encuentre el primero
+      where: {//USERNAME IDIOTA
+        user_id: user_id,
+        estado: 1,
+      }
+  })
+    if(users==null || users==undefined || users.password==null ||users.password==undefined){ //esto se pude resumir en users?.
+      throw new Error("usuario o parametro no existente");
+    }
+    return users;
+
+  }catch(e){
+    return "Algo salio mal";
+  }
+
+}
+
 export const getImagen = async (req: Request) => {
   try {
     if(isNaN(Number(req.params.image_id))==true){

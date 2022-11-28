@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
-import {getRol,getUser,getImagen,getProduct,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteProduct} from '../getDatabase' //lectura
+import {getRol,getUser,getImagen,getProduct,getAllUser,getAllProducts,getAllCompras,getAllImages, deleteProduct, getUserEdit} from '../getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost, deleteUser} from '../createDatabase' //Post
 import {createToken,auth0} from "../auth/user"
 
@@ -71,7 +71,7 @@ general.get('/getAllImages',async function(req:Request,res:Response){
     );
 });  
 
-general.post('/editUser',async (req:Request,res:Response) => { //lo hago funcion fecla para diferenciarlos tbh
+general.post('/editUser',auth0, async (req:Request,res:Response) => { //lo hago funcion fecla para diferenciarlos tbh
   res.send(
     await editUser(req)
     );  
@@ -91,6 +91,14 @@ general.post('/deleteUser',auth0, async function(req:Request,res:Response){
   res.send(
     await deleteUser(req)
     );
+});
+
+general.get('/getUser/', auth0, async function(req:Request,res:Response){  
+
+    res.send(
+      {token: await getUserEdit(((req as CustomRequest).token as TokenVerificacion).user_id)}  
+    )
+ 
 });
 
 export default general; 
