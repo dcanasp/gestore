@@ -34,7 +34,6 @@ const creacion = (product,imagen) =>{
       <img src="${imagen}" class="img-fluid portfolio-lightbox" alt="">
       <div class="portfolio-info">
           <div class="portfolio-links">
-              <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
           </div>
       </div>
   </div>            
