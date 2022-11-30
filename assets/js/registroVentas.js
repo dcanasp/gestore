@@ -1,3 +1,29 @@
+const getProducts = async (compra) => {
+    let product=[];
+    let contador=0;
+    compra.forEach(async comp => {
+        let url = 'http://localhost:3000/getProduct/'+comp.product_id;
+        let datos;
+        let x = await fetch(url, {
+            method : "GET",
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+                'Authorization': 'Bearer '+localStorage.getItem('token')
+            }}
+        ).then(response => response.json()).then(cadaProducto => datos=cadaProducto);
+        let z={stock:datos.stock,
+            user_id:datos.user_id,
+            precio: datos.precio,
+            x: contador
+        }
+
+        product.push(z);
+        contador++;
+    })
+    return product;
+}
+
 const getCompras = async () =>{ //crea una compra si el token es correcto
     let url = 'http://localhost:3000/ADMIN/getAllClients';
     let datos;
@@ -13,13 +39,18 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
         for (let i=0;i<datos.length;i++){
             compras.push(datos[i]);
         }
+
     let productos = await getProducts(compras);
-    let usuarios= await getUsers(compras,productos);
+    
+    let usuarios=  await getUsers(compra, product);
+
+
+    console.log(usuarios);
+    console.log(productos);
+    
+
     let padre = document.getElementById("registroVentasPadre");
     let contador =0;
-    console.log(compras);
-    console.log(productos);
-    console.log(usuarios);
     
     compras.forEach(comp => {
             let texto = creacion(comp,productos[contador],usuarios[contador]);
@@ -45,38 +76,8 @@ const creacion = (compra,product,usuario) =>{
       return x;
   }
 
-
-
-const getProducts = async (compra) => {
-    let product=[];
-    compra.forEach(async comp => {
-    let cadaProducto =await getProductoUnico(comp.product_id);
-        let z={stock:cadaProducto.stock,
-            user_id:cadaProducto.user_id,
-            precio: cadaProducto.precio
-        }
-
-        product.push(z);
-    })
-    return product;
-}
-const getProductoUnico = async (product_id) => {
-        let url = 'http://localhost:3000/getProduct/'+product_id;
-        let datos;
-        let z = await fetch(url, {
-            method : "GET",
-            mode: 'cors',
-            cache: 'no-cache',
-            headers: {
-                'Authorization': 'Bearer '+localStorage.getItem('token')
-            }}
-        ).then(response => response.json()).then(cadaProducto => datos=cadaProducto);
-        return datos;
-}
-
 const getUsers = async (compra,producto) => {
-    console.log(compra);
-    console.log(producto);
+
     let url = 'http://localhost:3000/ADMIN/getAllUsers';
     let datos;
     const x = await fetch(url, {
@@ -89,17 +90,31 @@ const getUsers = async (compra,producto) => {
         ).then(response => response.json()).then(data => datos=data);
     let product=[];
     let contador = 0;
-    compra.forEach(async comp => {
-        let productoActual = await getProductoUnico(producto[contador].user_id-1);
-        console.log({comprador:datos[comp.user_id-1], vendedor: datos[producto[contador].user_id-1]});
+    console.log(producto)
+    compra.forEach(comp => {
+        console.log(contador);
+        let vendedor = getUser(datos, producto[contador].user_id);
+        let comprador = getUser(datos, comp.user_id);
+        console.log({comprador:comprador, vendedor: vendedor});
 
-        let x={comprador:datos[comp.user_id-1].username,
-            vendedor:datos[producto[contador].user_id-1].username,
+        let x={comprador:comprador.username,
+            vendedor:vendedor.username,
         }
         product.push(x);
         contador++;
     });
     return product;
+}
+
+const getUser = (usuarios, user_id)=>{
+
+    for(i=0; i<usuarios.length;i++){
+        if(usuarios[i].user_id==user_id){
+            return usuarios[i]
+        }
+    }
+    return null;
+
 }
 
 const verify=async()=>{
