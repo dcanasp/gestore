@@ -66,6 +66,16 @@ admin.get('/getAllClients', user_1.auth0, function (req, res) {
         }
     });
 });
+admin.get('/getAllPurcharse', user_1.auth0, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (rolVerified(req.token) == false) {
+            res.status(400).send("Rol no permitido");
+        }
+        else {
+            res.send(yield (0, getDatabase_1.getAllCompras2)());
+        }
+    });
+});
 function rolVerified(token) {
     if (token.rol != 3) {
         console.log(token.rol);

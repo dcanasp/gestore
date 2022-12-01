@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
-import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras,getAllImages,deleteProduct, getUserEmail} from '../getDatabase' //lectura
+import {getUser,getImagen,getAllUser,getAllProducts,getAllCompras, getAllCompras2,getAllImages,deleteProduct, getUserEmail} from '../getDatabase' //lectura
 import {editProduct,editUser, createUser,createProduct,createCompra,pruebaPost,deleteUser} from '../createDatabase' //Post
 import {createToken,auth0} from "../auth/user"
 const cors = require('cors');
@@ -68,6 +68,17 @@ admin.get('/getAllClients',auth0,async function(req:Request,res:Response){
   }else{
     res.send(
       await getAllCompras()
+      );
+  }
+
+});
+
+admin.get('/getAllPurcharse',auth0,async function(req:Request,res:Response){
+  if(rolVerified((req as CustomRequest).token as TokenVerificacion)==false){
+    res.status(400).send("Rol no permitido");
+  }else{
+    res.send(
+      await getAllCompras2()
       );
   }
 

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserEmail = exports.getOneSeller = exports.deleteProduct = exports.getAllImages = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProductSell = exports.getProduct = exports.getImagen = exports.getUserEdit = exports.getUser = exports.getRol = void 0;
+exports.getUserEmail = exports.getOneSeller = exports.deleteProduct = exports.getAllImages = exports.getAllCompras2 = exports.getAllCompras = exports.getAllProducts = exports.getAllUser = exports.getProductSell = exports.getProduct = exports.getImagen = exports.getUserEdit = exports.getUser = exports.getRol = void 0;
 const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
@@ -211,7 +211,7 @@ const getAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.getAllProducts = getAllProducts;
 const getAllCompras = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allCompras = yield prisma.compra.findMany({ //select * from prisma.TABLE
+        const allCompras = yield prisma.compra.findMany({ //select * from prisma.TAB      
         });
         return allCompras;
     }
@@ -220,6 +220,36 @@ const getAllCompras = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getAllCompras = getAllCompras;
+const getAllCompras2 = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allCompras = yield prisma.compra.findMany({
+            select: {
+                fecha: true,
+                usuario: {
+                    select: {
+                        username: true,
+                    },
+                },
+                producto: {
+                    select: {
+                        usuario: {
+                            select: {
+                                username: true,
+                            }
+                        },
+                        stock: true,
+                        precio: true,
+                    }
+                }
+            },
+        });
+        return allCompras;
+    }
+    catch (e) {
+        return [];
+    }
+});
+exports.getAllCompras2 = getAllCompras2;
 const getAllImages = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allimages = yield prisma.imagen.findMany({});
