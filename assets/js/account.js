@@ -8,13 +8,19 @@ const create = async() =>{
         cache: 'no-cache',
         headers: {
           'Authorization': 'Bearer '+localStorage.getItem('token')
-        }}).then(response => response.json()).then(data => user=data.token);
-  let padre = document.getElementById("form");
-  let texto = creacion0(user);
-  padre.innerHTML = texto;
-  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre.parentNode.insertBefore(padre, padre);
-  document.getElementById("editar").setAttribute("style", "display:block;");
+        }}).then(response => response.text()).then(data => user=data.token);
+  
+  if(response != 'Algo salio mal'){
+
+    let padre = document.getElementById("form");
+    let texto = creacion0(user);
+    padre.innerHTML = texto;
+    //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+    padre.parentNode.insertBefore(padre, padre);
+    document.getElementById("editar").setAttribute("style", "display:block;");
+
+  }
+    
 
 }
 
@@ -28,15 +34,19 @@ const change = async() =>{
         cache: 'no-cache',
         headers: {
           'Authorization': 'Bearer '+localStorage.getItem('token')
-        }}).then(response => response.json()).then(data => user=data.token);
+        }}).then(response => response.text()).then(data => user=data.token);
 
-  let padre = document.getElementById("form");
-  let texto = creacion(user);
-  padre.innerHTML = texto;
-  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre.parentNode.insertBefore(padre, padre);
-  document.getElementById("confirm").setAttribute("style", "display:block;");
-  document.getElementById("editar").setAttribute("style", "display:none;");
+  if(response != 'Algo salio mal'){
+
+    let padre = document.getElementById("form");
+    let texto = creacion(user);
+    padre.innerHTML = texto;
+    //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+    padre.parentNode.insertBefore(padre, padre);
+    document.getElementById("confirm").setAttribute("style", "display:block;");
+    document.getElementById("editar").setAttribute("style", "display:none;");
+
+  }
 
 }
 
@@ -62,9 +72,7 @@ const creacion = (user) =>{
 
 const edit = async() =>{
 
-
-
-      let url0 = 'http://localhost:3000/getUser/';
+    let url0 = 'http://localhost:3000/getUser/';
     let user;
     const x0 = await fetch(url0, {
         method : "GET",
@@ -73,43 +81,38 @@ const edit = async() =>{
         headers: {
           'Authorization': 'Bearer '+localStorage.getItem('token')
         }}).then(response => response.json()).then(data => user=data.token);
-        console.log(user)
-        let body= {
-          user_id: Number(user.user_id),
-          username: String(document.getElementById('username').value),
-          password: String(document.getElementById('password').value),
-          email: String(user.email)
-      }
-      console.log(body)
 
-        let url = "http://localhost:3000/editUser/";
-        let datos;
-        const x = await fetch(url, {
-          method: "POST",
-          mode: "cors",
-          cache: "no-cache",
-          headers: {
-            'Authorization': 'Bearer '+localStorage.getItem('token'),
-            'Content-Type':'application/json'
-          },
-          body: JSON.stringify(body)
-        })
-          .then((response) =>  texto=response.text())
-          .then((data) => (datos = data));
-          console.log(texto)
+    if(response != 'Algo salio mal'){
+
+      let body= {
+        user_id: Number(user.user_id),
+        username: String(document.getElementById('username').value),
+        password: String(document.getElementById('password').value),
+        email: String(user.email)
+      }
+      let url = "http://localhost:3000/editUser/";
+      let datos;
+      const x = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          'Authorization': 'Bearer '+localStorage.getItem('token'),
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify(body)
+      })
+      .then((response) =>  texto=response.text())
+      .then((data) => (datos = data));
       if(texto != 'Algo salio mal'){
         window.location.reload();
       }
+  
+    }
 
 }
 
 const verify=async()=>{
-    if(localStorage.getItem('token')==undefined){
-      window.location.replace("http://localhost:1234/");
-    }
-  }
-
-const verify2=async()=>{
     if(localStorage.getItem('token')!=undefined){
       let infoToken;
       let url = 'http://localhost:3000/decodeToken/';
@@ -120,32 +123,36 @@ const verify2=async()=>{
         headers: {
           'Authorization': 'Bearer '+localStorage.getItem('token')
         }}
-        ).then(response => response.json()).then(data => infoToken=data);
-        
+        ).then(response => response.text()).then(data => infoToken=data);
+
+      if(response != 'Algo salio mal'){
         let padre = document.getElementById("buttons");
-      console.log(infoToken.rol);
-      if(infoToken.rol==2){
-          let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
-          padre.innerHTML = padre.innerHTML + texto;
-    
-          padre.addEventListener("load", false);
-          return;
-      }else if(infoToken.rol==3){
-          let texto = `<li><a href="graficas.html" >Stats</a></li>
-          <li><a href="registro-ventas.html" >Ventas</a></li>
-          <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
-          padre.innerHTML = padre.innerHTML + texto;
-    
-          padre.addEventListener("load", false);
-          return;
-      }else{
-        document.getElementById('carrito').setAttribute('style','display:block;');
-          document.getElementById('comp').setAttribute('style','display:block;');
-          padre.innerHTML = padre.innerHTML + texto;
-    
-          padre.addEventListener("load", false);
-          return;
+        console.log(infoToken.rol);
+        if(infoToken.rol==2){
+            let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
+            padre.innerHTML = padre.innerHTML + texto;
+      
+            padre.addEventListener("load", false);
+            return;
+        }else if(infoToken.rol==3){
+            let texto = `<li><a href="graficas.html" >Stats</a></li>
+            <li><a href="registro-ventas.html" >Ventas</a></li>
+            <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
+            padre.innerHTML = padre.innerHTML + texto;
+      
+            padre.addEventListener("load", false);
+            return;
+        }else{
+          document.getElementById('carrito').setAttribute('style','display:block;');
+            document.getElementById('comp').setAttribute('style','display:block;');
+            padre.innerHTML = padre.innerHTML + texto;
+      
+            padre.addEventListener("load", false);
+            return;
+        }
     }
+    }else{
+      window.location.replace("http://localhost:1234/");
     }
   
   }
@@ -159,10 +166,6 @@ const verify2=async()=>{
 verify();
 
 create();
-
-verify2();
-
-
 
 document.getElementById("logOut").addEventListener("click", logout); 
 

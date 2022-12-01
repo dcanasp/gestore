@@ -1,5 +1,3 @@
-const { htmlPrefilter } = require("jquery");
-
 const registro = async () => {
   let token;
   let username = document.getElementById('username').value;
@@ -11,30 +9,28 @@ const registro = async () => {
   }else{
     rol=1
   }
-let body = {
-  username: username,
-  password: password,
-  rol: rol,
-  email: email
-}
-console.log(body);
-console.log(JSON.stringify(body));
+  let body = {
+    username: username,
+    password: password,
+    rol: rol,
+    email: email
+  }
   const x = await fetch('http://localhost:3000/createUser', {
-      method : "POST",
-      mode: 'cors',
-      cache: 'no-cache',
-      headers:{
-          'Content-Type':'application/json'
-      },
-      body:JSON.stringify(body),
-  }).then(response => response.json()).then(data => token=data);
+    method : "POST",
+    mode: 'cors',
+    cache: 'no-cache',
+    headers:{
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify(body),
+  }).then(response => response.text()).then(data => token=data);
 
-  window.localStorage.setItem("token", token.token);
+  if(response != 'Algo salio mal'){
+    window.localStorage.setItem("token", token.token);
 
-  window.location.replace("http://localhost:1234");
-
-  
-   
+    window.location.replace("http://localhost:1234");
+  }
+     
 }
 
 document.getElementById('botonLoginAYUDA').addEventListener('click', registro, false );

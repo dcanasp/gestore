@@ -11,25 +11,26 @@ const producto = async () =>{
       method : "GET",
       mode: 'cors',
       cache: 'no-cache',
-      }).then(response => response.json()).then(data => datos=data);
-
-  let imagen = await getImages(datos);
-  let padre1 = document.getElementById("imagen-producto");
-  let texto = creacion1(imagen);
-  padre1.innerHTML = padre1.innerHTML + texto;
-  // padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre1.parentNode.insertBefore(padre1, padre1);
-  let padre2 = document.getElementById("product-info");
-  texto = creacion2(datos);
-  // padre2.innerHTML = padre2.innerHTML + texto;
-  padre2.innerHTML = texto + padre2.innerHTML;// por si lo quiero alrevez
-  padre2.parentNode.insertBefore(padre2, padre2);
-  let padre3 = document.getElementById("product-description");
-  texto = creacion3(datos);
-  padre3.innerHTML = padre3.innerHTML + texto;
-  // padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre3.parentNode.insertBefore(padre3, padre3);
-  document.getElementById("quantity").setAttribute("max",datos.stock)
+  }).then(response => text.json()).then(data => datos=data);
+  if(response != 'Algo salio mal'){
+    let imagen = await getImages(datos);
+    let padre1 = document.getElementById("imagen-producto");
+    let texto = creacion1(imagen);
+    padre1.innerHTML = padre1.innerHTML + texto;
+    // padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+    padre1.parentNode.insertBefore(padre1, padre1);
+    let padre2 = document.getElementById("product-info");
+    texto = creacion2(datos);
+    // padre2.innerHTML = padre2.innerHTML + texto;
+    padre2.innerHTML = texto + padre2.innerHTML;// por si lo quiero alrevez
+    padre2.parentNode.insertBefore(padre2, padre2);
+    let padre3 = document.getElementById("product-description");
+    texto = creacion3(datos);
+    padre3.innerHTML = padre3.innerHTML + texto;
+    // padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+    padre3.parentNode.insertBefore(padre3, padre3);
+    document.getElementById("quantity").setAttribute("max",datos.stock)
+  }
 };
 
 const creacion1 = (imagen) =>{
@@ -80,8 +81,10 @@ const getImages = async (product) => {
         method : "GET",
         mode: 'cors',
         cache: 'no-cache',
-        }).then(response => response.text()).then(data => datos=data);
-    return datos;
+    }).then(response => response.text()).then(data => datos=data);
+    if(response != 'Algo salio mal'){
+      return datos;
+    }
 }
     
 const verify=async()=>{

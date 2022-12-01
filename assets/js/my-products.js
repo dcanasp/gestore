@@ -23,32 +23,33 @@ const productos= async () =>{
         headers: {
             'Authorization': 'Bearer '+localStorage.getItem('token')
         }
-        }).then(response => response.json()).then(data => datos=data);
+        }).then(response => response.text()).then(data => datos=data);
+    if(response != 'Algo salio mal'){
+        let products=[];
 
-    let products=[];
+        for (let i=0;(i<16)&&(i<datos.length);i++){
+            products.push(datos[i]);
+        }
+        
+        let imagenes=[];
+        if(products.length!=0){
+            imagenes = await getImages(products);
+        }
 
-    for (let i=0;(i<16)&&(i<datos.length);i++){
-        products.push(datos[i]);
+        let padre = document.getElementById("inicio");
+        let contador =0;
+        products.forEach(prod => {
+            let texto = creacion(prod,imagenes[contador]);
+            padre.innerHTML = padre.innerHTML + texto;
+            //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+            padre.parentNode.insertBefore(padre, padre);
+            contador ++;
+        })
+        console.log(padre);
+
+        padre.addEventListener("click", prueba, false);
+        return;
     }
-    
-    let imagenes=[];
-    if(products.length!=0){
-        imagenes = await getImages(products);
-    }
-
-    let padre = document.getElementById("inicio");
-    let contador =0;
-    products.forEach(prod => {
-        let texto = creacion(prod,imagenes[contador]);
-        padre.innerHTML = padre.innerHTML + texto;
-        //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-        padre.parentNode.insertBefore(padre, padre);
-        contador ++;
-    })
-    console.log(padre);
-
-    padre.addEventListener("click", prueba, false);
-    return;
 }
 
 const creacion = (product,imagen) =>{

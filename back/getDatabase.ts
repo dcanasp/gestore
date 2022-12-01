@@ -233,7 +233,39 @@ export const getAllProducts =async () => { //TODO: no le pongaany a todo
 
 export const getAllCompras = async ()  => { //TODO: no le pongaany a todo
   try {
-    const allCompras = await prisma.compra.findMany({ //select * from prisma.TABLE
+    const allCompras = await prisma.compra.findMany({ //select * from prisma.TAB      
+    })
+    return allCompras;
+}
+catch(e){
+  return []
+}
+
+}
+
+export const getAllCompras2 = async ()  => { //TODO: no le pongaany a todo
+  try {
+    const allCompras = await prisma.compra.findMany({ //select * from prisma.TAB      
+      select: {
+        fecha: true,
+        usuario: {
+          select: {
+            username:true,
+          },
+        },
+        producto:{
+          select: {
+            usuario:{
+              select: {
+                username: true,
+              }
+            },
+            stock: true,
+            precio: true,
+          }
+        }
+      },
+
     })
     return allCompras;
 }
@@ -266,7 +298,7 @@ export const deleteProduct = async (req:Request) =>{
   if((seller !=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
     console.log(seller);
     console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
-    return "NO TIENE PERMISO POR TOKEN"
+    throw new Error("NO TIENE PERMISO POR TOKEN"); 
 }
 
     const deleteUser = await prisma.producto.delete({

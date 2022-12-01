@@ -1,7 +1,6 @@
 const producto = async () => {
   let prod_id = localStorage.getItem("product_id");
   if (prod_id == undefined) {
-    console.log("no product_id");
     return "error";
   }
   let url = "http://localhost:3000/getProduct/" + prod_id;
@@ -11,29 +10,29 @@ const producto = async () => {
     mode: "cors",
     cache: "no-cache",
   })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => (datos = data));
+  if(response != 'Algo salio mal'){
+    window-localStorage.setItem("producto", JSON.stringify(datos))
+    
+    let imagen = await getImages(datos);
+    let padre = document.getElementById("image");
+    let texto = creacion(imagen);
+    padre.innerHTML = padre.innerHTML + texto;
+    padre.parentNode.insertBefore(padre, padre);
 
-  window-localStorage.setItem("producto", JSON.stringify(datos))
-  
-  let imagen = await getImages(datos);
-  let padre = document.getElementById("image");
-  let texto = creacion(imagen);
-  padre.innerHTML = padre.innerHTML + texto;
-  padre.parentNode.insertBefore(padre, padre);
+    let padre1 = document.getElementById("info");
+    let texto1 = creacion1(datos);
+    padre1.innerHTML = padre1.innerHTML + texto1;
+    //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+    padre1.parentNode.insertBefore(padre1, padre1);
 
-  let padre1 = document.getElementById("info");
-  let texto1 = creacion1(datos);
-  padre1.innerHTML = padre1.innerHTML + texto1;
-  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre1.parentNode.insertBefore(padre1, padre1);
-
-  let padre2 = document.getElementById("descripcion");
-  let texto2 = creacion2(datos);
-  padre2.innerHTML = padre2.innerHTML + texto2;
-  //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
-  padre2.parentNode.insertBefore(padre2, padre2);
-
+    let padre2 = document.getElementById("descripcion");
+    let texto2 = creacion2(datos);
+    padre2.innerHTML = padre2.innerHTML + texto2;
+    //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
+    padre2.parentNode.insertBefore(padre2, padre2);
+  }
 };
 
 const creacion = (imagen) => {
@@ -91,7 +90,9 @@ const getImages = async (product) => {
   })
     .then((response) => response.text())
     .then((data) => (datos = data));
-  return datos;
+  if(response != 'Algo salio mal'){
+    return datos;
+  }
 };
 
 const edit = async () => {
@@ -157,27 +158,24 @@ const editar = async () => {
     precio: Number(document.getElementById("precio").value),
     categoria: Number(categoriaNew+1)
   }
-  try{
-    let url = "http://localhost:3000/SELL/editProduct/";
-    let datos;
-    const x = await fetch(url, {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      headers: {
-        'Authorization': 'Bearer '+localStorage.getItem('token'),
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify(body)
-    })
-      .then((response) =>  texto=response.text())
-      .then((data) => (datos = data));
-      console.log(texto)
+  
+  let url = "http://localhost:3000/SELL/editProduct/";
+  let datos;
+  const x = await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    headers: {
+      'Authorization': 'Bearer '+localStorage.getItem('token'),
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+  .then((response) =>  texto=response.text())
+  .then((data) => (datos = data));
+  if(response != 'Algo salio mal'){
       window.location.reload();
-  }catch(e){
-
   }
-
 }
 
 function getRandomInt(max) {
