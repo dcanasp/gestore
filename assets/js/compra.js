@@ -1,4 +1,4 @@
-const { default: Swal } = require("sweetalert2");
+
 function eliminarDupe(carritou){
     let x = new Set()
     carritou.forEach(e => {

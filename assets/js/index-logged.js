@@ -102,9 +102,7 @@ const verify=async()=>{
             padre.addEventListener("load", false);
             return;
         }else{
-            document.getElementById('carrito').setAttribute('style','display:block;');
-            padre.innerHTML = padre.innerHTML + texto;
-    
+            document.getElementById('carrito').setAttribute('style','display:block;');    
             padre.addEventListener("load", false);
             return;
         }

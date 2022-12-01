@@ -1,0 +1,1 @@
+export const Swal = require('sweetalert2') 
