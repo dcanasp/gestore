@@ -30,6 +30,13 @@ const registro = async () => {
 
     window.location.replace("http://localhost:1234");
   }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
+  }
      
 }
 

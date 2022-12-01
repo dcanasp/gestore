@@ -19,6 +19,13 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
             //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
             padre.parentNode.insertBefore(padre, padre);
         })
+    }
+    else{
+        Swal.fire({
+            icon: "error",
+            title: "Oops",
+            text: "Algo salio mal"
+        });
     }        
     return;
 }

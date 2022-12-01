@@ -33,6 +33,13 @@ const producto = async () => {
     //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
     padre2.parentNode.insertBefore(padre2, padre2);
   }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
+  }
 };
 
 const creacion = (imagen) => {
@@ -92,6 +99,13 @@ const getImages = async (product) => {
     .then((data) => (datos = data));
   if(response != 'Algo salio mal'){
     return datos;
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
 };
 
@@ -175,6 +189,13 @@ const editar = async () => {
   .then((data) => (datos = data));
   if(response != 'Algo salio mal'){
       window.location.reload();
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
 }
 

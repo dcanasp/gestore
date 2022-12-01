@@ -20,6 +20,13 @@ const create = async() =>{
     document.getElementById("editar").setAttribute("style", "display:block;");
 
   }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
+  }
     
 
 }
@@ -46,6 +53,13 @@ const change = async() =>{
     document.getElementById("confirm").setAttribute("style", "display:block;");
     document.getElementById("editar").setAttribute("style", "display:none;");
 
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
 
 }
@@ -107,7 +121,21 @@ const edit = async() =>{
       if(texto != 'Algo salio mal'){
         window.location.reload();
       }
+      else{
+        Swal.fire({
+          icon: "error",
+          title: "Oops",
+          text: "Algo salio mal"
+      });
+      }
   
+    }
+    else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "Algo salio mal"
+    });
     }
 
 }

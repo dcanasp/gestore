@@ -1,3 +1,5 @@
+const { default: Swal } = require("sweetalert2");
+
 const login = async () =>{//si usuario y clave correctos, MAL NO USAR
     let password = document.getElementById('password').value;
     let username = document.getElementById('username').value;
@@ -14,7 +16,11 @@ const login = async () =>{//si usuario y clave correctos, MAL NO USAR
         localStorage.setItem('token',datos.token);
         window.location.replace("http://localhost:1234/index-logged.html");
       }else{
-        //CREDENCIALES INCORRECTAS
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Credenciales incorrectas"
+      });
       }
 }
 

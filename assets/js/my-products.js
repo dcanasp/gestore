@@ -50,6 +50,13 @@ const productos= async () =>{
         padre.addEventListener("click", prueba, false);
         return;
     }
+    else{
+        Swal.fire({
+            icon: "error",
+            title: "Oops",
+            text: "Algo salio mal"
+        });
+    }
 }
 
 const creacion = (product,imagen) =>{

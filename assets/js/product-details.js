@@ -31,6 +31,13 @@ const producto = async () =>{
     padre3.parentNode.insertBefore(padre3, padre3);
     document.getElementById("quantity").setAttribute("max",datos.stock)
   }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
+  }
 };
 
 const creacion1 = (imagen) =>{
@@ -84,6 +91,13 @@ const getImages = async (product) => {
     }).then(response => response.text()).then(data => datos=data);
     if(response != 'Algo salio mal'){
       return datos;
+    }
+    else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "Algo salio mal"
+    });
     }
 }
     

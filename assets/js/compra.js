@@ -68,6 +68,13 @@ const carritouw=async()=>{
             padre3.innerHTML = String(sum*(1+19/100));// por si lo quiero alrevez
             padre3.parentNode.insertBefore(padre3, padre3);
         }
+        else{
+            Swal.fire({
+                icon: "error",
+                title: "Oops",
+                text: "Algo salio mal"
+            });
+        }
     })
         
 }
@@ -151,7 +158,28 @@ const comprar = async() =>{
                     window.localStorage.removeItem('carrito');
                     window.location.replace("http://localhost:1234/index-logged.html/");
                 }
+                else{
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops",
+                        text: "Algo salio mal"
+                    });
+                }
             }
+            else{
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops",
+                    text: "Algo salio mal"
+                });
+            }
+        }
+        else{
+            Swal.fire({
+                icon: "error",
+                title: "Oops",
+                text: "Algo salio mal"
+            });
         }
     })
     window.location.reload;
@@ -170,6 +198,13 @@ const decode= async() =>{
       ).then(response => response.text()).then(data => infoToken=data);
     if(response != 'Algo salio mal'){
         return infoToken;
+    }
+    else{
+        Swal.fire({
+            icon: "error",
+            title: "Oops",
+            text: "Algo salio mal"
+        });
     }
 }
 

@@ -35,6 +35,13 @@ const createNew= async() =>{
 
       if(response != 'Algo salio mal'){
         window.location.replace("http://localhost:1234/services.html");
+      }
+      else{
+        Swal.fire({
+          icon: "error",
+          title: "Oops",
+          text: "Algo salio mal"
+      });
       }        
 }
 
@@ -51,6 +58,13 @@ const decode= async() =>{
       ).then(response => response.text()).then(data => infoToken=data);
     if(response != 'Algo salio mal'){
       return infoToken;
+    }
+    else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "Algo salio mal"
+    });
     }
 }
 

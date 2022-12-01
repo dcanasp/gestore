@@ -43,6 +43,13 @@ const search =async()=>{
           window.localStorage.setItem('userRemove',user.user_id );
       }
     }
+    else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "Algo salio mal"
+    });
+    }
 
 }
 
@@ -63,6 +70,13 @@ const remove = async() =>{
         if(response != 'Algo salio mal'){
            window.alert('Usuario eliminado');
            window.location.reload(); 
+        }
+        else{
+          Swal.fire({
+            icon: "error",
+            title: "Oops",
+            text: "Algo salio mal"
+        });
         }
     }
     
