@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const getCompras = async () =>{ //crea una compra si el token es correcto
     let url = 'http://localhost:3000/ADMIN/getAllPurcharse';
     let datos;

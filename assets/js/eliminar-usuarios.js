@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;

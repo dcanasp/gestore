@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const create = async() =>{
 
   let url = 'http://localhost:3000/getUser/';

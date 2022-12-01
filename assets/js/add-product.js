@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const createNew= async() =>{
 
     let token = await(decode());
@@ -34,6 +35,11 @@ const createNew= async() =>{
       }).then(response => response.text());
 
       if(response != 'Algo salio mal'){
+        Swal.fire({
+          icon: "success",
+          title: "Exito",
+          text: "Producto agregado con éxito."
+      });
         window.location.replace("http://localhost:1234/services.html");
       }
       else{

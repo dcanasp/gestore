@@ -150,6 +150,11 @@ const comprar=async()=>{
   else{
     localStorage.setItem("carrito", localStorage.getItem("carrito") + "+" + localStorage.getItem("product_id") + "/" + String(document.getElementById("quantity").value))
   }
+  Swal.fire({
+    icon: "success",
+    title: "Exito",
+    text: "Producto agregado con éxito al carrito"
+});
 }
 
 verify();

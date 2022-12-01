@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const registro = async () => {
   let token;
   let username = document.getElementById('username').value;

@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const decode=async()=>{
     let infoToken;
     let url = 'http://localhost:3000/decodeToken/';
