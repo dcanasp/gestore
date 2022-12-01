@@ -5,25 +5,26 @@ const productos= async () =>{
       method : "GET",
       mode: 'cors',
       cache: 'no-cache',
-      }).then(response => response.json()).then(data => datos=data);
-  let products=[];
-  for (let i=0;i<datos.length;i++){
-      products.push(datos[i]);
-  }
-  let imagenes = await getImages(products);
+      }).then(response => response.text()).then(data => datos=data);
+      if(response != 'Algo salio mal'){
+        let products=[];
+        for (let i=0;i<datos.length;i++){
+            products.push(datos[i]);
+        }
+        let imagenes = await getImages(products);
 
-  let padre = document.getElementById("inicio");
-  let contador =0;
-  products.forEach(prod => {
-      let texto = creacion(prod,imagenes[contador]);
-      padre.innerHTML = padre.innerHTML + texto;
-      padre.parentNode.insertBefore(padre, padre);
-      contador ++;
-  })
-  console.log(padre);
+        let padre = document.getElementById("inicio");
+        let contador =0;
+        products.forEach(prod => {
+            let texto = creacion(prod,imagenes[contador]);
+            padre.innerHTML = padre.innerHTML + texto;
+            padre.parentNode.insertBefore(padre, padre);
+            contador ++;
+        })
 
-  padre.addEventListener("click", prueba, false);
-  return;
+        padre.addEventListener("click", prueba, false);
+        return;
+    }
 }
 
 const creacion = (product,imagen) =>{

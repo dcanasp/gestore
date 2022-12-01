@@ -267,7 +267,7 @@ const deleteProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
         if ((seller != req.token.user_id) && (req.token.rol != 3)) {
             console.log(seller);
             console.log(req.token.user_id);
-            return "NO TIENE PERMISO POR TOKEN";
+            throw new Error("NO TIENE PERMISO POR TOKEN");
         }
         const deleteUser = yield prisma.producto.delete({
             where: {

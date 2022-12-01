@@ -8,19 +8,18 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
         headers: {
             'Authorization': 'Bearer '+localStorage.getItem('token')
           }}
-        ).then(response => response.json()).then(data => datos=data);
+        ).then(response => response.text()).then(data => datos=data);
     
-    console.log(datos)
+    if(response != 'Algo salio mal'){
+        let padre = document.getElementById('registroVentasPadre');
 
-    let padre = document.getElementById('registroVentasPadre');
-
-    datos.forEach(comp => {
+        datos.forEach(comp => {
             let texto = creacion(comp);
             padre.innerHTML = padre.innerHTML + texto;
             //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
             padre.parentNode.insertBefore(padre, padre);
         })
-        
+    }        
     return;
 }
 

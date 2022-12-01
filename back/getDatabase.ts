@@ -298,7 +298,7 @@ export const deleteProduct = async (req:Request) =>{
   if((seller !=((req as CustomRequest).token as TokenVerificacion).user_id)&&(((req as CustomRequest).token as TokenVerificacion).rol!=3)){
     console.log(seller);
     console.log(((req as CustomRequest).token as TokenVerificacion).user_id)
-    return "NO TIENE PERMISO POR TOKEN"
+    throw new Error("NO TIENE PERMISO POR TOKEN"); 
 }
 
     const deleteUser = await prisma.producto.delete({

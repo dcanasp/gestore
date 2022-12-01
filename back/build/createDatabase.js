@@ -14,14 +14,14 @@ const client_1 = require("@prisma/client");
 const user_1 = require("./auth/user");
 const prisma = new client_1.PrismaClient();
 const deleteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    let userId = Number(req.query.user_id);
-    //Verificacion usuario
-    if ((userId != req.token.user_id) && (req.token.rol != 3)) {
-        console.log(userId);
-        console.log(req.token.user_id);
-        return "NO TIENE PERMISO POR TOKEN";
-    }
     try {
+        let userId = Number(req.query.user_id);
+        //Verificacion usuario
+        if ((userId != req.token.user_id) && (req.token.rol != 3)) {
+            console.log(userId);
+            console.log(req.token.user_id);
+            throw new Error("NO TIENE PERMISO POR TOKEN");
+        }
         const remove = yield prisma.usuario.update({
             where: {
                 user_id: Number(req.query.user_id),
@@ -46,7 +46,7 @@ const editUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
         if (cambios.user_id != req.token.user_id) {
             console.log(cambios.user_id);
             console.log(req.token.user_id);
-            return "NO TIENE PERMISO POR TOKEN";
+            throw new Error("NO TIENE PERMISO POR TOKEN");
         }
         const addUsers = yield prisma.usuario.update({
             where: {
@@ -74,7 +74,7 @@ const editProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
         if ((seller != req.token.user_id) && (req.token.rol != 3)) {
             console.log(seller);
             console.log(req.token.user_id);
-            return "NO TIENE PERMISO POR TOKEN";
+            throw new Error("NO TIENE PERMISO POR TOKEN");
         }
         const addProduct = yield prisma.producto.update({
             where: {
@@ -157,7 +157,7 @@ const createProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
         if (nuevo.user_id != req.token.user_id) {
             console.log(nuevo.user_id);
             console.log(req.token.user_id);
-            return "NO TIENE PERMISO POR TOKEN";
+            throw new Error("NO TIENE PERMISO POR TOKEN");
         }
         const addProductos = yield prisma.producto.create({
             data: {
@@ -185,7 +185,7 @@ const createCompra = (req) => __awaiter(void 0, void 0, void 0, function* () {
         if (nuevo.user_id != req.token.user_id) {
             console.log(nuevo.user_id);
             console.log(req.token.user_id);
-            return "NO TIENE PERMISO POR TOKEN";
+            throw new Error("NO TIENE PERMISO POR TOKEN");
         }
         const getCompra = yield prisma.compra.create({
             data: {

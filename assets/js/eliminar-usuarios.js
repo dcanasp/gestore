@@ -22,7 +22,6 @@ const search =async()=>{
 
     let email = document.getElementById('busqueda').value;
     let url = 'http://localhost:3000/ADMIN/getUserUnique/?email='+email;
-    
     const x = await fetch(url, {
         method : "GET",
         mode: 'cors',
@@ -30,25 +29,24 @@ const search =async()=>{
         headers: {
             'Authorization': 'Bearer '+localStorage.getItem('token')
           }
-        }).then(response => response.json()).then(data => user=data);
-    if(user.estado==1){
-        document.getElementById('name').value=user.username;
-        document.getElementById('email').value=user.email;
-        if(user.rol==1){
-            document.getElementById('rol').value='Comprador';
-        }else{
-            document.getElementById('rol').value='Vendedor';
-        }
-        console.log(user);
-        window.localStorage.setItem('userRemove',user.user_id );
+        }).then(response => response.text()).then(data => user=data);
+    if(response != 'Algo salio mal'){
+      if(user.estado==1){
+          document.getElementById('name').value=user.username;
+          document.getElementById('email').value=user.email;
+          if(user.rol==1){
+              document.getElementById('rol').value='Comprador';
+          }else{
+              document.getElementById('rol').value='Vendedor';
+          }
+          console.log(user);
+          window.localStorage.setItem('userRemove',user.user_id );
+      }
     }
 
 }
 
 const remove = async() =>{
-
-
-    //NO DELETE UPDATE CON EMAIL 
 
     let user_id = window.localStorage.getItem('userRemove');
     if(user_id!=undefined){
@@ -62,9 +60,12 @@ const remove = async() =>{
                 'Authorization': 'Bearer '+localStorage.getItem('token')
               }
             }).then(response => response.text());
+        if(response != 'Algo salio mal'){
+           window.alert('Usuario eliminado');
+           window.location.reload(); 
+        }
     }
-    window.alert('Usuario eliminado');
-    window.location.reload(); 
+    
 
 }
 
