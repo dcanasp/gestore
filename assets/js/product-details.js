@@ -89,7 +89,7 @@ const getImages = async (product) => {
         mode: 'cors',
         cache: 'no-cache',
     }).then(response => response.text()).then(data => datos=data);
-    if(response != 'Algo salio mal'){
+    if(datos != 'Algo salio mal'){
       return datos;
     }
     else{

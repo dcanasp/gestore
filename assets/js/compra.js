@@ -159,6 +159,7 @@ const comprar = async() =>{
                     window.localStorage.removeItem('carrito');
                     window.location.replace("http://localhost:1234/index-logged.html/");
                 }
+                
                 else{
                     Swal.fire({
                         icon: "error",
@@ -166,6 +167,11 @@ const comprar = async() =>{
                         text: "Algo salio mal"
                     });
                 }
+                Swal.fire({
+                    icon: "success",
+                    title: "Valido",
+                    text: "Compra realizada"
+                });
             }
             else{
                 Swal.fire({
