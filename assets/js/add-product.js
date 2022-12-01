@@ -89,8 +89,8 @@ const verify=async()=>{
       headers: {
         'Authorization': 'Bearer '+localStorage.getItem('token')
     }}
-    ).then(response => response.text()).then(data => infoToken=data);
-    if(response != 'Algo salio mal'){
+    ).then(response => response.json()).then(data => infoToken=data);
+    if(infoToken.rol != 'Algo salio mal'){
       if(infoToken.rol!=2){
         window.location.replace("http://localhost:1234/");
       }

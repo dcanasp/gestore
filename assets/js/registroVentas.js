@@ -9,9 +9,9 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
         headers: {
             'Authorization': 'Bearer '+localStorage.getItem('token')
           }}
-        ).then(response => response.text()).then(data => datos=data);
+        ).then(response => response.json()).then(data => datos=data);
     
-    if(response != 'Algo salio mal'){
+    if(datos != []){
         let padre = document.getElementById('registroVentasPadre');
 
         datos.forEach(comp => {

@@ -11,9 +11,9 @@ const producto = async () => {
     mode: "cors",
     cache: "no-cache",
   })
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((data) => (datos = data));
-  if(response != 'Algo salio mal'){
+  if(datos.error != 'Algo salio mal'){
     window-localStorage.setItem("producto", JSON.stringify(datos))
     
     let imagen = await getImages(datos);

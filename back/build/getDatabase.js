@@ -159,7 +159,7 @@ const getProduct = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) {
         console.log(e);
-        return "Algo salio mal";
+        return { error: "Algo salio mal" };
     }
 });
 exports.getProduct = getProduct;
@@ -183,7 +183,7 @@ const getProductSell = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) {
         console.log(e);
-        return "Algo salio mal";
+        return { error: "Algo salio mal" };
     }
 });
 exports.getProductSell = getProductSell;

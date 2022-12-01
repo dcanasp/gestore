@@ -11,8 +11,8 @@ const producto = async () =>{
       method : "GET",
       mode: 'cors',
       cache: 'no-cache',
-  }).then(response => text.json()).then(data => datos=data);
-  if(response != 'Algo salio mal'){
+  }).then(response => response.json()).then(data => datos=data);
+  if(datos.error != 'Algo salio mal'){
     let imagen = await getImages(datos);
     let padre1 = document.getElementById("imagen-producto");
     let texto = creacion1(imagen);

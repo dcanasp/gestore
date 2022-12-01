@@ -12,7 +12,6 @@ const x = await fetch('http://localhost:3000/ADMIN/getAllClients', {
     'Authorization': 'Bearer '+localStorage.getItem('token')
     }}
     ).then(response => response.json()).then(data => datos=data);
-console.log(datos);
 let usuarios=[]; //objeto 
 let bandera= false;
 //añade a usuario si es nuevo, sino le añade uno

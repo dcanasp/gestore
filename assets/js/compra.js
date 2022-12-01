@@ -42,9 +42,9 @@ const carritouw=async()=>{
             method : "GET",
             mode: 'cors',
             cache: 'no-cache',
-        }).then(response => response.text()).then(data => datos=data);
+        }).then(response => response.json()).then(data => datos=data);
 
-        if(response != 'Algo salio mal'){
+        if(datos != 'Algo salio mal'){
             cantidad = product.quantity;
             let quantity = cantidad;
             if(cantidad>datos.stock){
@@ -113,7 +113,7 @@ const comprar = async() =>{
             mode: 'cors',
             cache: 'no-cache',
         }).then(response => response.json()).then(data => datos0=data);
-        if(response != 'Algo salio mal'){
+        if(datos0 != 'Algo salio mal'){
             let quantity = Number(product.quantity);
             if(Number(cantidad)>Number(datos0.stock)){
                 quantity = Number(datos0.stock);

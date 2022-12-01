@@ -191,7 +191,7 @@ export const createUser = async (req:Request) =>{
     }
     catch (err) {
         console.log(err);
-        return "Algo salio mal";
+        return {error: "Algo salio mal"};
     }
 }
 export const createProduct = async (req:Request) =>{

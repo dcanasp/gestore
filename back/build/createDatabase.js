@@ -146,7 +146,7 @@ const createUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (err) {
         console.log(err);
-        return "Algo salio mal";
+        return { error: "Algo salio mal" };
     }
 });
 exports.createUser = createUser;

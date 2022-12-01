@@ -24,8 +24,8 @@ const productos= async () =>{
         headers: {
             'Authorization': 'Bearer '+localStorage.getItem('token')
         }
-        }).then(response => response.text()).then(data => datos=data);
-    if(response != 'Algo salio mal'){
+        }).then(response => response.json()).then(data => datos=data);
+    if(datos.error != 'Algo salio mal'){
         let products=[];
 
         for (let i=0;(i<16)&&(i<datos.length);i++){
