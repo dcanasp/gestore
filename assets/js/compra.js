@@ -1,4 +1,3 @@
-
 function eliminarDupe(carritou){
     let x = new Set()
     carritou.forEach(e => {
@@ -70,11 +69,7 @@ const carritouw=async()=>{
             padre3.parentNode.insertBefore(padre3, padre3);
         }
         else{
-            Swal.fire({
-                icon: "error",
-                title: "Oops",
-                text: "Algo salio mal"
-            });
+            alert("Algo salio mal");
         }
     })
         
@@ -161,32 +156,15 @@ const comprar = async() =>{
                 }
                 
                 else{
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops",
-                        text: "Algo salio mal"
-                    });
+                    alert("Algo salio mal4");
                 }
-                Swal.fire({
-                    icon: "success",
-                    title: "Valido",
-                    text: "Compra realizada"
-                });
             }
             else{
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops",
-                    text: "Algo salio mal"
-                });
+                alert("Algo salio mal2");
             }
         }
         else{
-            Swal.fire({
-                icon: "error",
-                title: "Oops",
-                text: "Algo salio mal"
-            });
+            alert("Algo salio ma1l");
         }
     })
     window.location.reload;
@@ -202,16 +180,12 @@ const decode= async() =>{
       headers: {
         'Authorization': 'Bearer '+localStorage.getItem('token')
       }}
-      ).then(response => response.text()).then(data => infoToken=data);
-    if(response != 'Algo salio mal'){
+      ).then(response => response.json()).then(data => infoToken=data);
+    if(infoToken.rol != 'Algo salio mal'){
         return infoToken;
     }
     else{
-        Swal.fire({
-            icon: "error",
-            title: "Oops",
-            text: "Algo salio mal"
-        });
+        alert("Algo salio mal");
     }
 }
 

@@ -1,4 +1,3 @@
-
 const producto = async () =>{
   let prod_id = localStorage.getItem("product_id");
   if (prod_id==undefined){
