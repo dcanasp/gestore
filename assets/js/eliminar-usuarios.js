@@ -2,7 +2,7 @@ const { default: Swal } = require("sweetalert2");
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//decodeToken/';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -23,7 +23,7 @@ const search =async()=>{
 
   try{
     let email = document.getElementById('busqueda').value;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//ADMIN/getUserUnique/?email='+email;
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000/ADMIN/getUserUnique/?email='+email;
     const x = await fetch(url, {
         method : "GET",
         mode: 'cors',
@@ -57,7 +57,7 @@ const remove = async() =>{
 
     let user_id = window.localStorage.getItem('userRemove');
     if(user_id!=undefined){
-        let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//deleteUser/?user_id='+user_id;
+        let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000/deleteUser/?user_id='+user_id;
         let user;
         const x = await fetch(url, {
             method : "POST",

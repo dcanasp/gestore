@@ -16,7 +16,7 @@ const registro = async () => {
     rol: rol,
     email: email
   }
-  const x = await fetch('http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//createUser', {
+  const x = await fetch('http://ec2-52-91-104-218.compute-1.amazonaws.com:3000/createUser', {
     method : "POST",
     mode: 'cors',
     cache: 'no-cache',
