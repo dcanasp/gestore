@@ -1,7 +1,7 @@
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',

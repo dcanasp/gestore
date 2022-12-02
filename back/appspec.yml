@@ -1,9 +1,0 @@
-version: 0.0
-Resources:
-  - TargetService:
-      Type: AWS::ESC::Service
-      Properties:
-        TaskDefinition: ""
-        LoadBalancerInfo:
-          ContainerName: "gestore"
-          containerPort: 3000
