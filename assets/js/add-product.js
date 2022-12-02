@@ -55,7 +55,7 @@ const createNew= async() =>{
 
 const decode= async() =>{
     let infoToken;
-    let url = 'http://localhost:3000/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -83,7 +83,7 @@ function getRandomInt(max) {
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://localhost:3000/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
