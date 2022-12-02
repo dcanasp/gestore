@@ -24,7 +24,7 @@ const registro = async () => {
       'Content-Type':'application/json'
     },
     body:JSON.stringify(body),
-  }).then(response => response.text()).then(data => token=data);
+  }).then(response => response.json()).then(data => token=data);
 
   if(token.error != 'Algo salio mal'){
     window.localStorage.setItem("token", token.token);

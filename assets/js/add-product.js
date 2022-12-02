@@ -32,15 +32,17 @@ const createNew= async() =>{
         'Content-Type':'application/json'
       },
       body: JSON.stringify(data)
-      }).then(response => response.text());
+      }).then(response => texto=response.text());
 
-      if(response != 'Algo salio mal'){
+      if(texto != 'Algo salio mal'){
         Swal.fire({
           icon: "success",
-          title: "Exito",
-          text: "Producto agregado con éxito."
-      });
-        window.location.replace("http://localhost:1234/services.html");
+          title: "Valido",
+          text: "Producto agregado correctamente",
+          didClose: () => {
+            window.location.replace("http://localhost:1234/services.html")
+          }
+          })
       }
       else{
         Swal.fire({
@@ -61,8 +63,8 @@ const decode= async() =>{
       headers: {
         'Authorization': 'Bearer '+localStorage.getItem('token')
       }}
-      ).then(response => response.text()).then(data => infoToken=data);
-    if(response != 'Algo salio mal'){
+      ).then(response => response.json()).then(data => infoToken=data);
+    if(infoToken.rol!= 'Algo salio mal'){
       return infoToken;
     }
     else{
