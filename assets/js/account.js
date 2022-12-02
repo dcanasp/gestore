@@ -1,4 +1,4 @@
-const { default: Swal } = require("sweetalert2");
+import { default as Swal } from "sweetalert2";
 const create = async() =>{
 
   let url = 'http://localhost:3000/getUser/';
@@ -129,7 +129,6 @@ const edit = async() =>{
           text: "Algo salio mal"
       });
       }
-  
     }
     else{
       Swal.fire({
