@@ -1,3 +1,4 @@
+
 function eliminarDupe(carritou){
     let x = new Set()
     carritou.forEach(e => {
@@ -41,9 +42,9 @@ const carritouw=async()=>{
             method : "GET",
             mode: 'cors',
             cache: 'no-cache',
-        }).then(response => response.text()).then(data => datos=data);
+        }).then(response => response.json()).then(data => datos=data);
 
-        if(response != 'Algo salio mal'){
+        if(datos != 'Algo salio mal'){
             cantidad = product.quantity;
             let quantity = cantidad;
             if(cantidad>datos.stock){
@@ -67,6 +68,13 @@ const carritouw=async()=>{
             // padre.innerHTML = padre.innerHTML + texto;
             padre3.innerHTML = String(sum*(1+19/100));// por si lo quiero alrevez
             padre3.parentNode.insertBefore(padre3, padre3);
+        }
+        else{
+            Swal.fire({
+                icon: "error",
+                title: "Oops",
+                text: "Algo salio mal"
+            });
         }
     })
         
@@ -105,7 +113,7 @@ const comprar = async() =>{
             mode: 'cors',
             cache: 'no-cache',
         }).then(response => response.json()).then(data => datos0=data);
-        if(response != 'Algo salio mal'){
+        if(datos0 != 'Algo salio mal'){
             let quantity = Number(product.quantity);
             if(Number(cantidad)>Number(datos0.stock)){
                 quantity = Number(datos0.stock);
@@ -151,7 +159,34 @@ const comprar = async() =>{
                     window.localStorage.removeItem('carrito');
                     window.location.replace("http://localhost:1234/index-logged.html/");
                 }
+                
+                else{
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops",
+                        text: "Algo salio mal"
+                    });
+                }
+                Swal.fire({
+                    icon: "success",
+                    title: "Valido",
+                    text: "Compra realizada"
+                });
             }
+            else{
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops",
+                    text: "Algo salio mal"
+                });
+            }
+        }
+        else{
+            Swal.fire({
+                icon: "error",
+                title: "Oops",
+                text: "Algo salio mal"
+            });
         }
     })
     window.location.reload;
@@ -170,6 +205,13 @@ const decode= async() =>{
       ).then(response => response.text()).then(data => infoToken=data);
     if(response != 'Algo salio mal'){
         return infoToken;
+    }
+    else{
+        Swal.fire({
+            icon: "error",
+            title: "Oops",
+            text: "Algo salio mal"
+        });
     }
 }
 

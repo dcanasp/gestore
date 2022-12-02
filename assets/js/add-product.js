@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const createNew= async() =>{
 
     let token = await(decode());
@@ -34,7 +35,19 @@ const createNew= async() =>{
       }).then(response => response.text());
 
       if(response != 'Algo salio mal'){
+        Swal.fire({
+          icon: "success",
+          title: "Exito",
+          text: "Producto agregado con éxito."
+      });
         window.location.replace("http://localhost:1234/services.html");
+      }
+      else{
+        Swal.fire({
+          icon: "error",
+          title: "Oops",
+          text: "Algo salio mal"
+      });
       }        
 }
 
@@ -51,6 +64,13 @@ const decode= async() =>{
       ).then(response => response.text()).then(data => infoToken=data);
     if(response != 'Algo salio mal'){
       return infoToken;
+    }
+    else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "Algo salio mal"
+    });
     }
 }
 
@@ -69,8 +89,8 @@ const verify=async()=>{
       headers: {
         'Authorization': 'Bearer '+localStorage.getItem('token')
     }}
-    ).then(response => response.text()).then(data => infoToken=data);
-    if(response != 'Algo salio mal'){
+    ).then(response => response.json()).then(data => infoToken=data);
+    if(infoToken.rol != 'Algo salio mal'){
       if(infoToken.rol!=2){
         window.location.replace("http://localhost:1234/");
       }

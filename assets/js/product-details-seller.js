@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const producto = async () => {
   let prod_id = localStorage.getItem("product_id");
   if (prod_id == undefined) {
@@ -10,9 +11,9 @@ const producto = async () => {
     mode: "cors",
     cache: "no-cache",
   })
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((data) => (datos = data));
-  if(response != 'Algo salio mal'){
+  if(datos.error != 'Algo salio mal'){
     window-localStorage.setItem("producto", JSON.stringify(datos))
     
     let imagen = await getImages(datos);
@@ -32,6 +33,13 @@ const producto = async () => {
     padre2.innerHTML = padre2.innerHTML + texto2;
     //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
     padre2.parentNode.insertBefore(padre2, padre2);
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
 };
 
@@ -92,6 +100,13 @@ const getImages = async (product) => {
     .then((data) => (datos = data));
   if(response != 'Algo salio mal'){
     return datos;
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
 };
 
@@ -175,6 +190,13 @@ const editar = async () => {
   .then((data) => (datos = data));
   if(response != 'Algo salio mal'){
       window.location.reload();
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
 }
 

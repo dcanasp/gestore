@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const registro = async () => {
   let token;
   let username = document.getElementById('username').value;
@@ -25,10 +26,17 @@ const registro = async () => {
     body:JSON.stringify(body),
   }).then(response => response.text()).then(data => token=data);
 
-  if(response != 'Algo salio mal'){
+  if(token.error != 'Algo salio mal'){
     window.localStorage.setItem("token", token.token);
 
     window.location.replace("http://localhost:1234");
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
      
 }

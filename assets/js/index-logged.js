@@ -5,8 +5,7 @@ const productos= async () =>{
       method : "GET",
       mode: 'cors',
       cache: 'no-cache',
-      }).then(response => response.text()).then(data => datos=data);
-      if(response != 'Algo salio mal'){
+      }).then(response => response.json()).then(data => datos=data);
         let products=[];
         for (let i=0;i<datos.length;i++){
             products.push(datos[i]);
@@ -24,7 +23,7 @@ const productos= async () =>{
 
         padre.addEventListener("click", prueba, false);
         return;
-    }
+
 }
 
 const creacion = (product,imagen) =>{
@@ -103,9 +102,7 @@ const verify=async()=>{
             padre.addEventListener("load", false);
             return;
         }else{
-            document.getElementById('carrito').setAttribute('style','display:block;');
-            padre.innerHTML = padre.innerHTML + texto;
-    
+            document.getElementById('carrito').setAttribute('style','display:block;');    
             padre.addEventListener("load", false);
             return;
         }

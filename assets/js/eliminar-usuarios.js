@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
@@ -20,6 +21,7 @@ const verify=async()=>{
 
 const search =async()=>{
 
+  try{
     let email = document.getElementById('busqueda').value;
     let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//ADMIN/getUserUnique/?email='+email;
     const x = await fetch(url, {
@@ -29,8 +31,7 @@ const search =async()=>{
         headers: {
             'Authorization': 'Bearer '+localStorage.getItem('token')
           }
-        }).then(response => response.text()).then(data => user=data);
-    if(response != 'Algo salio mal'){
+        }).then(response => response.json()).then(data => user=data);
       if(user.estado==1){
           document.getElementById('name').value=user.username;
           document.getElementById('email').value=user.email;
@@ -42,6 +43,12 @@ const search =async()=>{
           console.log(user);
           window.localStorage.setItem('userRemove',user.user_id );
       }
+  }catch(e){
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "Usuario no encontrado"
+    });
     }
 
 }
@@ -63,6 +70,13 @@ const remove = async() =>{
         if(response != 'Algo salio mal'){
            window.alert('Usuario eliminado');
            window.location.reload(); 
+        }
+        else{
+          Swal.fire({
+            icon: "error",
+            title: "Oops",
+            text: "Algo salio mal"
+        });
         }
     }
     

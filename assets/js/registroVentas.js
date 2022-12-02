@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const getCompras = async () =>{ //crea una compra si el token es correcto
     let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//ADMIN/getAllPurcharse';
     let datos;
@@ -8,9 +9,9 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
         headers: {
             'Authorization': 'Bearer '+localStorage.getItem('token')
           }}
-        ).then(response => response.text()).then(data => datos=data);
+        ).then(response => response.json()).then(data => datos=data);
     
-    if(response != 'Algo salio mal'){
+    if(datos != []){
         let padre = document.getElementById('registroVentasPadre');
 
         datos.forEach(comp => {
@@ -19,6 +20,13 @@ const getCompras = async () =>{ //crea una compra si el token es correcto
             //padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
             padre.parentNode.insertBefore(padre, padre);
         })
+    }
+    else{
+        Swal.fire({
+            icon: "error",
+            title: "Oops",
+            text: "Algo salio mal"
+        });
     }        
     return;
 }

@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const decode=async()=>{
     let infoToken;
     let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//decodeToken/';
@@ -23,8 +24,8 @@ const productos= async () =>{
         headers: {
             'Authorization': 'Bearer '+localStorage.getItem('token')
         }
-        }).then(response => response.text()).then(data => datos=data);
-    if(response != 'Algo salio mal'){
+        }).then(response => response.json()).then(data => datos=data);
+    if(datos.error != 'Algo salio mal'){
         let products=[];
 
         for (let i=0;(i<16)&&(i<datos.length);i++){
@@ -49,6 +50,13 @@ const productos= async () =>{
 
         padre.addEventListener("click", prueba, false);
         return;
+    }
+    else{
+        Swal.fire({
+            icon: "error",
+            title: "Oops",
+            text: "Algo salio mal"
+        });
     }
 }
 

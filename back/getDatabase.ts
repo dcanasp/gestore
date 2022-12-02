@@ -176,7 +176,7 @@ export const getProduct = async (req: Request) => {
 }
 catch(e){
     console.log(e);
-    return "Algo salio mal";
+    return {error:"Algo salio mal"};
 }
 
 }
@@ -202,7 +202,7 @@ export const getProductSell = async (req: Request) => {
 }
 catch(e){
     console.log(e);
-    return "Algo salio mal";
+    return {error:"Algo salio mal"};
 }
 
 }

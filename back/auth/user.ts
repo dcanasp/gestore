@@ -40,21 +40,21 @@ export function auth0(req:Request,res:Response,next:NextFunction){
   try {
     //HEADER Authorization
   //Bearer TOKEN
-  const token = req.header('Authorization')?.replace('Bearer ', '');
-  if (!token) {
-    throw new Error();
-  }
-  //const decoded = jwt.verify(token,env.ACCESS_TOKEN_SECRET as Secret);
-  jwt2.verify(token, env.ACCESS_TOKEN_SECRET as Secret, (err: any, verifiedJwt: any) => {
-    if(err){
-      next();
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    if (!token) {
       throw new Error();
-    }else{
-      (req as CustomRequest).token = verifiedJwt.body;
-      next();
-      return;
     }
-  })
+    //const decoded = jwt.verify(token,env.ACCESS_TOKEN_SECRET as Secret);
+    jwt2.verify(token, env.ACCESS_TOKEN_SECRET as Secret, (err: any, verifiedJwt: any) => {
+      if(err){
+        next();
+        throw new Error();
+      }else{
+        (req as CustomRequest).token = verifiedJwt.body;
+        next();
+        return;
+      }
+    })
 
   // //AQUI AQUI
   // (req as CustomRequest).token = decoded;

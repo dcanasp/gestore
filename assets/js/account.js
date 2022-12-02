@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const create = async() =>{
 
   let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//getUser/';
@@ -8,9 +9,9 @@ const create = async() =>{
         cache: 'no-cache',
         headers: {
           'Authorization': 'Bearer '+localStorage.getItem('token')
-        }}).then(response => response.text()).then(data => user=data.token);
+        }}).then(response => response.json()).then(data => user=data.token);
   
-  if(response != 'Algo salio mal'){
+  if(user != 'Algo salio mal'){
 
     let padre = document.getElementById("form");
     let texto = creacion0(user);
@@ -19,6 +20,13 @@ const create = async() =>{
     padre.parentNode.insertBefore(padre, padre);
     document.getElementById("editar").setAttribute("style", "display:block;");
 
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
     
 
@@ -34,9 +42,9 @@ const change = async() =>{
         cache: 'no-cache',
         headers: {
           'Authorization': 'Bearer '+localStorage.getItem('token')
-        }}).then(response => response.text()).then(data => user=data.token);
+        }}).then(response => response.json()).then(data => user=data.token);
 
-  if(response != 'Algo salio mal'){
+  if(user != 'Algo salio mal'){
 
     let padre = document.getElementById("form");
     let texto = creacion(user);
@@ -46,6 +54,13 @@ const change = async() =>{
     document.getElementById("confirm").setAttribute("style", "display:block;");
     document.getElementById("editar").setAttribute("style", "display:none;");
 
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
 
 }
@@ -82,7 +97,7 @@ const edit = async() =>{
           'Authorization': 'Bearer '+localStorage.getItem('token')
         }}).then(response => response.json()).then(data => user=data.token);
 
-    if(response != 'Algo salio mal'){
+    if(user != 'Algo salio mal'){
 
       let body= {
         user_id: Number(user.user_id),
@@ -107,7 +122,21 @@ const edit = async() =>{
       if(texto != 'Algo salio mal'){
         window.location.reload();
       }
+      else{
+        Swal.fire({
+          icon: "error",
+          title: "Oops",
+          text: "Algo salio mal"
+      });
+      }
   
+    }
+    else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "Algo salio mal"
+    });
     }
 
 }
@@ -123,11 +152,10 @@ const verify=async()=>{
         headers: {
           'Authorization': 'Bearer '+localStorage.getItem('token')
         }}
-        ).then(response => response.text()).then(data => infoToken=data);
+        ).then(response => response.json()).then(data => infoToken=data);
 
-      if(response != 'Algo salio mal'){
+      if(infoToken != 'Algo salio mal'){
         let padre = document.getElementById("buttons");
-        console.log(infoToken.rol);
         if(infoToken.rol==2){
             let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
             padre.innerHTML = padre.innerHTML + texto;

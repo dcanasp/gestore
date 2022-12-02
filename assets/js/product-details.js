@@ -11,8 +11,8 @@ const producto = async () =>{
       method : "GET",
       mode: 'cors',
       cache: 'no-cache',
-  }).then(response => text.json()).then(data => datos=data);
-  if(response != 'Algo salio mal'){
+  }).then(response => response.json()).then(data => datos=data);
+  if(datos.error != 'Algo salio mal'){
     let imagen = await getImages(datos);
     let padre1 = document.getElementById("imagen-producto");
     let texto = creacion1(imagen);
@@ -30,6 +30,13 @@ const producto = async () =>{
     // padre.innerHTML = texto + padre.innerHTML;// por si lo quiero alrevez
     padre3.parentNode.insertBefore(padre3, padre3);
     document.getElementById("quantity").setAttribute("max",datos.stock)
+  }
+  else{
+    Swal.fire({
+      icon: "error",
+      title: "Oops",
+      text: "Algo salio mal"
+  });
   }
 };
 
@@ -82,8 +89,15 @@ const getImages = async (product) => {
         mode: 'cors',
         cache: 'no-cache',
     }).then(response => response.text()).then(data => datos=data);
-    if(response != 'Algo salio mal'){
+    if(datos != 'Algo salio mal'){
       return datos;
+    }
+    else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "Algo salio mal"
+    });
     }
 }
     
@@ -119,7 +133,6 @@ const verify=async()=>{
     }else{
       document.getElementById('carrito').setAttribute('style','display:block;');
         document.getElementById('comp').setAttribute('style','display:block;');
-        padre.innerHTML = padre.innerHTML + texto;
   
         padre.addEventListener("load", false);
         return;
@@ -129,17 +142,30 @@ const verify=async()=>{
 }
 
 const comprar=async()=>{
-  console.log("AYUFA");
   if(localStorage.getItem("carrito") == undefined||null){
     localStorage.setItem("carrito", localStorage.getItem("product_id") + "/" + String(document.getElementById("quantity").value))
   }
   else{
     localStorage.setItem("carrito", localStorage.getItem("carrito") + "+" + localStorage.getItem("product_id") + "/" + String(document.getElementById("quantity").value))
   }
+  Swal.fire({
+    icon: "success", 
+    title: "Exito",
+    text: "Producto agregado con éxito al carrito"
+  })
+  return;
+}
+
+const logout = () =>{
+  window.localStorage.removeItem('token');
+  window.location.replace("http://localhost:1234/index.html");
+  return;
 }
 
 verify();
 
 producto();
 
-document.getElementById('comprar').addEventListener('click', ()=>{console.log(1)})
+document.getElementById("logOut").addEventListener("click", logout);    
+
+document.getElementById('comprar').addEventListener("click", logout);

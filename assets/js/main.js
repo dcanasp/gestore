@@ -4,6 +4,9 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+const { default: Swal } = require("sweetalert2");
+
 (function() {
   "use strict";
 

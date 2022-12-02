@@ -12,7 +12,6 @@ const x = await fetch('http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//AD
     'Authorization': 'Bearer '+localStorage.getItem('token')
     }}
     ).then(response => response.json()).then(data => datos=data);
-console.log(datos);
 let usuarios=[]; //objeto 
 let bandera= false;
 //añade a usuario si es nuevo, sino le añade uno
