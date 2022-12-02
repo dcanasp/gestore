@@ -1,7 +1,7 @@
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = process.env.urlBack+'/decodeToken/';
+    let url = 'http//localhost:3000'+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',

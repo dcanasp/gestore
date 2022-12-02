@@ -1,7 +1,7 @@
 const { default: Swal } = require("sweetalert2");
 const create = async() =>{
 
-  let url = process.env.urlBack+'/getUser/';
+  let url = 'http//localhost:3000'+'/getUser/';
     let user;
     const x = await fetch(url, {
         method : "GET",
@@ -34,7 +34,7 @@ const create = async() =>{
 
 const change = async() =>{
 
-  let url = process.env.urlBack+'/getUser/';
+  let url = 'http//localhost:3000'+'/getUser/';
     let user;
     const x = await fetch(url, {
         method : "GET",
@@ -87,7 +87,7 @@ const creacion = (user) =>{
 
 const edit = async() =>{
 
-    let url0 = process.env.urlBack+'/getUser/';
+    let url0 = 'http//localhost:3000'+'/getUser/';
     let user;
     const x0 = await fetch(url0, {
         method : "GET",
@@ -105,7 +105,7 @@ const edit = async() =>{
         password: String(document.getElementById('password').value),
         email: String(user.email)
       }
-      let url = process.env.urlBack+'/editUser/';
+      let url = 'http//localhost:3000'+'/editUser/';
       let datos;
       const x = await fetch(url, {
         method: "POST",
@@ -144,7 +144,7 @@ const edit = async() =>{
 const verify=async()=>{
     if(localStorage.getItem('token')!=undefined){
       let infoToken;
-      let url = process.env.urlBack+'/decodeToken/';
+      let url = 'http//localhost:3000'+'/decodeToken/';
       const x = await fetch(url, {
         method : "GET",
         mode: 'cors',

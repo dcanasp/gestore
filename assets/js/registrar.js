@@ -16,7 +16,7 @@ const registro = async () => {
     rol: rol,
     email: email
   }
-  const x = await fetch(process.env.urlBack+'/createUser', {
+  const x = await fetch('http//localhost:3000'+'/createUser', {
     method : "POST",
     mode: 'cors',
     cache: 'no-cache',
