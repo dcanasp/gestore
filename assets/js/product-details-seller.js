@@ -3,7 +3,7 @@ const producto = async () => {
   if (prod_id == undefined) {
     return "error";
   }
-  let url = "http://localhost:3000/getProduct/" + prod_id;
+  let url = "http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//getProduct/" + prod_id;
   let datos;
   const x = await fetch(url, {
     method: "GET",
@@ -81,7 +81,7 @@ const creacion2 = (product) => {
 };
 
 const getImages = async (product) => {
-  let url = "http://localhost:3000/getImages/" + product.image_id;
+  let url = "http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//getImages/" + product.image_id;
   let datos;
   const x = await fetch(url, {
     method: "GET",
@@ -159,7 +159,7 @@ const editar = async () => {
     categoria: Number(categoriaNew+1)
   }
   
-  let url = "http://localhost:3000/SELL/editProduct/";
+  let url = "http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//SELL/editProduct/";
   let datos;
   const x = await fetch(url, {
     method: "POST",
@@ -185,7 +185,7 @@ function getRandomInt(max) {
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://localhost:3000/decodeToken/';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',

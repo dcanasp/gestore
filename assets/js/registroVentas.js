@@ -1,5 +1,5 @@
 const getCompras = async () =>{ //crea una compra si el token es correcto
-    let url = 'http://localhost:3000/ADMIN/getAllPurcharse';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//ADMIN/getAllPurcharse';
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -39,7 +39,7 @@ const creacion = (compra) =>{
 const verify=async()=>{
     if(localStorage.getItem('token')!=undefined){
         let infoToken;
-        let url = 'http://localhost:3000/decodeToken/';
+        let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//decodeToken/';
         const x = await fetch(url, {
         method : "GET",
         mode: 'cors',

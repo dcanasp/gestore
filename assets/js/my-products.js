@@ -1,6 +1,6 @@
 const decode=async()=>{
     let infoToken;
-    let url = 'http://localhost:3000/decodeToken/';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -14,7 +14,7 @@ const decode=async()=>{
 
 const productos= async () =>{
     let user_id = await decode();
-    let url = 'http://localhost:3000/SELL/getProducts/'+String(user_id);
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//SELL/getProducts/'+String(user_id);
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -70,7 +70,7 @@ const creacion = (product,imagen) =>{
 
 
 const getImages = async (products) => {
-    let url = 'http://localhost:3000/getAllImages';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//getAllImages';
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -99,7 +99,7 @@ function prueba(e){
 const verify=async()=>{
     if(localStorage.getItem('token')!=undefined){
     let infoToken;
-        let url = 'http://localhost:3000/decodeToken/';
+        let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//decodeToken/';
         const x = await fetch(url, {
         method : "GET",
         mode: 'cors',

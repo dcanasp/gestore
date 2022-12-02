@@ -1,6 +1,6 @@
 const create = async() =>{
 
-  let url = 'http://localhost:3000/getUser/';
+  let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//getUser/';
     let user;
     const x = await fetch(url, {
         method : "GET",
@@ -26,7 +26,7 @@ const create = async() =>{
 
 const change = async() =>{
 
-  let url = 'http://localhost:3000/getUser/';
+  let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//getUser/';
     let user;
     const x = await fetch(url, {
         method : "GET",
@@ -72,7 +72,7 @@ const creacion = (user) =>{
 
 const edit = async() =>{
 
-    let url0 = 'http://localhost:3000/getUser/';
+    let url0 = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//getUser/';
     let user;
     const x0 = await fetch(url0, {
         method : "GET",
@@ -90,7 +90,7 @@ const edit = async() =>{
         password: String(document.getElementById('password').value),
         email: String(user.email)
       }
-      let url = "http://localhost:3000/editUser/";
+      let url = "http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//editUser/";
       let datos;
       const x = await fetch(url, {
         method: "POST",
@@ -115,7 +115,7 @@ const edit = async() =>{
 const verify=async()=>{
     if(localStorage.getItem('token')!=undefined){
       let infoToken;
-      let url = 'http://localhost:3000/decodeToken/';
+      let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000//decodeToken/';
       const x = await fetch(url, {
         method : "GET",
         mode: 'cors',
