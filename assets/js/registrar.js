@@ -29,7 +29,7 @@ const registro = async () => {
   if(token.error != 'Algo salio mal'){
     window.localStorage.setItem("token", token.token);
 
-    window.location.replace("http://localhost:1234");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234");
   }
   else{
     Swal.fire({

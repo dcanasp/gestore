@@ -57,16 +57,16 @@ const verify=async()=>{
         }}
         ).then(response => response.json()).then(data => infoToken=data);
         if(infoToken.rol!=3){
-        window.location.replace("http://localhost:1234/");
+        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
         }
     }else{
-        window.location.replace("http://localhost:1234/index.html/");
+        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html/");
     }
 }
 
 const logout = () =>{
     window.localStorage.removeItem('token');
-    window.location.replace("http://localhost:1234/index.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
     return;
 }
 

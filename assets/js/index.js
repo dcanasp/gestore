@@ -78,7 +78,7 @@ function prueba(e){
 
 const verify = async()=>{
     if(window.localStorage.getItem("token")!=undefined){
-        window.location.replace("http://localhost:1234/index-logged.html");
+        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index-logged.html");
     }
     return;
 }

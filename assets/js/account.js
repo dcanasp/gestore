@@ -179,14 +179,14 @@ const verify=async()=>{
         }
     }
     }else{
-      window.location.replace("http://localhost:1234/");
+      window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
     }
   
   }
   
   const logout = () =>{
     window.localStorage.removeItem('token');
-    window.location.replace("http://localhost:1234/index.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
     return;
   }
 
