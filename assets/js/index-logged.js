@@ -38,7 +38,7 @@ const creacion = (product,imagen) =>{
       </div>
   </div>            
   <p class="price">\$${product.precio}</p>
-  <a href="portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
+  <a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
   </div>
   `
     return x;
@@ -88,15 +88,15 @@ const verify=async()=>{
           let padre = document.getElementById("buttons");
           
         if(infoToken.rol==2){
-            let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
+            let texto = `<li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/services.html" >Mis Productos</a></li>`;
             padre.innerHTML = padre.innerHTML + texto;
     
             padre.addEventListener("load", false);
             return;
         }else if(infoToken.rol==3){
-            let texto = `<li><a href="graficas.html" >Stats</a></li>
-            <li><a href="registro-ventas.html" >Ventas</a></li>
-            <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
+            let texto = `<li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/graficas.html" >Stats</a></li>
+            <li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/registro-ventas.html" >Ventas</a></li>
+            <li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/eliminar-usuario.html" >Eliminar usuario</a></li>`;
             padre.innerHTML = padre.innerHTML + texto;
     
             padre.addEventListener("load", false);

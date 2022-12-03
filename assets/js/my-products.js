@@ -69,7 +69,7 @@ const creacion = (product,imagen) =>{
         </div>
     </div>            
     <p class="price">\$${product.precio}</p>
-    <a href="product-details-seller.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
+    <a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/product-details-seller.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
     </div>
     `
       return x;

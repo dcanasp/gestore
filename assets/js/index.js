@@ -34,12 +34,12 @@ const creacion = (product,imagen) =>{
         <img src="${imagen}" class="img-fluid portfolio-lightbox" alt="">
         <div class="portfolio-info">
             <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
             </div>
         </div>
     </div>            
     <p class="price">\$${product.precio}</p>
-    <a href="portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
+    <a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
     </div>
     `
       return x;
