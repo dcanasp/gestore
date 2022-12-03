@@ -1,5 +1,5 @@
 const productos= async () =>{
-  let url = 'http://localhost:3000/getAllProducts';
+  let url = 'http//localhost:3000'+'/getAllProducts';
   let datos;
   const x = await fetch(url, {
       method : "GET",
@@ -45,7 +45,7 @@ const creacion = (product,imagen) =>{
 }
 
 const getImages = async (products) => {
-  let url = 'http://localhost:3000/getAllImages';
+  let url = 'http//localhost:3000'+'/getAllImages';
   let datos;
   const x = await fetch(url, {
       method : "GET",
@@ -75,7 +75,7 @@ const verify=async()=>{
     if(window.localStorage.getItem('token')!=undefined){
 
         let infoToken;
-        let url = 'http://localhost:3000/decodeToken/';
+        let url = 'http//localhost:3000'+'/decodeToken/';
         const x = await fetch(url, {
           method : "GET",
           mode: 'cors',

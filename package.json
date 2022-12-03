@@ -22,6 +22,7 @@
     "bootstrap": "^5.2.2",
     "chart.js": "^3.9.1",
     "desandro-matches-selector": "^2.0.2",
+    "dotenv": "^16.0.3",
     "ev-emitter": "^2.1.2",
     "fizzy-ui-utils": "^3.0.0",
     "imports-loader": "^4.0.1",

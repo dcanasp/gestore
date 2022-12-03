@@ -1,11 +1,10 @@
-
 const producto = async () =>{
   let prod_id = localStorage.getItem("product_id");
   if (prod_id==undefined){
     console.log("no product_id")
     return "error"
   }
-  let url = 'http://localhost:3000/getProduct/'+prod_id;
+  let url = 'http//localhost:3000'+'/getProduct/'+prod_id;
   let datos;
   const x = await fetch(url, {
       method : "GET",
@@ -82,7 +81,7 @@ const creacion1 = (imagen) =>{
   }
 
 const getImages = async (product) => {
-    let url = 'http://localhost:3000/getImages/' + product.image_id;
+    let url = 'http//localhost:3000'+'/getImages/' + product.image_id;
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -104,7 +103,7 @@ const getImages = async (product) => {
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://localhost:3000/decodeToken/';
+    let url = 'http//localhost:3000'+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
