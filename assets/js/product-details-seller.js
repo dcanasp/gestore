@@ -98,7 +98,7 @@ const getImages = async (product) => {
   })
     .then((response) => response.text())
     .then((data) => (datos = data));
-  if(response != 'Algo salio mal'){
+  if(datos != 'Algo salio mal'){
     return datos;
   }
   else{
@@ -188,7 +188,7 @@ const editar = async () => {
   })
   .then((response) =>  texto=response.text())
   .then((data) => (datos = data));
-  if(response != 'Algo salio mal'){
+  if(texto != 'Algo salio mal'){
       window.location.reload();
   }
   else{

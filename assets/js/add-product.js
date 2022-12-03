@@ -22,7 +22,7 @@ const createNew= async() =>{
     }
 
     let url = 'http://localhost:3000/SELL/createProduct/';
-    let datos;
+    let texto;
     const x = await fetch(url, {
       method : "POST",
       mode: 'cors',
@@ -32,15 +32,18 @@ const createNew= async() =>{
         'Content-Type':'application/json'
       },
       body: JSON.stringify(data)
-      }).then(response => response.text());
+      }).then(response => texto=response.text());
 
-      if(response != 'Algo salio mal'){
+      if(texto != 'Algo salio mal'){
         Swal.fire({
           icon: "success",
           title: "Exito",
-          text: "Producto agregado con éxito."
+          text: "Producto agregado con éxito.",
+          didClose:()=>{
+            window.location.replace("http://localhost:1234/services.html");
+          }
       });
-        window.location.replace("http://localhost:1234/services.html");
+        
       }
       else{
         Swal.fire({
@@ -61,8 +64,8 @@ const decode= async() =>{
       headers: {
         'Authorization': 'Bearer '+localStorage.getItem('token')
       }}
-      ).then(response => response.text()).then(data => infoToken=data);
-    if(response != 'Algo salio mal'){
+      ).then(response => response.json()).then(data => infoToken=data);
+    if(infoToken != 'Algo salio mal'){
       return infoToken;
     }
     else{

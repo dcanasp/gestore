@@ -19,6 +19,15 @@ const verify=async()=>{
   }
 }
 
+const defaulPage = () =>{
+
+  document.getElementById('name').value='';
+  document.getElementById('email').value='';
+  document.getElementById('rol').value='';
+  document.getElementById('busqueda').value='';
+
+}
+
 const search =async()=>{
 
   try{
@@ -56,6 +65,7 @@ const search =async()=>{
 const remove = async() =>{
 
     let user_id = window.localStorage.getItem('userRemove');
+    let texto;
     if(user_id!=undefined){
         let url = 'http://localhost:3000/deleteUser/?user_id='+user_id;
         let user;
@@ -66,10 +76,14 @@ const remove = async() =>{
             headers: {
                 'Authorization': 'Bearer '+localStorage.getItem('token')
               }
-            }).then(response => response.text());
-        if(response != 'Algo salio mal'){
-           window.alert('Usuario eliminado');
-           window.location.reload(); 
+            }).then(response => texto=response.text());
+        if(texto != 'Algo salio mal'){
+          defaulPage();
+          Swal.fire({
+            icon: "success",
+            title: "Valido",
+            text: "Usuario eliminado correctamente"
+          })
         }
         else{
           Swal.fire({
