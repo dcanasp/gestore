@@ -62,15 +62,6 @@ const search =async()=>{
 
 }
 
-const defaulPage = () =>{
-
-  document.getElementById('name').value='';
-  document.getElementById('email').value='';
-  document.getElementById('rol').value='';
-  document.getElementById('busqueda').value='';
-
-}
-
 const remove = async() =>{
 
     let user_id = window.localStorage.getItem('userRemove');
