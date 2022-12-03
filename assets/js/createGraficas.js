@@ -5,7 +5,7 @@ let configDona;
 let myChart;
 const crearChart = async () => {
 let datos;
-const x = await fetch('http//localhost:3000'+'/ADMIN/getAllClients', {
+const x = await fetch('http://localhost:3000'+'/ADMIN/getAllClients', {
     method : "GET",
     headers: {
     'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ const drawGrafica = (configuracion) =>{
 }
 const getNombres = async (users_id) => {
 let datos;
-const x = await fetch('http//localhost:3000'+'/ADMIN/getAllUsers', {
+const x = await fetch('http://localhost:3000'+'/ADMIN/getAllUsers', {
     method : "GET",
     headers: {
     'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ return usuarios;
 
 const verify=async()=>{
     let infoToken;
-    let url = 'http//localhost:3000'+'/decodeToken/';
+    let url = 'http://localhost:3000'+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
