@@ -21,7 +21,7 @@ const createNew= async() =>{
         categoria: Number(categoriaNew+1),
     }
 
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/SELL/createProduct/';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000/SELL/createProduct/';
     let texto;
     const x = await fetch(url, {
       method : "POST",
@@ -56,7 +56,7 @@ const createNew= async() =>{
 
 const decode= async() =>{
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:1234'+'/decodeToken/';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -84,7 +84,7 @@ function getRandomInt(max) {
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:1234'+'/decodeToken/';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
