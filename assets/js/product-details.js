@@ -157,7 +157,7 @@ const comprar=async()=>{
 
 const logout = () =>{
   window.localStorage.removeItem('token');
-  window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+  window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
   return;
 }
 
