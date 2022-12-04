@@ -13,7 +13,7 @@ const login = async () =>{//si usuario y clave correctos, MAL NO USAR
       ).then(response => response.json()).then(data => datos=data);
       if(datos.token!="Algo salio mal"){
         localStorage.setItem('token',datos.token);
-        window.location.href ="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index-logged.html";
+        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index-logged.html");
       }else{
         Swal.fire({
           icon: "error",
