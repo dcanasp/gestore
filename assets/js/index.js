@@ -82,5 +82,25 @@ const verify = async()=>{
     }
     return;
 }
+
+const pendejada = async()=>{
+    
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+    
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
+    
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/addProduct.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/compra.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/eliminar-usuario.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/graficas.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/login.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/perfil2.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/portfolio-details.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/product-details-seller.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/registro-ventas.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/registros.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/services.html");
+}
+
 verify();
 productos();
