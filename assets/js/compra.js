@@ -152,7 +152,7 @@ const comprar = async() =>{
                 .then((data) => (datos = data));
                 if(texto!="Algo salio mal"){
                     window.localStorage.removeItem('carrito');
-                    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index-logged.html/");
+                    window.location.replace("http://localhost:1234/index-logged.html/");
                 }
                 
                 else{
