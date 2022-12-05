@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "front": "npx parcel index.html"
+    "local": "set urlBack=http://localhost:3000&& set urlFront=http://localhost:1234&& npx parcel index.html",
+    "front": "set urlBack=http://ec2-52-91-104-218.compute-1.amazonaws.com:3000&& set urlFront=http://ec2-52-91-104-218.compute-1.amazonaws.com:1234&& npx parcel index.html"
   },
   "repository": {
     "type": "git",
