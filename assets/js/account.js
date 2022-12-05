@@ -179,7 +179,7 @@ const verify=async()=>{
         }
     }
     }else{
-      window.location.replace("http://localhost:1234/");
+      window.location.replace(process.env.urlFront+"/");
     }
   
   }

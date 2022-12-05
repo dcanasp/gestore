@@ -4,6 +4,7 @@ const login = async () =>{//si usuario y clave correctos, MAL NO USAR
     let password = document.getElementById('password').value;
     let username = document.getElementById('username').value;
     let url = process.env.urlBack+'/checkUser/'+username+'?password='+password;
+    console.log(process.env.urlBack);
       let datos;
       const x = await fetch(url, {
         method : "GET",
@@ -13,7 +14,7 @@ const login = async () =>{//si usuario y clave correctos, MAL NO USAR
       ).then(response => response.json()).then(data => datos=data);
       if(datos.token!="Algo salio mal"){
         localStorage.setItem('token',datos.token);
-        window.location.replace("http://localhost:1234/index-logged.html");
+        window.location.replace(process.env.urlFront+"/index-logged.html");
       }else{
         Swal.fire({
           icon: "error",

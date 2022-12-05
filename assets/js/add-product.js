@@ -40,7 +40,7 @@ const createNew= async() =>{
           title: "Exito",
           text: "Producto agregado con éxito.",
           didClose:()=>{
-            window.location.replace("http://localhost:1234/services.html");
+            window.location.replace(process.env.urlFront+"/services.html");
           }
       });
         
@@ -95,7 +95,7 @@ const verify=async()=>{
     ).then(response => response.json()).then(data => infoToken=data);
     if(infoToken.rol != 'Algo salio mal'){
       if(infoToken.rol!=2){
-        window.location.replace("http://localhost:1234/");
+        window.location.replace(process.env.urlFront+"/");
       }
     }
   }else{

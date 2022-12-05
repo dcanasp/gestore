@@ -202,7 +202,7 @@ const verify=async()=>{
       }}
       ).then(response => response.json()).then(data => infoToken=data);
     if(infoToken.rol!=3){
-      window.location.replace("http://localhost:1234/");
+      window.location.replace(process.env.urlFront+"/");
     }
 }
 const cambiar = () =>{
