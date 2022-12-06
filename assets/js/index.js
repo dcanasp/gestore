@@ -1,5 +1,5 @@
 const productos= async () =>{
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getAllProducts';
+    let url = process.env.urlBack+'/getAllProducts';
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -34,12 +34,12 @@ const creacion = (product,imagen) =>{
         <img src="${imagen}" class="img-fluid portfolio-lightbox" alt="">
         <div class="portfolio-info">
             <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
+                <a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
             </div>
         </div>
     </div>            
     <p class="price">\$${product.precio}</p>
-    <a href="portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
+    <a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
     </div>
     `
       return x;
@@ -48,7 +48,7 @@ const creacion = (product,imagen) =>{
 
 
 const getImages = async (products) => {
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getAllImages';
+    let url = process.env.urlBack+'/getAllImages';
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -78,9 +78,29 @@ function prueba(e){
 
 const verify = async()=>{
     if(window.localStorage.getItem("token")!=undefined){
-        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index-logged.html");
+        window.location.replace(process.env.urlFront+"/index-logged.html");
     }
     return;
 }
+
+const pendejada = async()=>{
+    
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+    
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
+    
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/addProduct.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/compra.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/eliminar-usuario.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/graficas.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/login.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/perfil2.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/portfolio-details.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/product-details-seller.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/registro-ventas.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/registros.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/services.html");
+}
+
 verify();
 productos();

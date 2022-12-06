@@ -2,7 +2,7 @@ const { default: Swal } = require("sweetalert2");
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -12,10 +12,10 @@ const verify=async()=>{
       }}
       ).then(response => response.json()).then(data => infoToken=data);
     if(infoToken.rol!=3){
-      window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
+      window.location.replace(process.env.urlFront+"/");
     }
   }else{
-    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html/");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
   }
 }
 
@@ -32,7 +32,7 @@ const search =async()=>{
 
   try{
     let email = document.getElementById('busqueda').value;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/ADMIN/getUserUnique/?email='+email;
+    let url = process.env.urlBack+'/ADMIN/getUserUnique/?email='+email;
     const x = await fetch(url, {
         method : "GET",
         mode: 'cors',
@@ -62,21 +62,12 @@ const search =async()=>{
 
 }
 
-const defaulPage = () =>{
-
-  document.getElementById('name').value='';
-  document.getElementById('email').value='';
-  document.getElementById('rol').value='';
-  document.getElementById('busqueda').value='';
-
-}
-
 const remove = async() =>{
 
     let user_id = window.localStorage.getItem('userRemove');
     let texto;
     if(user_id!=undefined){
-        let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/deleteUser/?user_id='+user_id;
+        let url = process.env.urlBack+'/deleteUser/?user_id='+user_id;
         let user;
         const x = await fetch(url, {
             method : "POST",
@@ -108,7 +99,7 @@ const remove = async() =>{
 
 const logout = () =>{
   window.localStorage.removeItem('token');
-  window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+  window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
   return;
 }
 

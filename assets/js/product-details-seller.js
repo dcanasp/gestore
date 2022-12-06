@@ -4,7 +4,7 @@ const producto = async () => {
   if (prod_id == undefined) {
     return "error";
   }
-  let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getProduct/' + prod_id;
+  let url = process.env.urlBack+'/getProduct/' + prod_id;
   let datos;
   const x = await fetch(url, {
     method: "GET",
@@ -89,7 +89,7 @@ const creacion2 = (product) => {
 };
 
 const getImages = async (product) => {
-  let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getImages/' + product.image_id;
+  let url = process.env.urlBack+'/getImages/' + product.image_id;
   let datos;
   const x = await fetch(url, {
     method: "GET",
@@ -174,7 +174,7 @@ const editar = async () => {
     categoria: Number(categoriaNew+1)
   }
   
-  let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/SELL/editProduct/';
+  let url = process.env.urlBack+'/SELL/editProduct/';
   let datos;
   const x = await fetch(url, {
     method: "POST",
@@ -207,7 +207,7 @@ function getRandomInt(max) {
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -217,16 +217,16 @@ const verify=async()=>{
       }}
       ).then(response => response.json()).then(data => infoToken=data);
     if(infoToken.rol!=2){
-      window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
+      window.location.replace(process.env.urlFront+"/");
     }
   }else{
-    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html/");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
   }
 }
 
 const logout = () =>{
   window.localStorage.removeItem('token');
-  window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+  window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
   return;
 }
 

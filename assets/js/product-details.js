@@ -4,7 +4,7 @@ const producto = async () =>{
     console.log("no product_id")
     return "error"
   }
-  let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getProduct/'+prod_id;
+  let url = process.env.urlBack+'/getProduct/'+prod_id;
   let datos;
   const x = await fetch(url, {
       method : "GET",
@@ -81,7 +81,7 @@ const creacion1 = (imagen) =>{
   }
 
 const getImages = async (product) => {
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getImages/' + product.image_id;
+    let url = process.env.urlBack+'/getImages/' + product.image_id;
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -103,7 +103,7 @@ const getImages = async (product) => {
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -116,15 +116,15 @@ const verify=async()=>{
       let padre = document.getElementById("buttons");
     console.log(infoToken.rol);
     if(infoToken.rol==2){
-        let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
+        let texto = `<li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/services.html" >Mis Productos</a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
   
         padre.addEventListener("load", false);
         return;
     }else if(infoToken.rol==3){
-        let texto = `<li><a href="graficas.html" >Stats</a></li>
-        <li><a href="registro-ventas.html" >Ventas</a></li>
-        <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
+        let texto = `<li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/graficas.html" >Stats</a></li>
+        <li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/registro-ventas.html" >Ventas</a></li>
+        <li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/eliminar-usuario.html" >Eliminar usuario</a></li>`;
         padre.innerHTML = padre.innerHTML + texto;
   
         padre.addEventListener("load", false);
@@ -157,7 +157,7 @@ const comprar=async()=>{
 
 const logout = () =>{
   window.localStorage.removeItem('token');
-  window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+  window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
   return;
 }
 

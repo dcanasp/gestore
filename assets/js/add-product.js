@@ -21,7 +21,7 @@ const createNew= async() =>{
         categoria: Number(categoriaNew+1),
     }
 
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000/SELL/createProduct/';
+    let url = 'process.env.urlBack/SELL/createProduct/';
     let texto;
     const x = await fetch(url, {
       method : "POST",
@@ -40,7 +40,7 @@ const createNew= async() =>{
           title: "Exito",
           text: "Producto agregado con éxito.",
           didClose:()=>{
-            window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/services.html");
+            window.location.replace(process.env.urlFront+"/services.html");
           }
       });
         
@@ -56,7 +56,7 @@ const createNew= async() =>{
 
 const decode= async() =>{
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -84,7 +84,7 @@ function getRandomInt(max) {
 const verify=async()=>{
   if(localStorage.getItem('token')!=undefined){
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -95,17 +95,17 @@ const verify=async()=>{
     ).then(response => response.json()).then(data => infoToken=data);
     if(infoToken.rol != 'Algo salio mal'){
       if(infoToken.rol!=2){
-        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
+        window.location.replace(process.env.urlFront+"/");
       }
     }
   }else{
-    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html/");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
   }
 }
 
 const logout = () =>{
     window.localStorage.removeItem('token');
-    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
     return;
 }
 

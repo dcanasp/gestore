@@ -5,7 +5,7 @@ let configDona;
 let myChart;
 const crearChart = async () => {
 let datos;
-const x = await fetch('http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/ADMIN/getAllClients', {
+const x = await fetch(process.env.urlBack+'/ADMIN/getAllClients', {
     method : "GET",
     headers: {
     'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ const drawGrafica = (configuracion) =>{
 }
 const getNombres = async (users_id) => {
 let datos;
-const x = await fetch('http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/ADMIN/getAllUsers', {
+const x = await fetch(process.env.urlBack+'/ADMIN/getAllUsers', {
     method : "GET",
     headers: {
     'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ return usuarios;
 
 const verify=async()=>{
     let infoToken;
-    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
+    let url = process.env.urlBack+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -202,7 +202,7 @@ const verify=async()=>{
       }}
       ).then(response => response.json()).then(data => infoToken=data);
     if(infoToken.rol!=3){
-      window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
+      window.location.replace(process.env.urlFront+"/");
     }
 }
 const cambiar = () =>{

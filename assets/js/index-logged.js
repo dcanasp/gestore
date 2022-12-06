@@ -1,5 +1,5 @@
 const productos= async () =>{
-  let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getAllProducts';
+  let url = process.env.urlBack+'/getAllProducts';
   let datos;
   const x = await fetch(url, {
       method : "GET",
@@ -38,14 +38,14 @@ const creacion = (product,imagen) =>{
       </div>
   </div>            
   <p class="price">\$${product.precio}</p>
-  <a href="portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
+  <a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/portfolio-details.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
   </div>
   `
     return x;
 }
 
 const getImages = async (products) => {
-  let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getAllImages';
+  let url = process.env.urlBack+'/getAllImages';
   let datos;
   const x = await fetch(url, {
       method : "GET",
@@ -75,7 +75,7 @@ const verify=async()=>{
     if(window.localStorage.getItem('token')!=undefined){
 
         let infoToken;
-        let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
+        let url = process.env.urlBack+'/decodeToken/';
         const x = await fetch(url, {
           method : "GET",
           mode: 'cors',
@@ -88,15 +88,15 @@ const verify=async()=>{
           let padre = document.getElementById("buttons");
           
         if(infoToken.rol==2){
-            let texto = `<li><a href="services.html" >Mis Productos</a></li>`;
+            let texto = `<li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/services.html" >Mis Productos</a></li>`;
             padre.innerHTML = padre.innerHTML + texto;
     
             padre.addEventListener("load", false);
             return;
         }else if(infoToken.rol==3){
-            let texto = `<li><a href="graficas.html" >Stats</a></li>
-            <li><a href="registro-ventas.html" >Ventas</a></li>
-            <li><a href="eliminar-usuario.html" >Eliminar usuario</a></li>`;
+            let texto = `<li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/graficas.html" >Stats</a></li>
+            <li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/registro-ventas.html" >Ventas</a></li>
+            <li><a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/eliminar-usuario.html" >Eliminar usuario</a></li>`;
             padre.innerHTML = padre.innerHTML + texto;
     
             padre.addEventListener("load", false);
@@ -108,13 +108,13 @@ const verify=async()=>{
         }
 
     }else{
-        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
     }
 }
 
 const logout = () =>{
     window.localStorage.removeItem('token');
-    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
     return;
 }
 
