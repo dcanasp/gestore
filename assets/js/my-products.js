@@ -1,7 +1,7 @@
 const { default: Swal } = require("sweetalert2");
 const decode=async()=>{
     let infoToken;
-    let url = process.env.urlBack+'/decodeToken/';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',
@@ -15,7 +15,7 @@ const decode=async()=>{
 
 const productos= async () =>{
     let user_id = await decode();
-    let url = process.env.urlBack+'/SELL/getProducts/'+String(user_id);
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/SELL/getProducts/'+String(user_id);
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -69,7 +69,7 @@ const creacion = (product,imagen) =>{
         </div>
     </div>            
     <p class="price">\$${product.precio}</p>
-    <a href="http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/product-details-seller.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
+    <a href="product-details-seller.html" title="More Details" class="box box-link" id="${product.product_id}">${product.nombre}</a>
     </div>
     `
       return x;
@@ -78,7 +78,7 @@ const creacion = (product,imagen) =>{
 
 
 const getImages = async (products) => {
-    let url = process.env.urlBack+'/getAllImages';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getAllImages';
     let datos;
     const x = await fetch(url, {
         method : "GET",
@@ -107,7 +107,7 @@ function prueba(e){
 const verify=async()=>{
     if(localStorage.getItem('token')!=undefined){
     let infoToken;
-        let url = process.env.urlBack+'/decodeToken/';
+        let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
         const x = await fetch(url, {
         method : "GET",
         mode: 'cors',
@@ -117,16 +117,16 @@ const verify=async()=>{
         }}
         ).then(response => response.json()).then(data => infoToken=data);
         if(infoToken.rol!=2){
-        window.location.replace(process.env.urlFront+"/");
+        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
         }
     }else{
-        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
+        window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html/");
     }
 }
 
 const logout = () =>{
     window.localStorage.removeItem('token');
-    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/");
+    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index.html");
     return;
 }
 

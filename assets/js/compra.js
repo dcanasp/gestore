@@ -35,7 +35,7 @@ const carritouw=async()=>{
     let sum = 0;
     let cantidad = 0;
     carritou.forEach(async (product) => {
-        let url = process.env.urlBack+'/getProduct/'+product.product_id;
+        let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getProduct/'+product.product_id;
         let datos;
         const x = await fetch(url, {
             method : "GET",
@@ -101,7 +101,7 @@ const comprar = async() =>{
     let data;
     let body;
     carritou.forEach(async (product) => {
-        let url0 = process.env.urlBack+'/getProduct/'+product.product_id;
+        let url0 = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/getProduct/'+product.product_id;
         let datos0;
         const x0 = await fetch(url0, {
             method : "GET",
@@ -119,7 +119,7 @@ const comprar = async() =>{
                 product_id: Number(product.product_id),
             }
         
-            let url = process.env.urlBack+'/BUY/createCompra/';
+            let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/BUY/createCompra/';
             let datos;
             const x = await fetch(url, {
                 method : "POST",
@@ -136,7 +136,7 @@ const comprar = async() =>{
                     product_id:Number(product.product_id),
                     stock: Number(Number(datos0.stock)-quantity)
                 }
-                let url = process.env.urlBack+'/SELL/editProduct/';
+                let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/SELL/editProduct/';
                 let texto;
                 const x = await fetch(url, {
                     method: "POST",
@@ -152,7 +152,7 @@ const comprar = async() =>{
                 .then((data) => (datos = data));
                 if(texto!="Algo salio mal"){
                     window.localStorage.removeItem('carrito');
-                    window.location.replace(process.env.urlFront+"/index-logged.html/");
+                    window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index-logged.html/");
                 }
                 
                 else{
@@ -172,7 +172,7 @@ const comprar = async() =>{
 
 const decode= async() =>{
     let infoToken;
-    let url = process.env.urlBack+'/decodeToken/';
+    let url = 'http://ec2-52-91-104-218.compute-1.amazonaws.com:3000'+'/decodeToken/';
     const x = await fetch(url, {
       method : "GET",
       mode: 'cors',

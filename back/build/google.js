@@ -36,7 +36,7 @@ google.get('/auth/failure', (req, res) => {
 google.get('/protected', (req, res) => {
     res.send("funciona");
     //res.send(`Hello ${(req as GoogleRequest).user}`);
-    //window.location.replace("http://localhost:1234/index-logged.html");
+    //window.location.replace("http://ec2-52-91-104-218.compute-1.amazonaws.com:1234/index-logged.html");
 });
 //google.get('/logout', (req, res) => {
 //req.logout();
